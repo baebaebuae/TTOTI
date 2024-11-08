@@ -55,6 +55,7 @@ const ChatContent: React.FC<ChatContentProps> = ({ target, roomInfo }) => {
     if (stompClient) {
       // 메시지 구독
       const subscription = stompClient.subscribe(`/sub/sub-${chatId}`, (message) => {
+        console.log(message);
         const newMessage: ApiMessage = JSON.parse(message.body);
         console.log('Received message:', newMessage);
         
