@@ -1,4 +1,3 @@
-// ChatMessages.tsx
 import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 
@@ -17,16 +16,17 @@ const MessageContainer = styled.div`
 
 const MessageBox = styled.div<{ $isOwnMessage: boolean }>`
   display: flex;
-  flex-direction: row;
-  justify-content: ${({ $isOwnMessage }) => ($isOwnMessage ? 'flex-end' : 'flex-start')};
+  flex-direction: ${({ $isOwnMessage }) => ($isOwnMessage ? 'row' : 'row-reverse')};
+  justify-content: flex-end;
+  align-items: end;
   margin-bottom: 10px;
   gap: 5px;
 `;
 
 const TimeStamp = styled.div`
-  margin-top: 20px;
   font-size: 12px;
   height: 10px;
+  margin-bottom: 18px;
 `;
 
 const MessageBubble = styled.div<{ $isOwnMessage: boolean }>`
@@ -44,7 +44,6 @@ const MessageBubble = styled.div<{ $isOwnMessage: boolean }>`
   white-space: pre-wrap;
   margin-bottom: 10px;
 
-  /* 말풍선 꼬리 */
   &::after {
     content: '';
     position: absolute;
@@ -60,11 +59,25 @@ const MessageBubble = styled.div<{ $isOwnMessage: boolean }>`
   }
 `;
 
+const DateLabel = styled.div`
+  font-family: "SB 어그로";
+  font-size: 12px;
+  font-weight: normal;
+  height: 20px;
+  width: 90px;
+  background-color: #7984FC;
+  text-align: center;
+  padding-top: 8px;
+  margin-top: 10px;
+  border-radius: 15px;
+  margin-bottom: 10px;
+  margin-left: 128px;
+`;
+
 const ChatMessages: React.FC<ChatMessagesProps> = ({ target, messages }) => {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // 메시지가 추가될 때마다 스크롤을 맨 아래로 이동
     if (containerRef.current) {
       containerRef.current.scrollTop = containerRef.current.scrollHeight;
     }
@@ -80,18 +93,38 @@ const ChatMessages: React.FC<ChatMessagesProps> = ({ target, messages }) => {
     return `${period} ${formattedHours}:${minutes}`;
   };
 
+  const groupMessagesByDate = (messages: { sendTime: string; senderId: 'manitto' | 'maniti'; content: string }[]) => {
+    return messages.reduce((acc, message) => {
+      const date = new Date(message.sendTime);
+      const dateString = date.toISOString().split('T')[0];
+      if (!acc[dateString]) {
+        acc[dateString] = [];
+      }
+      acc[dateString].push(message);
+      return acc;
+    }, {} as Record<string, typeof messages>);
+  };
+
+  const groupedMessages = groupMessagesByDate(messages);
 
   return (
     <MessageContainer ref={containerRef}>
-      {messages.map((message, index) => (
-        <MessageBox key={index} $isOwnMessage={message.senderId !== target}>
-          <TimeStamp>
-            {formatTime(message.sendTime)}
-          </TimeStamp>
-          <MessageBubble $isOwnMessage={message.senderId !== target}>
-            {message.content}
-          </MessageBubble>
-        </MessageBox>
+      {Object.keys(groupedMessages).map((date) => (
+        <div key={date}>
+          {/* 날짜 표시 */}
+          <DateLabel>{date}</DateLabel>
+          {/* 날짜별 메시지들 */}
+          {groupedMessages[date].map((message, index) => (
+            <MessageBox key={index} $isOwnMessage={message.senderId !== target}>
+              <TimeStamp>
+                {formatTime(message.sendTime)}
+              </TimeStamp>
+              <MessageBubble $isOwnMessage={message.senderId !== target}>
+                {message.content}
+              </MessageBubble>
+            </MessageBox>
+          ))}
+        </div>
       ))}
     </MessageContainer>
   );
