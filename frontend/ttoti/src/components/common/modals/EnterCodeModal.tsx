@@ -9,6 +9,7 @@ import {
 import ListBox from '@components/common/box/ListBox';
 import { useState } from 'react';
 import { getApiClient } from '@services/apiClient';
+import { useNavigate } from 'react-router-dom';
 
 const EnterColumn = styled.div`
 	display: flex;
@@ -82,6 +83,7 @@ const EnterCodeModal = ({ onClose }: EnterModalProps) => {
 	const buttonColor2 = 'background';
 	const buttonText2 = '닫기';
 
+	const navigate = useNavigate();
 	const handleEnter = async () => {
 		const apiClient = getApiClient();
 		// 초대 코드 테스트 후 연결 예정
@@ -90,15 +92,17 @@ const EnterCodeModal = ({ onClose }: EnterModalProps) => {
 			const res = await apiClient.get(`/rooms/code/${inputCode}`);
 			if (res.status === 200) {
 				if (res.data.body) {
-					console.log('true!');
+					const roomId = res.data.body['roomId'];
+					navigate(`game-waiting/${roomId}`);
+					console.log('초대코드 입장 성공');
 				} else {
-					console.log('false!');
+					console.log('초대코드 입장 실패');
 				}
 			} else {
 				console.log('코드 입장 api 요청 실패');
 			}
 		} catch (err) {
-			throw { err };
+			console.error(err);
 		}
 	};
 
