@@ -1,3 +1,4 @@
+// vite.config.ts
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react-swc';
 import { VitePWA } from 'vite-plugin-pwa';
@@ -10,7 +11,7 @@ export default defineConfig({
 		svgr(),
 		VitePWA({
 			registerType: 'autoUpdate',
-			injectRegister: false, // 서비스 워커 비활성화
+			injectRegister: 'script',
 			manifest: {
 				name: 'ttoti Project',
 				short_name: 'ttoti',
