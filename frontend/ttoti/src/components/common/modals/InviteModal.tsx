@@ -8,7 +8,11 @@ import {
 import ListBox from '@components/common/box/ListBox';
 import DuplicateIcon from '@assets/icons/duplicate.svg?react';
 
-const InviteModal: React.FC<{ onClose: () => void }> = ({ onClose }) => {
+interface inviteProps {
+	onClose: () => void;
+	roomCode: string;
+}
+const InviteModal: React.FC<inviteProps> = ({ onClose, roomCode }) => {
 	const subtitleText = '또띠 초대';
 	const titleText = '친구를 또띠에 초대해주세요!';
 	const explainText = '';
@@ -25,7 +29,7 @@ const InviteModal: React.FC<{ onClose: () => void }> = ({ onClose }) => {
 		<ModalOverlay onClick={onClose}>
 			<Modal>
 				<ModalTitle titleText={titleText} subtitleText={subtitleText} />
-				<InviteContents />
+				<InviteContents roomCode={roomCode} />
 				<ButtonContainer
 					explainText={explainText}
 					buttonColor1={buttonColor1}
@@ -43,16 +47,16 @@ const InviteModal: React.FC<{ onClose: () => void }> = ({ onClose }) => {
 export default InviteModal;
 
 const ModalOverlay = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	background: rgba(0, 0, 0, 0.5);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 1000;
 `;
 
 const InviteWrapper = styled.div`
@@ -90,7 +94,17 @@ const InviteText = styled.div`
 	font-weight: 300;
 `;
 
-const InviteContents = () => {
+const InviteContents: React.FC<{ roomCode: string }> = ({ roomCode }) => {
+	const copyToClipboard = (text: string) => {
+		navigator.clipboard
+			.writeText(text)
+			.then(() => {
+				console.log('초대 코드 복사 완료');
+			})
+			.catch((error) => {
+				console.error('복사 실패:', error);
+			});
+	};
 	return (
 		<InviteWrapper>
 			<InviteColumn>
@@ -103,8 +117,8 @@ const InviteContents = () => {
 			<InviteColumn>
 				<ListBox size="small" ListText="초대 코드" />
 				<InviteBox>
-					<InviteText>$an@mu97</InviteText>
-					<DuplicateIcon />
+					<InviteText>{roomCode}</InviteText>
+					<DuplicateIcon onClick={() => copyToClipboard(roomCode)} />
 				</InviteBox>
 			</InviteColumn>
 		</InviteWrapper>
