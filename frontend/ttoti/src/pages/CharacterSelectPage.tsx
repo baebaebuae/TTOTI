@@ -1,89 +1,70 @@
 // CharacterSelectPage.tsx
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
 import { useNavigate, useParams } from 'react-router-dom';
-import monkey from '@assets/characters/Monkey_portrait.png';
-import owl from '@assets/characters/owl.png';
-import hedgehog from '@assets/characters/hedgehog.png';
-import rabbit from '@assets/characters/rabbit.png';
-import bear from '@assets/characters/bear.png';
-import frog from '@assets/characters/frog.png';
-import rat from '@assets/characters/rat.png';
-import cat from '@assets/characters/cat.png';
 import { getApiClient } from '@services/apiClient';
-
 const CharacterSelectPage: React.FC = () => {
 	const [selectedCardIndex, setSelectedCardIndex] = useState<number | null>(
 		null,
 	);
+	const [characterIndex, setCharacterIndex] = useState<number | null>(null);
+	const [characterData, setCharacterData] = useState<Character[] | null>(null);
 	const { id: roomId } = useParams<{ id: string }>();
 	const navigate = useNavigate();
 
-	const characters = [
-		{
-			image: monkey,
-			name: '원숭이',
-			description: '안녕, 나는 원숭이 캐릭터야 우꺄!',
-		},
-		{
-			image: hedgehog,
-			name: '고슴도치',
-			description: '안녕, 나는 고슴도치 캐릭터야 도치!',
-		},
-		{
-			image: owl,
-			name: '부엉이',
-			description: '안녕, 나는 부엉이 캐릭터야 부엉!',
-		},
-		{
-			image: rabbit,
-			name: '토끼',
-			description: '안녕, 나는 토끼 캐릭터야 총총!',
-		},
-		{
-			image: cat,
-			name: '고양이',
-			description: '안녕, 나는 고양이 캐릭터야 냥냥!',
-		},
-		{
-			image: bear,
-			name: '곰',
-			description: '안녕, 나는 곰 캐릭터야 크엉!',
-		},
-		{
-			image: frog,
-			name: '개구리',
-			description: '안녕, 나는 개구리 캐릭터야 개굴!',
-		},
-		{
-			image: rat,
-			name: '쥐',
-			description: '안녕, 나는 쥐 캐릭터야 찍찍!',
-		},
-	];
-
-	const SelectCharacter = async () => {
+	interface Character {
+		animalId: number;
+		animalName: string;
+		animalImageUrl: string;
+		animalDescription: string;
+	}
+	// 페이지 첫 진입시 캐릭터 API 연결
+	useEffect(() => {
 		const apiClient = getApiClient();
-		try {
-			const res = await apiClient.post(`/rooms/${roomId}/animals`, {
-				animalId: { selectedCardIndex },
-			});
-			if (res.status === 200) {
-				console.log('캐릭터 선택 완료!');
-				return res.data.body;
+		const getCharacterData = async () => {
+			try {
+				const res = await apiClient.get('/animals');
+				if (res.status === 200) {
+					setCharacterData(res.data.body);
+				}
+			} catch (err) {
+				console.log('character Data Api error : ', err);
 			}
-		} catch (err) {
-			console.log('postCharacterSelect Error : ', err);
-			throw err;
-		}
+		};
+		getCharacterData();
+	}, []);
+
+	const SelectCharacter = () => {
+		const apiClient = getApiClient();
+		const data = {
+			animalId: characterIndex,
+		};
+		console.log(data);
+		const postCharacterData = async () => {
+			try {
+				const res = await apiClient.post(`/rooms/${roomId}/animals`, data);
+				if (res.status === 200) {
+					console.log('캐릭터 선택 완료!');
+					const message = res.data.message;
+
+					if (message === '동물 선택 성공') {
+						navigate(`/game-waiting/${roomId}`);
+					} else {
+						navigate(`/game/${roomId}`);
+					}
+					return res.data.body;
+				}
+			} catch (err) {
+				console.log('postCharacterSelect Error : ', err);
+				throw err;
+			}
+		};
+		postCharacterData();
 	};
 
 	const handleCardClick = (index: number) => {
 		setSelectedCardIndex(index);
-	};
-
-	const handleRetryButtonClick = () => {
-		navigate(`/game-waiting/${roomId}`);
+		setCharacterIndex(index + 1);
 	};
 
 	return (
@@ -94,25 +75,28 @@ const CharacterSelectPage: React.FC = () => {
 					<TitleText>캐릭터 선택</TitleText>
 				</TitleContainer>
 				<ListContainer>
-					{characters.map((character, index) => (
+					{characterData?.map((character, index) => (
 						<Card
 							key={index}
 							onClick={() => handleCardClick(index)}
 							$highlighted={selectedCardIndex === index}
 						>
 							<ImageBox>
-								<CharacterImage src={character.image} alt={character.name} />
+								<CharacterImage
+									src={`../images/characters/${character.animalImageUrl}`}
+									alt={character.animalImageUrl}
+								/>
 							</ImageBox>
 							<CharacterText>
-								<Name>{character.name}</Name>
-								<Description>{character.description}</Description>
+								<Name>{character.animalName}</Name>
+								<Description>{character.animalDescription}</Description>
 							</CharacterText>
 						</Card>
 					))}
 				</ListContainer>
 				<FooterContainer>
-					<SelectButton onClick={handleRetryButtonClick}>
-						<SelectText onClick={SelectCharacter}>선택완료</SelectText>
+					<SelectButton onClick={SelectCharacter}>
+						<SelectText>선택완료</SelectText>
 					</SelectButton>
 				</FooterContainer>
 			</ModalContatiner>

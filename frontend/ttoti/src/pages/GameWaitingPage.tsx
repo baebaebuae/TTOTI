@@ -1,31 +1,19 @@
 // GameWaitingPage.tsx
-import React, {
-	useState,
-	useEffect,
-	useRef,
-	useMemo,
-	useCallback,
-} from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import styled from 'styled-components';
 import { useNavigate, useParams } from 'react-router-dom';
 import getRoomData, {
 	RoomMember,
 	RoomData,
 } from '@services/game-waiting-page/waitingRoomInfo'; // 파일 위치에 맞게 변경
-import profile1 from '@assets/profiles/profile1.png';
-import profile2 from '@assets/profiles/profile2.png';
-import profile3 from '@assets/profiles/profile3.png';
-import profile4 from '@assets/profiles/profile4.png';
-import profile5 from '@assets/profiles/profile5.png';
-import profile6 from '@assets/profiles/profile6.png';
-import profile7 from '@assets/profiles/profile7.png';
-import profile8 from '@assets/profiles/profile8.png';
 import refreshIcon from '@assets/profiles/refreshIcon.png';
 import addMemberIcon from '@assets/profiles/addMemberIcon.png';
-import monkey from '@assets/characters/Monkey_pixcel.png';
 import ProfileContainer from '@components/common/ProfileComponents';
 import InviteModal from '@components/common/modals/InviteModal';
 import RoomInfoModal from '@components/common/modals/RoomInfoModal';
+import { getApiClient } from '@services/apiClient';
+import { selectMemberProfile } from '@stores/slices/userSlice';
+import { useSelector } from 'react-redux';
 
 const GameWaitingPage: React.FC = () => {
 	console.log('GameWaitingPage Mounted');
@@ -36,6 +24,7 @@ const GameWaitingPage: React.FC = () => {
 	// const [showNextButton, setShowNextButton] = useState(true);
 	const [$isInviteModalOpen, setInviteModalOpen] = useState(false);
 	const [$isRoomInfoModalOpen, setRoomInfoModalOpen] = useState(false);
+	const [memberImage, setMemberImage] = useState<string>('');
 	const navigate = useNavigate();
 
 	const fetchRoomData = useCallback(async () => {
@@ -51,30 +40,12 @@ const GameWaitingPage: React.FC = () => {
 		}
 	}, [roomId]);
 
+	const selectedMemberImage = useSelector(selectMemberProfile);
+
 	useEffect(() => {
 		fetchRoomData();
-	}, [fetchRoomData]);
-
-	const participants = useMemo(
-		() => [
-			{ name: '정진영', imgSrc: profile1, $ready: true },
-			{ name: '서지민', imgSrc: profile2, $ready: false },
-			{ name: '김호진', imgSrc: profile3, $ready: false },
-			{ name: '권재현', imgSrc: profile4, $ready: false },
-			{ name: '채이슬', imgSrc: profile5, $ready: false },
-			{ name: '이상무', imgSrc: profile6, $ready: false },
-			{ name: '아쿠아', imgSrc: profile7, $ready: false },
-			{ name: '토오사카', imgSrc: profile8, $ready: false },
-		],
-		[],
-	);
-
-	const infoList = [
-		{ label: '방 이름', value: '99NULL' },
-		{ label: '방장', value: '정진영' },
-		{ label: '종료 시간', value: '18:30' },
-		{ label: '진행 기간', value: '7일' },
-	];
+		setMemberImage(selectedMemberImage);
+	}, [fetchRoomData, selectedMemberImage]);
 
 	const openModal = () => setRoomInfoModalOpen(true);
 	const closeModal = () => setRoomInfoModalOpen(false);
@@ -96,14 +67,34 @@ const GameWaitingPage: React.FC = () => {
 		handleResize();
 		window.addEventListener('resize', handleResize);
 		return () => window.removeEventListener('resize', handleResize);
-	}, [participants]);
+	}, []);
+
+	// 새로고침 API 연결
+	const getRefreshData = () => {
+		const apiClient = getApiClient();
+		const getRefreshApi = async () => {
+			try {
+				const res = await apiClient.get(`rooms/refresh/${roomId}`);
+				if (res.status === 200) {
+					setRoomData((prevRoomData) =>
+						prevRoomData
+							? { ...prevRoomData, roomMemberInfo: res.data.body }
+							: prevRoomData,
+					);
+				}
+			} catch (err) {
+				console.log('Fail get Refresh Data : ', err);
+			}
+		};
+		getRefreshApi();
+	};
 
 	return (
 		<>
 			<ModalContainer>
 				<HeaderContainer>
 					<HeaderContent>
-						<ProfileContainer size="70px" src={profile1} ready={false} />
+						<ProfileContainer size="70px" src={memberImage} ready={false} />
 						<HeaderText>
 							<HostName>{roomData?.hostName ?? '방장 정보 없음'}님의</HostName>
 							<RoomName>{roomData?.roomName ?? '방 이름 없음'}</RoomName>
@@ -113,7 +104,11 @@ const GameWaitingPage: React.FC = () => {
 				</HeaderContainer>
 				<SubText>또띠에 참여하였습니다!</SubText>
 				<ParticipantToolbar>
-					<RefreshIcon src={refreshIcon} alt="refreshIcon" />
+					<RefreshIcon
+						src={refreshIcon}
+						alt="refreshIcon"
+						onClick={getRefreshData}
+					/>
 					<MemberToolContainer>
 						<MemberNumText>
 							{roomData?.roomMemberInfo.currentParticipants} /
@@ -147,7 +142,10 @@ const GameWaitingPage: React.FC = () => {
 					{roomData?.isReady ? (
 						<>
 							<SelectedContainer>
-								<CharacterImage src={monkey} alt="monkey" />
+								<CharacterImage
+									src={`../images/characters/${roomData.animalProfileImageUrl}`}
+									alt="monkey"
+								/>
 								<SelectedTextBox>
 									<CompleteText>선택 완료!</CompleteText>
 									<ToggleButton onClick={handleRetryButtonClick}>
@@ -165,17 +163,12 @@ const GameWaitingPage: React.FC = () => {
 				</FooterContainer>
 			</ModalContainer>
 
-			{$isInviteModalOpen && <InviteModal onClose={closeInviteModal} />}
+			{roomData?.roomCode && $isInviteModalOpen && (
+				<InviteModal roomCode={roomData?.roomCode} onClose={closeInviteModal} />
+			)}
 
-			{$isRoomInfoModalOpen && (
-				<RoomInfoModal
-					onClose={closeModal}
-					onLeave={() => {
-						closeModal();
-						alert('방에서 나갔습니다.');
-					}}
-					infoList={infoList}
-				/>
+			{roomId && $isRoomInfoModalOpen && (
+				<RoomInfoModal onClose={closeModal} roomId={roomId} />
 			)}
 		</>
 	);
@@ -367,6 +360,7 @@ const SelectedContainer = styled.div`
 const CharacterImage = styled.img`
 	padding-left: 8px;
 	padding-right: 8px;
+	width: 30%;
 `;
 
 const SelectedTextBox = styled.div`
