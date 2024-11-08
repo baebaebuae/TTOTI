@@ -88,7 +88,7 @@ const GamePage: React.FC = () => {
         }
       }
     };
-
+    
     fetchQuizData();
   }, [roomInfo]);
 

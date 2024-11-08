@@ -151,7 +151,7 @@ const AppRouter = () => {
 					}
 				/>
 				<Route
-					path="/character-select/:id"
+					path="/character-select"
 					element={
 						<RequireAuth>
 							<CharacterSelect />
