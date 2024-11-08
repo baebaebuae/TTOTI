@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import ColumnLogo from '@assets/icons/logo/column_logo.svg?react';
 import Clouds from '@assets/images/clouds.gif';
 
+import { requestFcmToken } from '@utils/notification/settingFCM';
+
 const MainPageWrapper = styled.div`
 	position: relative; // 절대 위치 지정
 	width: 100vw;
@@ -30,6 +32,8 @@ const CloudsImage = styled.img`
 `;
 
 const MainPage = () => {
+	requestFcmToken();
+	
 	return (
 		<MainPageWrapper>
 			<CloudsImage src={Clouds} alt="cloudImage" />
