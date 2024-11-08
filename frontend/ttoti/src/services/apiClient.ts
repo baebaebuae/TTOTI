@@ -59,10 +59,10 @@ export const getApiClient = () => {
 				return Promise.reject(new Error('Unauthorized, please log in again.'));
 			}
 
+			originalRequest._retry = true;
 			// 401 에러 발생 시 재발급 시도
-			if (error.response?.status === 401 && !originalRequest._retry) {
+			if (error.response?.data.httpStatus === 401 && !originalRequest._retry) {
 				// 재시도 요청 true
-				originalRequest._retry = true;
 
 				if (refreshToken) {
 					try {
@@ -91,10 +91,6 @@ export const getApiClient = () => {
 						}
 					} catch (refreshError) {
 						console.error('Token reissue failed:', refreshError);
-						// refreshToken 실패 시 로컬 스토리지를 초기화하고 로그인 페이지로 리다이렉트
-						clearAccessToken();
-						clearRefreshToken();
-						redirectToLogin();
 						return Promise.reject(refreshError);
 					}
 				} else {
@@ -104,7 +100,18 @@ export const getApiClient = () => {
 					redirectToLogin();
 				}
 			} else {
+				// API 호출 실패 , httpStatus 확인
 				console.error(`error status: ${error.response.status}`);
+				console.error(`http status: ${error.response.data.httpStatus}`);
+
+				if (error.response.data.httpStatus === 401) {
+					console.log('잘못된 요청입니다. 401 error');
+					// 인증되지 않은 사용자 에러 -> 토큰 초기화 -> 로그인 화면
+					clearAccessToken();
+					clearRefreshToken();
+					// redirectToLogin();
+				}
+
 				return Promise.reject(new Error('잘못된 axios 요청'));
 			}
 
