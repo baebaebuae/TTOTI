@@ -11,6 +11,9 @@ import LoginBackground from '@assets/images/login.gif';
 import MainBackground from '@assets/images/main.gif';
 import MypageBackground from '@assets/images/mypage.png';
 
+// Header import
+import Header from '@components/header/Header';
+
 import CharacterSelect from '@pages/CharacterSelectPage';
 import CreditPage from '@pages/CreditPage';
 import GamePage from '@pages/GamePage';
@@ -118,51 +121,54 @@ const AppRouter = () => {
 					path="/login"
 					element={!loggedIn ? <LoginPage /> : <Navigate replace to="/" />}
 				/>
-				<Route
-					path="/room-create"
-					element={
-						<RequireAuth>
-							<RoomCreatePage />
-						</RequireAuth>
-					}
-				/>
-				<Route
-					path="/room-list"
-					element={
-						<RequireAuth>
-							<RoomListPage />
-						</RequireAuth>
-					}
-				/>
-				<Route
-					path="/game-waiting/:id"
-					element={
-						<RequireAuth>
-							<GameWaitingPage />
-						</RequireAuth>
-					}
-				/>
-				<Route
-					path="/game/:id"
-					element={
-						<RequireAuth>
-							<GamePage />
-						</RequireAuth>
-					}
-				/>
+				{/* Header 적용 */}
+				<Route element={<Header />}>
+					<Route
+						path="/room-create"
+						element={
+							<RequireAuth>
+								<RoomCreatePage />
+							</RequireAuth>
+						}
+					/>
+					<Route
+						path="/room-list"
+						element={
+							<RequireAuth>
+								<RoomListPage />
+							</RequireAuth>
+						}
+					/>
+					<Route
+						path="/game-waiting/:id"
+						element={
+							<RequireAuth>
+								<GameWaitingPage />
+							</RequireAuth>
+						}
+					/>
+					<Route
+						path="/game/:id"
+						element={
+							<RequireAuth>
+								<GamePage />
+							</RequireAuth>
+						}
+					/>
+					<Route
+						path="/mypage"
+						element={
+							<RequireAuth>
+								<MyPage />
+							</RequireAuth>
+						}
+					/>
+				</Route>
 				<Route
 					path="/character-select/:id"
 					element={
 						<RequireAuth>
 							<CharacterSelect />
-						</RequireAuth>
-					}
-				/>
-				<Route
-					path="/mypage"
-					element={
-						<RequireAuth>
-							<MyPage />
 						</RequireAuth>
 					}
 				/>
