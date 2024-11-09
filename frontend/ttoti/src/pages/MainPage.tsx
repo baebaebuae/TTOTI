@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import ColumnLogo from '@assets/icons/logo/column_logo.svg?react';
 import Clouds from '@assets/images/clouds.gif';
 
+import MyPageIcon from '@components/main/MyPageIcon';
+
 const MainPageWrapper = styled.div`
 	position: relative; // 절대 위치 지정
 	width: 100vw;
@@ -10,6 +12,22 @@ const MainPageWrapper = styled.div`
 	display: flex;
 	justify-content: center;
 	align-items: center;
+`;
+
+const MyPageDiv = styled.div`
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: absolute;
+	padding-left: 70%;
+	width: 100vw;
+	top: 50px;
+	z-index: 1;
+
+	// 전체 화면 너비 일 경우 조절
+	@media (min-width: 1024px) {
+		padding-left: 30%;
+	}
 `;
 
 const LogoDiv = styled.div`
@@ -33,6 +51,9 @@ const MainPage = () => {
 	return (
 		<MainPageWrapper>
 			<CloudsImage src={Clouds} alt="cloudImage" />
+			<MyPageDiv>
+				<MyPageIcon />
+			</MyPageDiv>
 			<LogoDiv>
 				<ColumnLogo />
 			</LogoDiv>
