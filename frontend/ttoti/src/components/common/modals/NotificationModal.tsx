@@ -75,19 +75,6 @@ const NotificationModal = ({ onClose, roomId }: NotificationModalProps) => {
 					content={notification.title}
 				/>
       ))}
-			{/* <NotificationList
-				title="게임 시작"
-				content="또띠 게임이 시작되었습니다."
-			/>
-			<NotificationList
-				title="채팅 알림"
-				content="마니또에게 메시지가 왔습니다."
-			/>
-			<NotificationList
-				title="채팅 알림"
-				content="마니띠에게 메시지가 왔습니다."
-			/>
-			<NotificationList title="게임 종료" content="게임 종료 하루 전입니다." /> */}
 		</Modal>
 	);
 };
