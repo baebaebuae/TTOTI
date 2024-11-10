@@ -6,7 +6,7 @@ import RoomEnterCard from './RoomEnterCard';
 
 interface RoomCarouselProps {
   rooms: RoomData[];
-  handleModal: () => void;
+  handleModal: (roomId: number) => void;
   handleEnter: () => void;
 }
 

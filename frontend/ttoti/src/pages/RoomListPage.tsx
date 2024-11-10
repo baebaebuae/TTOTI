@@ -45,7 +45,7 @@ const RoomListPage = () => {
 	// Modal status 초기화
 	const [rooms, setRooms] = useState<RoomData[]>([]);
 
-	const [isModalOpen, setIsModalOpen] = useState(false);
+	const [notificationModalData, setnotificationModalData] = useState({ isOpen: false, roomId: 0 });
 	const [enterModalOpen, setEnterModalOpen] = useState(false);
 
 	useEffect(() => {
@@ -66,12 +66,12 @@ const RoomListPage = () => {
 		fetchRoomData();
 	}, []);
 
-	const openModal = () => {
-		setIsModalOpen(true);
+	const openModal = (roomId: number) => {
+		setnotificationModalData({ isOpen: true, roomId: roomId });
 	};
 
 	const closeModal = () => {
-		setIsModalOpen(false);
+		setnotificationModalData({ isOpen: false, roomId: 0 });
 	};
 
 	const openEnterModal = () => {
@@ -87,9 +87,9 @@ const RoomListPage = () => {
 				<RowLogo />
 				<MyProfile />
 			</LogoDiv>
-			{isModalOpen && (
+			{notificationModalData.isOpen && (
 				<ModalBackground onClick={closeModal}>
-					<NotificationModal onClose={closeModal} />
+					<NotificationModal onClose={closeModal} roomId={notificationModalData.roomId} />
 				</ModalBackground>
 			)}
 			{enterModalOpen && (
