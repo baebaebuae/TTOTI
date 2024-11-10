@@ -21,10 +21,10 @@ const RoomInfoWrapper = styled.div`
 	background-color: ${({ theme }) => theme.colors['modal']};
 `;
 
-const NotificationBox = styled.div`
+const NotificationBox = styled.div<{ $clickable: boolean }>`
 	height: 30px;
 	margin-left: 200px;
-	cursor: pointer;
+	cursor: ${({ $clickable }) => ($clickable ? 'pointer' : 'default')};
 `;
 
 const DateBox = styled.div<{ color: string }>`
@@ -57,12 +57,20 @@ interface NotificationProps {
 const Notification = ({ status, onClick }: NotificationProps) => {
 	const alarmIcon =
 		status === true ? <ActiveAlarmIcon /> : <InactiveAlarmIcon />;
-	return <NotificationBox onClick={onClick}>{alarmIcon}</NotificationBox>;
+	return (
+		<NotificationBox 
+			onClick={status === true ? onClick : undefined}
+			$clickable={status === true}
+		>
+			{alarmIcon}
+		</NotificationBox>
+	);
 };
 
 interface RoomCardWithModalProps extends RoomCardProps {
-	onNotificationClick: () => void;
+	onNotificationClick: (roomId: number) => void;
 }
+
 const RoomCard = ({ room, onNotificationClick }: RoomCardWithModalProps) => {
 	// 디버깅을 위한 콘솔 작성
 	const navigate = useNavigate();
@@ -78,7 +86,7 @@ const RoomCard = ({ room, onNotificationClick }: RoomCardWithModalProps) => {
 		<RoomInfoWrapper>
 			<Notification
 				status={room.hasUnreadNotifications}
-				onClick={onNotificationClick}
+				onClick={() => onNotificationClick(room.roomId)}
 			/>
 			{room.finishedAt ? (
 				<DateBox color="main">{room.finishedAt}</DateBox>
