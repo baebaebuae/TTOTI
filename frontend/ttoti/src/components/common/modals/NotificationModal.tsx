@@ -68,8 +68,9 @@ const NotificationModal = ({ onClose, roomId }: NotificationModalProps) => {
 				<ModalTitle titleText={titleText} subtitleText={subtitleText} />
 				<CloseIcon onClick={onClose} style={{ cursor: 'pointer' }}/>
 			</NotificationTop>
-			{notifications.map((notification) => (
+			{notifications.map((notification, index) => (
 				<NotificationList
+					key={index}
 					title={notification.notificationReason}
 					content={notification.title}
 				/>
