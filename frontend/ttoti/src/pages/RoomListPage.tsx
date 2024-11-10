@@ -5,6 +5,7 @@ import { RoomData } from 'src/types/RoomData';
 import RoomCarousel from '@components/room-list/RoomCarousel';
 import NotificationModal from '@components/common/modals/NotificationModal';
 import EnterCodeModal from '@components/common/modals/EnterCodeModal';
+import MyProfile from '@components/room-list/MyProfile';
 
 import RowLogo from '@assets/icons/logo/row_logo.svg?react';
 import { getApiClient } from '@services/apiClient';
@@ -33,9 +34,11 @@ const LogoDiv = styled.div`
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	flex-direction: column;
 	width: 100vw;
 	position: absolute;
 	top: 70px;
+	gap: 25px;
 `;
 
 const RoomListPage = () => {
@@ -82,6 +85,7 @@ const RoomListPage = () => {
 		<RoomCreateWrapper>
 			<LogoDiv>
 				<RowLogo />
+				<MyProfile />
 			</LogoDiv>
 			{isModalOpen && (
 				<ModalBackground onClick={closeModal}>
