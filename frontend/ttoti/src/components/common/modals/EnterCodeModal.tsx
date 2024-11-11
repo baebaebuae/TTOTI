@@ -93,7 +93,7 @@ const EnterCodeModal = ({ onClose }: EnterModalProps) => {
 			if (res.status === 200) {
 				if (res.data.body) {
 					const roomId = res.data.body['roomId'];
-					navigate(`game-waiting/${roomId}`);
+					navigate(`/game-waiting/${roomId}`);
 					console.log('초대코드 입장 성공');
 				} else {
 					console.log('초대코드 입장 실패');
