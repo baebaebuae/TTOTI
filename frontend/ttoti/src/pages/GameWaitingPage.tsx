@@ -14,6 +14,7 @@ import RoomInfoModal from '@components/common/modals/RoomInfoModal';
 import { getApiClient } from '@services/apiClient';
 import { selectMemberProfile } from '@stores/slices/userSlice';
 import { useSelector } from 'react-redux';
+import RowLogo from '@assets/icons/logo/row_logo.svg?react';
 
 const GameWaitingPage: React.FC = () => {
 	console.log('GameWaitingPage Mounted');
@@ -33,6 +34,11 @@ const GameWaitingPage: React.FC = () => {
 			const data = await getRoomData(roomId);
 			setRoomData(data);
 			console.log(data);
+			if (data?.roomMemberInfo.currentParticipants > 3) {
+				setIsOverflow(true)
+			} else {
+				setIsOverflow(false)
+			}
 		} catch (err) {
 			console.error(err);
 		} finally {
@@ -54,21 +60,6 @@ const GameWaitingPage: React.FC = () => {
 	const handleNextButtonClick = () => navigate(`/character-select/${roomId}`);
 	const handleRetryButtonClick = () => navigate(`/character-select/${roomId}`);
 
-	useEffect(() => {
-		const handleResize = () => {
-			const container = containerRef.current;
-			if (container && container.scrollWidth > container.clientWidth) {
-				setIsOverflow(true);
-			} else {
-				setIsOverflow(false);
-			}
-		};
-
-		handleResize();
-		window.addEventListener('resize', handleResize);
-		return () => window.removeEventListener('resize', handleResize);
-	}, []);
-
 	// 새로고침 API 연결
 	const getRefreshData = () => {
 		const apiClient = getApiClient();
@@ -89,8 +80,33 @@ const GameWaitingPage: React.FC = () => {
 		getRefreshApi();
 	};
 
+	let isDragging = false;
+  let startX: number;
+  let scrollLeft: number;
+
+	const handleMouseDown = (e: React.MouseEvent) => {
+    isDragging = true;
+    startX = e.pageX - (containerRef.current?.offsetLeft || 0);
+    scrollLeft = containerRef.current?.scrollLeft || 0;
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isDragging) return;
+    e.preventDefault();
+    const x = e.pageX - (containerRef.current?.offsetLeft || 0);
+    const walk = (x - startX) * 1.5; // 스크롤 속도 조정
+    if (containerRef.current) containerRef.current.scrollLeft = scrollLeft - walk;
+  };
+
+  const handleMouseUpOrLeave = () => {
+    isDragging = false;
+  };
+
 	return (
 		<>
+			<LogoDiv>
+				<RowLogo />
+			</LogoDiv>
 			<ModalContainer>
 				<HeaderContainer>
 					<HeaderContent>
@@ -121,7 +137,14 @@ const GameWaitingPage: React.FC = () => {
 						/>
 					</MemberToolContainer>
 				</ParticipantToolbar>
-				<ParticipantsContainer ref={containerRef} $isOverflow={isOverflow}>
+				<ParticipantsContainer 
+					ref={containerRef} 
+					onMouseDown={handleMouseDown}
+					onMouseMove={handleMouseMove}
+					onMouseUp={handleMouseUpOrLeave}
+					onMouseLeave={handleMouseUpOrLeave}
+					$isOverflow={isOverflow}
+				>
 					<ParticipantBlank />
 					{roomData?.roomMemberInfo.roomMemberList?.map(
 						(member: RoomMember) => (
@@ -175,6 +198,17 @@ const GameWaitingPage: React.FC = () => {
 };
 
 export default GameWaitingPage;
+
+const LogoDiv = styled.div`
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	width: 100vw;
+	position: absolute;
+	top: 70px;
+	gap: 25px;
+`;
 
 const ModalContainer = styled.div`
 	display: flex;
@@ -300,6 +334,10 @@ const ParticipantsContainer = styled.div<{ $isOverflow: boolean }>`
 	white-space: nowrap;
 	gap: 10px;
 	background-color: #e1e9ef;
+
+	&:active {
+    cursor: grabbing;
+  }
 `;
 
 const ParticipantBlank = styled.div`

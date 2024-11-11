@@ -12,6 +12,7 @@ interface inviteProps {
 	onClose: () => void;
 	roomCode: string;
 }
+
 const InviteModal: React.FC<inviteProps> = ({ onClose, roomCode }) => {
 	const subtitleText = '또띠 초대';
 	const titleText = '친구를 또띠에 초대해주세요!';
@@ -45,6 +46,38 @@ const InviteModal: React.FC<inviteProps> = ({ onClose, roomCode }) => {
 };
 
 export default InviteModal;
+
+const InviteContents: React.FC<{ roomCode: string }> = ({ roomCode }) => {
+	const copyToClipboard = (text: string) => {
+		navigator.clipboard
+			.writeText(text)
+			.then(() => {
+				console.log('초대 코드 복사 완료');
+			})
+			.catch((error) => {
+				console.error('복사 실패:', error);
+			});
+	};
+	return (
+		<InviteWrapper>
+			<InviteColumn>
+				<ListBox size="small" ListText="초대 링크" />
+				<InviteBox>
+					<InviteText>https://ttoti.invte</InviteText>
+					<DuplicateIcon style={{ cursor: 'pointer', width: '25px' }} />
+				</InviteBox>
+			</InviteColumn>
+			<InviteColumn>
+				<ListBox size="small" ListText="초대 코드" />
+				<InviteBox>
+					<InviteText>{roomCode}</InviteText>
+					<DuplicateIcon onClick={() => copyToClipboard(roomCode)} style={{ cursor: 'pointer', width: '25px' }} />
+				</InviteBox>
+			</InviteColumn>
+		</InviteWrapper>
+	);
+};
+
 
 const ModalOverlay = styled.div`
 	position: fixed;
@@ -84,43 +117,9 @@ const InviteBox = styled.div`
 `;
 
 const InviteText = styled.div`
-	display: flex;
-	flex-direction: row;
-	justify-content: center;
-	align-items: center;
 	padding-top: 3px;
+	width: 243px;
 	font-family: 'LINESeed';
 	font-size: 16px;
 	font-weight: 300;
 `;
-
-const InviteContents: React.FC<{ roomCode: string }> = ({ roomCode }) => {
-	const copyToClipboard = (text: string) => {
-		navigator.clipboard
-			.writeText(text)
-			.then(() => {
-				console.log('초대 코드 복사 완료');
-			})
-			.catch((error) => {
-				console.error('복사 실패:', error);
-			});
-	};
-	return (
-		<InviteWrapper>
-			<InviteColumn>
-				<ListBox size="small" ListText="초대 링크" />
-				<InviteBox>
-					<InviteText>https://ttoti.invte</InviteText>
-					<DuplicateIcon />
-				</InviteBox>
-			</InviteColumn>
-			<InviteColumn>
-				<ListBox size="small" ListText="초대 코드" />
-				<InviteBox>
-					<InviteText>{roomCode}</InviteText>
-					<DuplicateIcon onClick={() => copyToClipboard(roomCode)} />
-				</InviteBox>
-			</InviteColumn>
-		</InviteWrapper>
-	);
-};

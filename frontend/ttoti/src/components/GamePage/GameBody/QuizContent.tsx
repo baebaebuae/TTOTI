@@ -44,7 +44,7 @@ const QuizContainer = styled.div`
 const IconButton = styled.button<{ $isLeft?: boolean }>`
   background: none;
   border: none;
-  cursor: pointer;
+  /* cursor: pointer; */
   transform: ${(props) => (props.$isLeft ? 'rotate(180deg)' : 'none')};
 `;
 
@@ -54,12 +54,12 @@ const QuizContent: React.FC<QuizContentProps> = ({ page, togglePage, quizData, r
       <SelectContainer>
         <IconButton $isLeft onClick={() => togglePage('prev')}>
           {/* 페이지가 0이면 왼쪽 아이콘에 ToggleActiveIcon 사용 */}
-          {page === 0 ? <ToggleIcon /> : <ToggleActiveIcon />}
+          {page === 0 ? <ToggleIcon style={{ cursor: 'not-allowed' }} /> : <ToggleActiveIcon style={{ cursor: 'pointer' }} />}
         </IconButton>
         <CarouselContainer page={page} roomInfo={roomInfo}/> {/* 분리한 CarouselContainer 사용 */}
         <IconButton onClick={() => togglePage('next')}>
           {/* 페이지가 0이 아닐 때 오른쪽 아이콘에 ToggleActiveIcon 사용 */}
-          {page === 0 ? <ToggleActiveIcon /> : <ToggleIcon />}
+          {page === 0 ? <ToggleActiveIcon style={{ cursor: 'pointer' }} /> : <ToggleIcon style={{ cursor: 'not-allowed' }} />}
         </IconButton>
       </SelectContainer>
       <QuizContainer>

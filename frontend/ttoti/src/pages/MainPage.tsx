@@ -15,19 +15,12 @@ const MainPageWrapper = styled.div`
 `;
 
 const MyPageDiv = styled.div`
-	display: flex;
-	justify-content: center;
-	align-items: center;
 	position: absolute;
-	padding-left: 70%;
-	width: 100vw;
-	top: 50px;
+	height: 40px;
+	top: 30px;
+	margin-left: 320px;
 	z-index: 1;
-
-	// 전체 화면 너비 일 경우 조절
-	@media (min-width: 1024px) {
-		padding-left: 30%;
-	}
+	transform: translateX(-50%);
 `;
 
 const LogoDiv = styled.div`

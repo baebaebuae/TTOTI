@@ -19,6 +19,11 @@ const ProfileImage = styled.img<ReadyProps>`
   height: 92%;
   border-radius: 50%;
   filter: brightness(${({ $ready }) => $ready === true ? '50%' : '100%' });
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  /* -user-drag: none; */
 `;
 
 const ReadyIcon = styled.img`

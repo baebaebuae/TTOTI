@@ -27,14 +27,15 @@ const GamePageContainer = styled.div`
 
 const CloudImage = styled.img`
   position: absolute;
-  top: 80px;
-  left: 17px;
-  width: 72px;
-  height: auto;
+	width: 72px;
+	top: 80px;
+	margin-right: 190px;
+	z-index: 1;
+	transform: translateX(-50%);
 
   &:nth-child(2) {
     top: 113px;
-    left: 113px;
+    margin-right: 0px;
   }
 `;
 
@@ -42,10 +43,10 @@ const RoomTitleWrapper = styled.div`
   position: absolute;
   display: flex;
   justify-content: flex-end;
-  width: 250px;
+  width: 384px;
   height: 75px;
   top: 62px;
-  right: -12px;
+  /* right: -12px; */
 `;
 
 const GameWrapper = styled.div`

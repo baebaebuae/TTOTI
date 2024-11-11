@@ -20,7 +20,6 @@ const ProfileImage = styled.img`
 	width: 90%;
 	height: 90%;
 	border-radius: 50%;
-	cursor: pointer;
 `;
 
 const MyPageIcon = () => {
