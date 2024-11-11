@@ -35,9 +35,9 @@ const GameWaitingPage: React.FC = () => {
 			setRoomData(data);
 			console.log(data);
 			if (data?.roomMemberInfo.currentParticipants > 3) {
-				setIsOverflow(true)
+				setIsOverflow(true);
 			} else {
-				setIsOverflow(false)
+				setIsOverflow(false);
 			}
 		} catch (err) {
 			console.error(err);
@@ -78,6 +78,57 @@ const GameWaitingPage: React.FC = () => {
 			}
 		};
 		getRefreshApi();
+	};
+	// game-status 확인
+	const getStatus = async () => {
+		const apiClient = getApiClient();
+
+		try {
+			const res = await apiClient.get(`rooms/status/${roomId}`);
+			if (res.status === 200) {
+				const status = res.data.body;
+				console.log(status);
+				return status;
+			}
+		} catch (err) {
+			console.error('Failed get status Api ', err);
+		}
+		// default false
+		return false;
+	};
+
+	const handleRefresh = async () => {
+		console.log('handle Refreshs');
+		const nowStatus = await getStatus();
+		console.log('nowStatus is', nowStatus);
+		if (nowStatus) {
+			navigate(`/game/${roomId}`);
+		} else {
+			getRefreshData();
+		}
+	};
+
+	let isDragging = false;
+	let startX: number;
+	let scrollLeft: number;
+
+	const handleMouseDown = (e: React.MouseEvent) => {
+		isDragging = true;
+		startX = e.pageX - (containerRef.current?.offsetLeft || 0);
+		scrollLeft = containerRef.current?.scrollLeft || 0;
+	};
+
+	const handleMouseMove = (e: React.MouseEvent) => {
+		if (!isDragging) return;
+		e.preventDefault();
+		const x = e.pageX - (containerRef.current?.offsetLeft || 0);
+		const walk = (x - startX) * 1.5; // 스크롤 속도 조정
+		if (containerRef.current)
+			containerRef.current.scrollLeft = scrollLeft - walk;
+	};
+
+	const handleMouseUpOrLeave = () => {
+		isDragging = false;
 	};
 
 	let isDragging = false;
@@ -123,7 +174,7 @@ const GameWaitingPage: React.FC = () => {
 					<RefreshIcon
 						src={refreshIcon}
 						alt="refreshIcon"
-						onClick={getRefreshData}
+						onClick={handleRefresh}
 					/>
 					<MemberToolContainer>
 						<MemberNumText>
@@ -137,8 +188,8 @@ const GameWaitingPage: React.FC = () => {
 						/>
 					</MemberToolContainer>
 				</ParticipantToolbar>
-				<ParticipantsContainer 
-					ref={containerRef} 
+				<ParticipantsContainer
+					ref={containerRef}
 					onMouseDown={handleMouseDown}
 					onMouseMove={handleMouseMove}
 					onMouseUp={handleMouseUpOrLeave}
@@ -336,8 +387,8 @@ const ParticipantsContainer = styled.div<{ $isOverflow: boolean }>`
 	background-color: #e1e9ef;
 
 	&:active {
-    cursor: grabbing;
-  }
+		cursor: grabbing;
+	}
 `;
 
 const ParticipantBlank = styled.div`
