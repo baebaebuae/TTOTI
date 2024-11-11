@@ -11,12 +11,12 @@ const InfoRowContainer = styled.div`
 	margin-top: 10px;
 	padding: 0px;
 	gap: 17px;
-	width: 190px;
+	/* width: 190px; */
 `;
 
 const ImageWrapper = styled.div`
-	width: 75px;
-	height: 75px;
+	width: 80px;
+	height: 80px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -25,8 +25,8 @@ const ImageWrapper = styled.div`
 `;
 
 const ProfileImage = styled.img`
-	width: 65px;
-	height: 65px;
+	width: 60px;
+	height: 60px;
 	object-fit: cover;
 	border-radius: 50%;
 `;

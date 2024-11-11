@@ -45,7 +45,10 @@ const RoomListPage = () => {
 	// Modal status 초기화
 	const [rooms, setRooms] = useState<RoomData[]>([]);
 
-	const [notificationModalData, setnotificationModalData] = useState({ isOpen: false, roomId: 0 });
+	const [notificationModalData, setnotificationModalData] = useState({
+		isOpen: false,
+		roomId: 0,
+	});
 	const [enterModalOpen, setEnterModalOpen] = useState(false);
 
 	useEffect(() => {
@@ -54,7 +57,7 @@ const RoomListPage = () => {
 			try {
 				const res = await apiClient.get('/rooms/my');
 				if (res.status === 200) {
-					console.log(res.data.body);
+					// console.log(res.data.body);
 					setRooms(res.data.body);
 				} else {
 					console.log('get failed');
@@ -89,7 +92,10 @@ const RoomListPage = () => {
 			</LogoDiv>
 			{notificationModalData.isOpen && (
 				<ModalBackground onClick={closeModal}>
-					<NotificationModal onClose={closeModal} roomId={notificationModalData.roomId} />
+					<NotificationModal
+						onClose={closeModal}
+						roomId={notificationModalData.roomId}
+					/>
 				</ModalBackground>
 			)}
 			{enterModalOpen && (
