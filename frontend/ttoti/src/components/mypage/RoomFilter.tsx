@@ -5,6 +5,8 @@ import FilteredByFriend from "./FilteredByFriend";
 interface RoomFilterProps {
   dateRange: [Date, Date];
   onDateChange: (dates: [Date, Date]) => void;
+  selectMember: string;
+  onMemberChange: (MemberId: string) => void;
 }
 
 const RoomFilterWrapper = styled.div`
@@ -26,14 +28,14 @@ const FilterWrapper = styled.div`
   font-size: 15px;
 `;
 
-const RoomFilter: React.FC<RoomFilterProps> = ({ dateRange, onDateChange }) => {
+const RoomFilter: React.FC<RoomFilterProps> = ({ dateRange, onDateChange, selectMember, onMemberChange }) => {
   return (
     <RoomFilterWrapper>
       <FilterWrapper>
         <Calender dateRange={dateRange} onDateChange={onDateChange} />
       </FilterWrapper>
       <FilterWrapper>
-        <FilteredByFriend />
+        <FilteredByFriend selectMember={selectMember} onMemberChange={onMemberChange}/>
       </FilterWrapper>
     </RoomFilterWrapper>
   );

@@ -1,9 +1,10 @@
 import ProfileContainer from '@components/common/ProfileComponents';
 import profile1 from '@assets/profiles/profile1.png';
 import styled from 'styled-components';
-import { useSelector } from 'react-redux';
-import { selectMemberName } from '../../stores/slices/userSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectMemberName, toggleModal, selectIsModalOpen } from '../../stores/slices/userSlice';
 import EditNameIcon from '@assets/icons/edit_name.svg?react';
+import NameChangeModal from './NameChangeModal';
 
 const ProfileWrapper = styled.div`
 	width: 130px;
@@ -30,18 +31,23 @@ const UserName = styled.div`
 `;
 
 const ProfileBox = () => {
-	const userName = useSelector(selectMemberName); // Redux에서 user 이름 가져오기
+  const dispatch = useDispatch();
+  const userName = useSelector(selectMemberName);
+  const isModalOpen = useSelector(selectIsModalOpen);
 
-	return (
-		<ProfileWrapper>
-			<ProfileContainer src={profile1} size="75px" ready={false} />
-			<UserBox>
-				<UserName>{userName}</UserName>
-				<EditNameIcon style={{ marginLeft: 3, marginTop: 3 }} />
-				{/* 나중에 이름 변경 로직 넣어야함. */}
-			</UserBox>
-		</ProfileWrapper>
-	);
+  return (
+    <ProfileWrapper>
+      <ProfileContainer src={profile1} size="75px" ready={false} />
+      <UserBox>
+        <UserName>{userName}</UserName>
+        <EditNameIcon 
+          style={{ marginLeft: 3, marginTop: 3 }} 
+          onClick={() => dispatch(toggleModal())} 
+        />
+      </UserBox>
+      {isModalOpen && <NameChangeModal />}
+    </ProfileWrapper>
+  );
 };
 
 export default ProfileBox;
