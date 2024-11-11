@@ -19,8 +19,8 @@ const EnterColumn = styled.div`
 
 const StyledTextField = styled(TextField)`
 	.MuiOutlinedInput-root {
-		background-color: ${({ theme }) => theme.colors['background']};
-		border: 0px solid transparent;
+		background-color: white;
+		/* border: 0px solid transparent; */
 		border-radius: 8px;
 		padding-top: 5px;
 		font-family: 'LINESeed';
@@ -29,9 +29,18 @@ const StyledTextField = styled(TextField)`
 		height: 45px;
 		z-index: 1;
 
-		&:hover fieldset {
-			border-color: transparent;
+		&.Mui-focused {
+			background-color: rgba(27, 149, 236, 0.1);
+			box-shadow: 0 0 2px 2px rgba(27, 149, 236, 0.4); /* 클릭 시 박스 주변에 그림자 */
+			/* border: 3px solid ${({ theme }) => theme.colors['main']}; */
 		}
+
+		&:hover fieldset {
+			border: 3px solid ${({ theme }) => theme.colors['main']};
+		}
+	}
+	.MuiOutlinedInput-notchedOutline {
+		border: 1px solid black;
 	}
 `;
 

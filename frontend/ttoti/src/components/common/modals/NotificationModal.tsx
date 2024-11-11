@@ -18,10 +18,8 @@ const NotificationList = ({ title, content }: NotificationProps) => {
 				<ListBox size="small" ListText={title} />
 			</ListRow>
 			<ListContent>
-				<ListText>
-					{content}
-				</ListText>
-				<Delete>삭제하기</Delete>
+				<ListText>{content}</ListText>
+				{/* <Delete>삭제하기</Delete> */}
 			</ListContent>
 			<NotificationDivider />
 		</ListColumn>
@@ -41,7 +39,7 @@ interface notificationData {
 const NotificationModal = ({ onClose, roomId }: NotificationModalProps) => {
 	const subtitleText = '또띠 알림함';
 	const titleText = '읽지 않은 알림을 확인해주세요!';
-	const [notifications, setNotifications] = useState<notificationData[]>([])
+	const [notifications, setNotifications] = useState<notificationData[]>([]);
 
 	useEffect(() => {
 		const fetchRoomData = async () => {
@@ -49,7 +47,7 @@ const NotificationModal = ({ onClose, roomId }: NotificationModalProps) => {
 			try {
 				const res = await apiClient.get(`notifications/${roomId}`);
 				if (res.status === 200) {
-					console.log('알림함 on')
+					console.log('알림함 on');
 					console.log(res.data.body);
 					setNotifications(res.data.body);
 				} else {
@@ -66,7 +64,7 @@ const NotificationModal = ({ onClose, roomId }: NotificationModalProps) => {
 		<Modal onClick={(e) => e.stopPropagation()}>
 			<NotificationTop>
 				<ModalTitle titleText={titleText} subtitleText={subtitleText} />
-				<CloseIcon onClick={onClose} style={{ cursor: 'pointer' }}/>
+				<CloseIcon onClick={onClose} style={{ cursor: 'pointer' }} />
 			</NotificationTop>
 			{notifications.map((notification, index) => (
 				<NotificationList
@@ -74,7 +72,7 @@ const NotificationModal = ({ onClose, roomId }: NotificationModalProps) => {
 					title={notification.notificationReason}
 					content={notification.title}
 				/>
-      ))}
+			))}
 		</Modal>
 	);
 };
@@ -109,7 +107,7 @@ const ListContent = styled.div`
 	flex-direction: row;
 	justify-content: space-between;
 	height: 25px;
-`
+`;
 
 const ListText = styled.div`
 	font-family: 'LINESeed';
@@ -127,14 +125,13 @@ const NotificationDivider = styled.div`
 	background-color: #928f8f;
 `;
 
-const Delete = styled.button`
-	width: 80px;
-	font-family: 'LINESeed';
-	font-weight: normal;
-	font-size: 14px;
-	color: ${({ theme }) => theme.colors['danger']};
-	background-color: transparent;
-	border: 0;
-	cursor: pointer;
-`;
-
+// const Delete = styled.button`
+// 	width: 80px;
+// 	font-family: 'LINESeed';
+// 	font-weight: normal;
+// 	font-size: 14px;
+// 	color: ${({ theme }) => theme.colors['danger']};
+// 	background-color: transparent;
+// 	border: 0;
+// 	cursor: pointer;
+// `;
