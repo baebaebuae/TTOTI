@@ -46,8 +46,7 @@ const Background = styled.div`
 
 const BackgroundImage = styled.img`
 	position: absolute;
-	top: 12%;
-	/* bottom: 0; */
+	bottom: 0;
 	left: 50%;
 	transform: translateX(-50%);
 	width: 380px;
