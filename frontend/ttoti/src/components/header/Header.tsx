@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import HomeButton from '@components/header/HomeButton';
 
 const Container = styled.div`
-	position: relative; // 절대 위치 지정
+	position: relative;
 	width: 100vw;
 	height: 100vh;
 	display: flex;
@@ -19,10 +19,9 @@ const HeaderWrapper = styled.div`
 	align-items: center;
 	height: 40px;
 	top: 30px;
-	/* left: 10%; */
 	margin-right: 250px;
 	z-index: 1;
-	transform: translateX(-50%); /* 중앙 정렬 */
+	transform: translateX(-50%);
 `;
 
 const Header = () => {
