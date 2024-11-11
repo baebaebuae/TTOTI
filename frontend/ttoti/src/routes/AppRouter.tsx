@@ -10,7 +10,6 @@ import { requestFcmToken } from '@utils/notification/settingFCM';
 // 배경화면 import
 import LoginBackground from '@assets/images/login.gif';
 import MainBackground from '@assets/images/main.gif';
-import MypageBackground from '@assets/images/mypage.png';
 
 // Header import
 import Header from '@components/header/Header';
@@ -47,7 +46,8 @@ const Background = styled.div`
 
 const BackgroundImage = styled.img`
 	position: absolute;
-	bottom: 0;
+	top: 12%;
+	/* bottom: 0; */
 	left: 50%;
 	transform: translateX(-50%);
 	width: 380px;
@@ -109,7 +109,7 @@ const AppRouter = () => {
 		if (pathname === 'login') {
 			setBackgroundImage(LoginBackground);
 		} else if (pathname === 'mypage') {
-			setBackgroundImage(MypageBackground);
+			setBackgroundImage('');
 		} else {
 			setBackgroundImage(MainBackground);
 		}
