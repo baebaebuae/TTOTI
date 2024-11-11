@@ -27,7 +27,7 @@ const InviteModal: React.FC<inviteProps> = ({ onClose, roomCode }) => {
 
 	return (
 		<ModalOverlay onClick={onClose}>
-			<Modal>
+			<Modal onClick={(e) => e.stopPropagation()}>
 				<ModalTitle titleText={titleText} subtitleText={subtitleText} />
 				<InviteContents roomCode={roomCode} />
 				<ButtonContainer
