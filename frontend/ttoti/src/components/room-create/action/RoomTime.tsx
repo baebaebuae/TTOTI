@@ -65,7 +65,7 @@ const PlusButton = ({
 }: {
 	onClick: React.MouseEventHandler<SVGSVGElement>;
 }) => {
-	return <TimeAccountIcon onClick={onClick} style={{ cursor: 'pointer' }}/>;
+	return <TimeAccountIcon onClick={onClick} style={{ cursor: 'pointer' }} />;
 };
 
 const MinusButton = ({
@@ -73,7 +73,7 @@ const MinusButton = ({
 }: {
 	onClick: React.MouseEventHandler<SVGSVGElement>;
 }) => {
-	return <ReversedIcon onClick={onClick} style={{ cursor: 'pointer' }}/>;
+	return <ReversedIcon onClick={onClick} style={{ cursor: 'pointer' }} />;
 };
 
 interface RoomTimeProps {
@@ -113,13 +113,13 @@ const RoomTime = ({ formData, onInputChange }: RoomTimeProps) => {
 			<RowContainer>
 				<ColumnContainer>
 					<PlusButton onClick={incrementHour} />
-					<Container>{hour}</Container>
+					<Container>{String(hour).padStart(2, '0')}</Container>
 					<MinusButton onClick={decrementHour} />
 				</ColumnContainer>
 				:
 				<ColumnContainer>
 					<PlusButton onClick={incrementMinute} />
-					<Container>{minute}</Container>
+					<Container>{String(minute).padStart(2, '0')}</Container>
 					<MinusButton onClick={decrementMinute} />
 				</ColumnContainer>
 			</RowContainer>

@@ -7,11 +7,12 @@ import {
 	RoomInputExplain,
 	RoomInputTitle,
 } from '@components/room-create/action/RoomInputCard';
+import { useState } from 'react';
 
 const StyledTextField = styled(TextField)`
 	.MuiOutlinedInput-root {
-		background-color: ${({ theme }) => theme.colors['background']};
-		border: 0px solid transparent;
+		background-color: white;
+		/* border: 1px solid black; */
 		border-radius: 8px;
 		padding-top: 5px;
 		font-family: 'LINESeed';
@@ -19,9 +20,18 @@ const StyledTextField = styled(TextField)`
 		width: 215px;
 		height: 45px;
 
-		&:hover fieldset {
-			border-color: transparent;
+		&.Mui-focused {
+			background-color: rgba(27, 149, 236, 0.1);
+			box-shadow: 0 0 2px 2px rgba(27, 149, 236, 0.4); /* 클릭 시 박스 주변에 그림자 */
+			/* border: 3px solid ${({ theme }) => theme.colors['main']}; */
 		}
+
+		&:hover fieldset {
+			border: 3px solid ${({ theme }) => theme.colors['main']};
+		}
+	}
+	.MuiOutlinedInput-notchedOutline {
+		border: 1px solid black;
 	}
 `;
 
@@ -31,6 +41,11 @@ interface RoomNameProps {
 }
 
 const NameInputBox = ({ formData, onInputChange }: RoomNameProps) => {
+	const [placeholder, setPlaceholder] =
+		useState('최대 8글자까지 입력 가능합니다.');
+	const handleFocus = () => setPlaceholder('');
+	const handleBlur = () => setPlaceholder('최대 8글자까지 입력 가능합니다.');
+
 	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const newValue = event.target.value;
 		// 8글자 이하일 때만 상태 업데이트
@@ -45,8 +60,10 @@ const NameInputBox = ({ formData, onInputChange }: RoomNameProps) => {
 					sx: { textAlign: 'right', fontFamily: 'LINESeed', marginTop: '5px' },
 				}, // 글자 수 표시 위치 커스텀
 			}}
-			placeholder="최대 8글자까지 입력 가능합니다."
+			placeholder={placeholder}
 			value={formData.name}
+			onFocus={handleFocus}
+			onBlur={handleBlur}
 			onChange={handleChange}
 			helperText={`${formData.name.length}/8`} // 글자 수 표시
 		/>
