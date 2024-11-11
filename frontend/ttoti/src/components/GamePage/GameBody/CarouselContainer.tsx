@@ -2,14 +2,13 @@
 import React from 'react';
 import styled from 'styled-components';
 import ProfileContainer from '@components/common/ProfileComponents';
-import profile1 from '@assets/profiles/profile1.png';
-import profile2 from '@assets/profiles/profile2.png';
-import profile3 from '@assets/profiles/profile3.png';
-import profile4 from '@assets/profiles/profile4.png';
 import heartArrowIcon from '@assets/icons/heartArrowIcon.png';
+
+import { RoomInfo } from 'src/types/RoomInfo';
 
 interface CarouselContainerProps {
   page: number;
+  roomInfo: RoomInfo;
 }
 
 const Container = styled.div<{ $page: number }>`
@@ -47,11 +46,16 @@ const HeartIcon = styled.img`
   height: 64px;
 `;
 
-const CarouselContainer: React.FC<CarouselContainerProps> = ({ page }) => {
+const CarouselContainer: React.FC<CarouselContainerProps> = ({ page, roomInfo }) => {
   const isManito = page === 0;
   const title = isManito ? '나의 마니또' : '나의 마니띠';
-  const name = isManito ? '까칠한 토끼' : '정진영';
-
+  const name = isManito ? roomInfo.ttotiMatchInfo.myManittoAnimalName : roomInfo.ttotiMatchInfo.myManitiMemberName;
+  // console.log(roomInfo.ttotiMatchInfo);
+  // console.log(`내 마니또 프로필 이름 : ${roomInfo.ttotiMatchInfo.myManittoAnimalName}`);
+  // console.log(`내 마니또 프로필 이미지 : ${roomInfo.ttotiMatchInfo.myManittoAnimalImageUrl}`);
+  // console.log(`내 마니띠 프로필 이름 : ${roomInfo.ttotiMatchInfo.myManitiMemberName}`);
+  // console.log(`내 마니띠 프로필 이미지 : ${roomInfo.ttotiMatchInfo.myManitiProfileImageUrl}`);
+  
   return (
     <Container $page={page}>
       <TitleText>{title}</TitleText>
@@ -59,15 +63,15 @@ const CarouselContainer: React.FC<CarouselContainerProps> = ({ page }) => {
       <ProfileImagesContainer>
         {isManito ? (
           <>
-            <ProfileContainer src={profile1} size="64px" ready={false}/>
+            <ProfileContainer src={roomInfo.ttotiMatchInfo.myProfileImageUrl} size="64px" ready={false}/>
             <HeartIcon src={heartArrowIcon} alt="Heart Arrow Icon" />
-            <ProfileContainer src={profile2} size="64px" ready={false}/>
+            <ProfileContainer src={roomInfo.ttotiMatchInfo.myManittoAnimalImageUrl} size="64px" ready={false}/>
           </>
         ) : (
           <>
-            <ProfileContainer src={profile3} size="64px" ready={false}/>
+            <ProfileContainer src={roomInfo.ttotiMatchInfo.myProfileImageUrl} size="64px" ready={false}/>
             <HeartIcon src={heartArrowIcon} alt="Heart Arrow Icon" />
-            <ProfileContainer src={profile4} size="64px" ready={false}/>
+            <ProfileContainer src={roomInfo.ttotiMatchInfo.myManitiProfileImageUrl} size="64px" ready={false}/>
           </>
         )}
       </ProfileImagesContainer>

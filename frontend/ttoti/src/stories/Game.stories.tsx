@@ -126,16 +126,21 @@ const mockQuizData: QuizData = {
 };
 
 const mockRoomInfo: RoomInfo = {
-    "roomHostMemberName": "정진영",
-    "roomName": "99NULL",
-    "ttotiMatchInfo": {
-      "myTtotiId": 1,
-      "myTittoId": 2,
-      "myManittoAnimalName": "금붕어",
-      "myManittoAnimalImageUrl": "http://sample.com",
-      "myName": "정진영",
+    "roomHostMemberName": "오뜨1",
+      "roomName": "마니또방1",
+      "ttotiMatchInfo": {
+        "myTtotiId": 5,
+        "myTittoId": 4,
+        "myManittoAnimalName": "겸손한 토끼3",
+        "myManittoAnimalImageUrl": "https://example.com/images/rabbit.jpg",
+        "myName": "오뜨1",
+        "myProfileImageUrl": "http://example.com/user1.jpg",
+        "myAnimalName": "활발한 고양이1",
+        "myAnimalImageUrl": "https://example.com/images/cat.jpg",
+        "myManitiMemberName": "카스타드8",
+        "myManitiProfileImageUrl": "http://example.com/user8.jpg"
+      }
     }
-  }
 
 // 스토리 1: 기본 게임 화면
 const Template: StoryFn<typeof Game> = () => (

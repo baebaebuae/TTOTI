@@ -97,7 +97,8 @@ const GamePage: React.FC = () => {
       <CloudImage src={BigCloud} alt="big cloud" />
       <CloudImage src={SmallCloud} alt="small cloud" />
       <RoomTitleWrapper>
-        <RoomTitle />
+      {roomInfo &&
+        <RoomTitle roomInfo={roomInfo}/>}
       </RoomTitleWrapper>
       <GameWrapper>
       {roomInfo &&

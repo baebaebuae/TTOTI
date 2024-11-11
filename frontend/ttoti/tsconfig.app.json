@@ -33,6 +33,8 @@
       "@styles/*": ["src/styles/*"],
       "@utils/*": ["src/utils/*"]
     },
+    // Cannot find type definition file for 'stompjs'. 오류에 의해 추가된 설정. 24.11.10 이상무
+    "typeRoots": ["node_modules/@types"]
   },
   "include": ["src"]
 }

@@ -2,6 +2,7 @@
 import { Meta, StoryFn } from '@storybook/react';
 import QuizContent from '@components/GamePage/GameBody/QuizContent';
 import { QuizData } from 'src/types/QuizTypes'; // QuizData 타입 import
+import { RoomInfo } from 'src/types/RoomInfo';
 
 // Mock data for quizData
 const mockQuizData: QuizData = {
@@ -126,6 +127,7 @@ interface QuizContentProps {
   page: number;
   togglePage: (direction: 'next' | 'prev') => void;
   quizData: QuizData; // quizData 추가
+  roomInfo: RoomInfo;
 }
 
 // Template 생성
