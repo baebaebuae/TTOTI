@@ -60,7 +60,7 @@ const NotificationModal = ({ onClose, roomId }: NotificationModalProps) => {
 			}
 		};
 		fetchRoomData();
-	}, []);
+	}, [roomId]);
 
 	return (
 		<Modal onClick={(e) => e.stopPropagation()}>

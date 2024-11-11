@@ -231,7 +231,8 @@ const RoomName = styled.div`
 
 const RoomInfo = styled.div`
 	margin-top: 50px;
-	margin-left: 3px;
+	margin-left: auto;
+	margin-right: 10px;
 	font-family: 'GmarketSans';
 	font-size: 12px;
 	font-weight: Bold;
