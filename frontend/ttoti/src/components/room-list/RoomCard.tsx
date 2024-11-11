@@ -58,7 +58,7 @@ const Notification = ({ status, onClick }: NotificationProps) => {
 	const alarmIcon =
 		status === true ? <ActiveAlarmIcon /> : <InactiveAlarmIcon />;
 	return (
-		<NotificationBox 
+		<NotificationBox
 			onClick={status === true ? onClick : undefined}
 			$clickable={status === true}
 		>
@@ -75,13 +75,17 @@ const RoomCard = ({ room, onNotificationClick }: RoomCardWithModalProps) => {
 	// 디버깅을 위한 콘솔 작성
 	const navigate = useNavigate();
 	const handleEnter = (status: boolean, id: number) => {
-		console.log('handleEnter called');
+		// console.log('handleEnter called');
 		if (status) {
 			navigate(`/game/${id}`);
 		} else {
 			navigate(`/game-waiting/${id}`);
 		}
 	};
+
+	const imageUrl = room.memberProfileImageUrl?.includes('kakao')
+		? room.memberProfileImageUrl
+		: `../images/characters/${room.memberProfileImageUrl}`;
 	return (
 		<RoomInfoWrapper>
 			<Notification
@@ -97,7 +101,7 @@ const RoomCard = ({ room, onNotificationClick }: RoomCardWithModalProps) => {
 				hostName={room.hostName}
 				roomName={room.roomName}
 				currentParticipants={room.currentParticipants}
-				imageURL={room.memberProfileImageUrl}
+				imageURL={imageUrl}
 			/>
 			<GoButton
 				color="success"
