@@ -1,8 +1,12 @@
 import styled from "styled-components";
-import { QuizData, Quiz } from "src/types/QuizTypes";
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+
 import ToggleIcon from '@assets/icons/toggle.svg?react';
 import ToggleActiveIcon from '@assets/icons/toggle_active.svg?react';
+
+import { QuizData, Quiz } from "src/types/QuizTypes";
+
+import choiceAnswer from "@services/apiSelectChoice";
 
 interface CarouselContainerProps {
   page: number;
@@ -64,12 +68,14 @@ const QuizBodyContainer = styled.div`
 const FourChoiceQuizBody = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
   `;
   
 const TwoChoiceQuizBody = styled.div`
   display: flex;
   flex-direction: row;
+  justify-content: center;
   align-items: center;
   gap: 10px;
   `;
@@ -118,6 +124,21 @@ const FourChoiceQuiz: React.FC<{
   const { manittoAnswer, manitiAnswer } = quiz;
   const $isMatching = manittoAnswer === manitiAnswer;
 
+  useEffect(() => {
+    const chooseAnswer = async () => {
+      try {
+        if (selectedAnswer) {
+          const response = await choiceAnswer(quiz.ttotiId, quiz.quizId, Number(selectedAnswer));
+          console.log(response);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    chooseAnswer();
+
+  }, [quiz.ttotiId, quiz.quizId, selectedAnswer])
   return (
     <div>
       <h2>나의 선택은 ?</h2>
@@ -144,6 +165,22 @@ const FourChoiceQuiz: React.FC<{
 const TwoChoiceQuiz: React.FC<{ $page: number; quiz: Quiz; $isTodayQuiz: boolean; selectedAnswer: string | null; onSelectAnswer: (answer: string) => void }> = ({ $page, quiz, $isTodayQuiz, selectedAnswer, onSelectAnswer }) => {
   const { manittoAnswer, manitiAnswer } = quiz;
   const $isMatching = manittoAnswer === manitiAnswer;
+  
+  useEffect(() => {
+    const chooseAnswer = async () => {
+      try {
+        if (selectedAnswer) {
+          const response = await choiceAnswer(quiz.ttotiId, quiz.quizId, Number(selectedAnswer));
+          console.log(response);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    chooseAnswer();
+
+  }, [quiz.ttotiId, quiz.quizId, selectedAnswer])
 
   return (
     <div>

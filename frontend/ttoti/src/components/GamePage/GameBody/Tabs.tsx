@@ -1,6 +1,7 @@
 // Tabs.tsx
 import React from 'react';
 import styled, { useTheme } from 'styled-components';
+
 import PorcupineGif from '@assets/gamecloud/PorcupineGif.gif';
 import RabbitGif from '@assets/gamecloud/RabbitGif.gif';
 import OwlGif from '@assets/gamecloud/OwlGif.gif';

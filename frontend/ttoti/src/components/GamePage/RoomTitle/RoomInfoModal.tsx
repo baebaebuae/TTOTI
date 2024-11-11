@@ -1,67 +1,47 @@
 // RoomInfoModal.tsx
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import { getApiClient } from '@services/apiClient';
-import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 
-// interface InfoItem {
-//   label: string;
-//   value: string;
-// }
+import { getApiClient } from '@services/apiClient';
 
 interface RoomInfoModalProps {
 	onClose: () => void;
-	roomId: string;
 }
 
-const RoomInfoModal: React.FC<RoomInfoModalProps> = ({ onClose, roomId }) => {
+const RoomInfoModal: React.FC<RoomInfoModalProps> = ({ onClose}) => {
 	const [infoList, setInfoList] = useState<{ label: string; value: string }[]>(
 		[],
 	);
+	const { id } = useParams<{ id: string }>();
 
-	useEffect(() => {
+	useEffect (() => {
 		const getRoomDetail = async () => {
 			try {
 				const apiClient = getApiClient();
-				const res = await apiClient.get(`/rooms/pending/detail/${roomId}`);
-	
-				if (res.status === 200) {
-					const data = res.data.body;
-	
-					setInfoList([
-						{ label: '방 제목', value: data.roomName },
-						{ label: '방장', value: data.roomHostMemberName },
-						{ label: '종료 시간', value: data.roomFinishTime },
-						{ label: '진행 기간', value: data.roomPeriod },
-					]);
-				}
+				const res = await apiClient.get(`/rooms/inprogress/detail/${id}`);
+				const data = res.data.body
+				console.log(data);
+				setInfoList([
+					{ label: '방 제목', value: data.roomName },
+					{ label: '방장', value: data.roomHostMemberName },
+					{ label: '또띠 인원', value: data.roomParticipants},
+					{ label: '참여자', value: data.roomParticipantsNameList.join(',     ')},
+					{ label: '종료 시간', value: data.roomFinishTime },
+					{ label: '진행 기간', value: (`${data.roomStartDate} ~ ${data.roomFinishDate}`) },
+				]);
 			} catch (err) {
-				console.log('Room Info Error :', err);
+				console.error('Room Info Error :', err);
 			}
 		};
-		
+
 		getRoomDetail();
-	}, [roomId])
-
-	const navigate = useNavigate();
-
-	const leaveRoom = async () => {
-		const apiClient = getApiClient();
-		try {
-			const res = await apiClient.delete(`/rooms/${roomId}`);
-			if (res.status === 200) {
-				console.log('게임 나가기 성공');
-				// 메인 페이지로 이동
-				navigate('/');
-			}
-		} catch (err) {
-			console.log('Leave Room Error : ', err);
-		}
-	};
+	}, [id])
 
 	return (
-		<ModalOverlay onClick={onClose}>
-			<ModalContainer onClick={(e) => e.stopPropagation()}>
+		<Overlay onClick={onClose}>
+			<Container onClick={(e) => e.stopPropagation()}>
 				<HeaderContainer>
 					<Title>방 정보</Title>
 					<Description>또띠 방 정보를 확인해보세요!</Description>
@@ -77,17 +57,16 @@ const RoomInfoModal: React.FC<RoomInfoModalProps> = ({ onClose, roomId }) => {
 				</InfoList>
 
 				<ButtonContainer>
-					<LeaveButton onClick={leaveRoom}>나가기</LeaveButton>
 					<CloseButton onClick={onClose}>닫기</CloseButton>
 				</ButtonContainer>
-			</ModalContainer>
-		</ModalOverlay>
+			</Container>
+		</Overlay>
 	);
 };
 
 export default RoomInfoModal;
 
-const ModalOverlay = styled.div`
+const Overlay = styled.div`
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -100,7 +79,7 @@ const ModalOverlay = styled.div`
 	z-index: 1000;
 `;
 
-const ModalContainer = styled.div`
+const Container = styled.div`
 	display: grid;
 	background-color: #f6f7fb;
 	border-radius: 15px;
@@ -179,19 +158,6 @@ const ButtonContainer = styled.div`
 	flex-direction: column;
 	align-items: center;
 	gap: 17px;
-`;
-
-const LeaveButton = styled.button`
-	width: 210px;
-	height: 40px;
-	background-color: #ff6430;
-	font-family: 'LINESeed';
-	font-size: 15px;
-	font-weight: normal;
-	color: white;
-	border: none;
-	border-radius: 6px;
-	cursor: pointer;
 `;
 
 const CloseButton = styled.button`

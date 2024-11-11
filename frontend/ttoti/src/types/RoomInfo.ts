@@ -7,5 +7,10 @@ export interface RoomInfo {
     myManittoAnimalName: string;
     myManittoAnimalImageUrl: string;
     myName: string;
+    myProfileImageUrl: string;
+    myAnimalName: string;
+    myAnimalImageUrl: string;
+    myManitiMemberName: string;
+    myManitiProfileImageUrl: string;
   };
 }

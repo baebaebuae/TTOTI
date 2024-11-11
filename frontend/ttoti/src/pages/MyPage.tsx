@@ -1,6 +1,5 @@
 import ProfileBox from "@components/mypage/ProfileBox";
 import RoomInfo from "@components/mypage/RoomInfo";
-import HomeIcon from "@assets/icons/home.svg?react"
 import styled from "styled-components";
 
 
@@ -22,11 +21,6 @@ const MyPageBox = styled.div`
 
 `
 
-const HomeIconWrapper = styled.div`
-	position: absolute;
-	top: 10px;
-	left: 30px;
-`;
 
 const MyPageHeader = styled.div`
 	margin-top: 10px;
@@ -40,9 +34,6 @@ const ProfileBoxWrapper = styled.div`
 const MyPage = () => {
 	return <MyPageWrapper>
 		<MyPageBox>
-			<HomeIconWrapper>
-      	<HomeIcon />
-			</HomeIconWrapper>
       <MyPageHeader>
        	<ProfileBoxWrapper>
          	<ProfileBox />

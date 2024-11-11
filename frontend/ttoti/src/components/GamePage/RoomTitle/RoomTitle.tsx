@@ -1,6 +1,12 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import RoomInfoModal from '@components/common/modals/RoomInfoModal';
+
+import RoomInfoModal from './RoomInfoModal';
+import { RoomInfo } from 'src/types/RoomInfo';
+
+interface RoomTitleProps {
+  roomInfo: RoomInfo;
+}
 
 const RoomBox = styled.div`
 	width: fit-content; /* 내용에 맞게 자동 조정 */
@@ -30,9 +36,11 @@ const SecondLine = styled.p`
 	margin: 0;
 `;
 
-const RoomTitle = () => {
+const RoomTitle: React.FC<RoomTitleProps> = ({roomInfo}) => {
 	const [isModalOpen, setIsModalOpen] = useState(false);
 
+	// console.log(roomInfo.roomInfo.roomHostMemberName);
+	// console.log(roomInfo.roomInfo.roomName);
 	const openModal = () => {
 		setIsModalOpen(true);
 	};
@@ -44,14 +52,13 @@ const RoomTitle = () => {
 	return (
 		<>
 			<RoomBox onClick={openModal}>
-				<FirstLine>정진영의</FirstLine>
-				<SecondLine>99NULL</SecondLine>
+				<FirstLine>{roomInfo.roomHostMemberName}의</FirstLine>
+				<SecondLine>{roomInfo.roomName}</SecondLine>
 			</RoomBox>
 
 			{isModalOpen && (
 				<RoomInfoModal
 					onClose={closeModal}
-					roomId={'4'} // roomId 임시 전달
 				/>
 			)}
 		</>

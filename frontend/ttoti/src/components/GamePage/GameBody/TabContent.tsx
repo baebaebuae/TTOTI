@@ -75,7 +75,7 @@ const TabContent: React.FC<TabContentProps> = ({ activeTab, quizData, roomInfo }
   return (
     <WebSocketContext.Provider value={stompClient}>
       <ContentContainer $backgroundColor={backgroundColor}>
-        {activeTab === 'quiz' && <QuizContent page={page} togglePage={togglePage} quizData={quizData} />}
+        {activeTab === 'quiz' && <QuizContent page={page} togglePage={togglePage} quizData={quizData} roomInfo={roomInfo}/>}
         {activeTab === 'manitto' && <ChatContent target="manitto" roomInfo={roomInfo}/>}
         {activeTab === 'maniti' && <ChatContent target="maniti" roomInfo={roomInfo}/>}
       </ContentContainer>
