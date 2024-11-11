@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 import fetchUserInfo from '@hooks/fetchUserInfo';
 import { selectMemberId } from '@stores/slices/userSlice';
 import { useAppdispatch } from '@stores/index';
+import { requestFcmToken } from '@utils/notification/settingFCM';
 // 배경화면 import
 import LoginBackground from '@assets/images/login.gif';
 import MainBackground from '@assets/images/main.gif';
@@ -84,6 +85,20 @@ const AppRouter = () => {
 			return <Navigate replace to="/login" />;
 		} else {
 			fetchUserInfo();
+			
+			// 알림 권한 요청 및 토큰 요청
+			const requestPermissionAndToken = async () => {
+				console.log('알림 권한 요청 중...');
+				const permission = await Notification.requestPermission();
+				if (permission === 'granted') {
+					console.log('알림 권한 허용됨');
+					await requestFcmToken(); // FCM 토큰 요청 및 서버 전송
+				} else {
+					console.log('알림 권한이 거부되었습니다.');
+				}
+			};
+			
+			requestPermissionAndToken();
 		}
 		return children;
 	};
