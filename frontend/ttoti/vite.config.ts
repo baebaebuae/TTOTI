@@ -11,7 +11,7 @@ export default defineConfig({
 		svgr(),
 		VitePWA({
 			registerType: 'autoUpdate',
-			injectRegister: 'script',
+			injectRegister: null,
 			manifest: {
 				name: 'ttoti Project',
 				short_name: 'ttoti',
