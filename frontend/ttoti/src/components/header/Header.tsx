@@ -18,8 +18,9 @@ const HeaderWrapper = styled.div`
 	justify-content: flex-start;
 	align-items: center;
 	height: 40px;
-	top: 70px;
-	left: 10%;
+	top: 30px;
+	/* left: 10%; */
+	margin-right: 250px;
 	z-index: 1;
 	transform: translateX(-50%); /* 중앙 정렬 */
 `;
