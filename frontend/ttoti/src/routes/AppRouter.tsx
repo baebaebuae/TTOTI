@@ -89,13 +89,13 @@ const AppRouter = () => {
 
 			// 알림 권한 요청 및 토큰 요청
 			const requestPermissionAndToken = async () => {
-				console.log('알림 권한 요청 중...');
+				// console.log('알림 권한 요청 중...');
 				const permission = await Notification.requestPermission();
 				if (permission === 'granted') {
-					console.log('알림 권한 허용됨');
+					// console.log('알림 권한 허용됨');
 					await requestFcmToken(); // FCM 토큰 요청 및 서버 전송
 				} else {
-					console.log('알림 권한이 거부되었습니다.');
+					// console.log('알림 권한이 거부되었습니다.');
 				}
 			};
 

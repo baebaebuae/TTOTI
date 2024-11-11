@@ -55,9 +55,9 @@ const ChatContent: React.FC<ChatContentProps> = ({ target, roomInfo }) => {
     if (stompClient) {
       // 메시지 구독
       const subscription = stompClient.subscribe(`/sub/sub-${chatId}`, (message) => {
-        console.log(message);
+        // console.log(message);
         const newMessage: ApiMessage = JSON.parse(message.body);
-        console.log('Received message:', newMessage);
+        // console.log('Received message:', newMessage);
         
         setMessages((prevMessages) => [
           ...prevMessages,
@@ -71,7 +71,7 @@ const ChatContent: React.FC<ChatContentProps> = ({ target, roomInfo }) => {
 
       // 컴포넌트 언마운트 시 구독 해제
       return () => {
-        console.log(`Unsubscribing from: /sub/sub-${chatId}`);
+        // console.log(`Unsubscribing from: /sub/sub-${chatId}`);
         subscription.unsubscribe();
       };
     }
@@ -80,7 +80,7 @@ const ChatContent: React.FC<ChatContentProps> = ({ target, roomInfo }) => {
   const sendMessage = (message: string) => {
     if (stompClient) {
       const role = target === 'manitto' ? 'maniti' : 'manitto';
-      console.log(`Sending message to /pub/${role}/${chatId}:`, message);
+      // console.log(`Sending message to /pub/${role}/${chatId}:`, message);
       stompClient.publish({
         destination: `/pub/${role}/${chatId}`,
         body: JSON.stringify({ message: message }),

@@ -23,7 +23,7 @@ const InviteModal: React.FC<inviteProps> = ({ onClose, roomCode }) => {
 	const buttonText2 = '닫기';
 
 	const handleInvite = () => {
-		console.log('/game');
+		// console.log('/game');
 	};
 
 	return (
@@ -52,7 +52,7 @@ const InviteContents: React.FC<{ roomCode: string }> = ({ roomCode }) => {
 		navigator.clipboard
 			.writeText(text)
 			.then(() => {
-				console.log('초대 코드 복사 완료');
+				// console.log('초대 코드 복사 완료');
 			})
 			.catch((error) => {
 				console.error('복사 실패:', error);

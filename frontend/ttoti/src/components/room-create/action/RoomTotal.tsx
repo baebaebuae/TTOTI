@@ -49,7 +49,7 @@ interface RoomTotalProps {
 
 const RoomTotal = ({ formData }: RoomTotalProps) => {
 	// 최종 입력 데이터 확인용 콘솔
-	console.log('Room-Input TotalData: ', formData);
+	// console.log('Room-Input TotalData: ', formData);
 	const navigate = useNavigate();
 	const totalData = [
 		{ title: '방 이름', value: formData.name },
@@ -59,7 +59,7 @@ const RoomTotal = ({ formData }: RoomTotalProps) => {
 	];
 
 	const postCreateAPI = async () => {
-		console.log('click');
+		// console.log('click');
 		const roomId = await postRoomCreate({ formData });
 		if (roomId) {
 			// 임시로 메인 페이지 이동

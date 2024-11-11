@@ -12,7 +12,7 @@ const fetchUserInfo = createAsyncThunk('user/fetchUserInfo', async () => {
 			const memberName = res.data.body.memberName;
 			const memberProfileImageUrl = res.data.body.memberProfileImageUrl;
 
-			console.log(res.data.body)
+			// console.log(res.data.body)
 
 			// console.log('유저 정보 조회 성공');
 			return {
@@ -21,11 +21,11 @@ const fetchUserInfo = createAsyncThunk('user/fetchUserInfo', async () => {
 				memberProfileImageUrl,
 			};
 		} else {
-			console.log('유저 정보 조회 실패');
+			// console.log('유저 정보 조회 실패');
 			return null;
 		}
 	} catch (error) {
-		console.log('Error fetching user info:', error);
+		console.error('Error fetching user info:', error);
 	}
 });
 

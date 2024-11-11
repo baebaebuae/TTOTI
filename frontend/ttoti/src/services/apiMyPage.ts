@@ -42,8 +42,8 @@ export const finishedGameList = async (requestBody: FinishedGameListRequest) => 
   try {
     const res = await apiClient.post('/members/mypage/game', requestBody);
     if (res.status === 200) {
-      console.log('끝난 게임 리스트 불러오기 완료!');
-      console.log(res.data);
+      // console.log('끝난 게임 리스트 불러오기 완료!');
+      // console.log(res.data);
       return res.data.body;
     }
   } catch (error) {

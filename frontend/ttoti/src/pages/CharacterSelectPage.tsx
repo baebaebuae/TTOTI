@@ -28,7 +28,7 @@ const CharacterSelectPage: React.FC = () => {
 					setCharacterData(res.data.body);
 				}
 			} catch (err) {
-				console.log('character Data Api error : ', err);
+				console.error('character Data Api error : ', err);
 			}
 		};
 		getCharacterData();
@@ -39,12 +39,12 @@ const CharacterSelectPage: React.FC = () => {
 		const data = {
 			animalId: characterIndex,
 		};
-		console.log(data);
+		// console.log(data);
 		const postCharacterData = async () => {
 			try {
 				const res = await apiClient.post(`/rooms/${roomId}/animals`, data);
 				if (res.status === 200) {
-					console.log('캐릭터 선택 완료!');
+					// console.log('캐릭터 선택 완료!');
 					const message = res.data.message;
 
 					if (message === '동물 선택 성공') {
@@ -55,7 +55,7 @@ const CharacterSelectPage: React.FC = () => {
 					return res.data.body;
 				}
 			} catch (err) {
-				console.log('postCharacterSelect Error : ', err);
+				console.error('postCharacterSelect Error : ', err);
 				throw err;
 			}
 		};

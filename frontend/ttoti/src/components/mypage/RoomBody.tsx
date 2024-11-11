@@ -17,8 +17,8 @@ const RoomBody = () => {
   ]); // 초기화 시 [Date, Date]로 지정
   const [selectMember, setSelectMember] = useState<string>("");
 
-  console.log(`룸바디 셀렉트 멤버 : ${selectMember}`);
-  console.log(`룸바디 데이트 레인지 : ${dateRange}`);
+  // console.log(`룸바디 셀렉트 멤버 : ${selectMember}`);
+  // console.log(`룸바디 데이트 레인지 : ${dateRange}`);
   return (
     <RoomWrapper>
       <RoomFilter dateRange={dateRange} onDateChange={setDateRange} selectMember={selectMember} onMemberChange={setSelectMember}/>

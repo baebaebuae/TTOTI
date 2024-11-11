@@ -5,7 +5,7 @@ if ('serviceWorker' in navigator) {
     if (!window.location.pathname.startsWith('/login')) {
       navigator.serviceWorker.register('/firebase-messaging-sw.js', { scope: '/' })
         .then((registration) => {
-          console.log('Firebase 메시징 서비스워커가 등록되었습니다:', registration);
+          // console.log('Firebase 메시징 서비스워커가 등록되었습니다:', registration);
         })
         .catch((error) => {
           console.error('Firebase 메시징 서비스워커 등록 실패:', error);
@@ -16,9 +16,9 @@ if ('serviceWorker' in navigator) {
       navigator.serviceWorker.getRegistrations().then(function(registrations) {
         for (const registration of registrations) {
           registration.unregister().then(function(boolean) {
-            console.log(
-              boolean ? 'Service Worker unregistered successfully' : 'Failed to unregister Service Worker'
-            );
+            // console.log(
+            //   boolean ? 'Service Worker unregistered successfully' : 'Failed to unregister Service Worker'
+            // );
           });
         }
       });

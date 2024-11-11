@@ -13,8 +13,8 @@ const postRoomCreate = async ({ formData }: RoomTotalProps) => {
 	try {
 		const res = await apiClient.post('/rooms', formData);
 		if (res.status === 200) {
-			console.log('방 생성 완료!');
-			console.log(res.data);
+			// console.log('방 생성 완료!');
+			// console.log(res.data);
 			return res.data.body['roomId'];
 		}
 	} catch (error) {

@@ -22,7 +22,7 @@ const RoomInfoModal: React.FC<RoomInfoModalProps> = ({ onClose}) => {
 				const apiClient = getApiClient();
 				const res = await apiClient.get(`/rooms/inprogress/detail/${id}`);
 				const data = res.data.body
-				console.log(data);
+				// console.log(data);
 				setInfoList([
 					{ label: '방 제목', value: data.roomName },
 					{ label: '방장', value: data.roomHostMemberName },

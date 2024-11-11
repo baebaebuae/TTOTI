@@ -82,7 +82,7 @@ const GamePage: React.FC = () => {
       if (roomInfo) {
         try {
           const data = await getQuizData(roomInfo.ttotiMatchInfo.myTtotiId);
-          console.log('퀴즈 데이터:', data);
+          // console.log('퀴즈 데이터:', data);
           setQuizData(data);
         } catch (error) {
           console.error('퀴즈 데이터를 가져오는 중 오류 발생:', error);

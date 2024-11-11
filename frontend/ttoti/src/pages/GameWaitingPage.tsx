@@ -17,7 +17,7 @@ import { useSelector } from 'react-redux';
 import RowLogo from '@assets/icons/logo/row_logo.svg?react';
 
 const GameWaitingPage: React.FC = () => {
-	console.log('GameWaitingPage Mounted');
+	// console.log('GameWaitingPage Mounted');
 	const { id: roomId } = useParams<{ id: string }>();
 	const [roomData, setRoomData] = useState<RoomData | null>(null);
 	const containerRef = useRef<HTMLDivElement>(null);
@@ -33,7 +33,7 @@ const GameWaitingPage: React.FC = () => {
 		try {
 			const data = await getRoomData(roomId);
 			setRoomData(data);
-			console.log(data);
+			// console.log(data);
 			if (data?.roomMemberInfo.currentParticipants > 3) {
 				setIsOverflow(true);
 			} else {
@@ -42,7 +42,7 @@ const GameWaitingPage: React.FC = () => {
 		} catch (err) {
 			console.error(err);
 		} finally {
-			console.log('fetchRoomData fine');
+			// console.log('fetchRoomData fine');
 		}
 	}, [roomId]);
 
@@ -74,7 +74,7 @@ const GameWaitingPage: React.FC = () => {
 					);
 				}
 			} catch (err) {
-				console.log('Fail get Refresh Data : ', err);
+				console.error('Fail get Refresh Data : ', err);
 			}
 		};
 		getRefreshApi();
@@ -87,7 +87,7 @@ const GameWaitingPage: React.FC = () => {
 			const res = await apiClient.get(`rooms/status/${roomId}`);
 			if (res.status === 200) {
 				const status = res.data.body;
-				console.log(status);
+				// console.log(status);
 				return status;
 			}
 		} catch (err) {
@@ -98,9 +98,9 @@ const GameWaitingPage: React.FC = () => {
 	};
 
 	const handleRefresh = async () => {
-		console.log('handle Refreshs');
+		// console.log('handle Refreshs');
 		const nowStatus = await getStatus();
-		console.log('nowStatus is', nowStatus);
+		// console.log('nowStatus is', nowStatus);
 		if (nowStatus) {
 			navigate(`/game/${roomId}`);
 		} else {

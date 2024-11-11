@@ -60,8 +60,8 @@ const TabContent: React.FC<TabContentProps> = ({ activeTab, quizData, roomInfo }
   useEffect(() => {
     const client = new Client({
       webSocketFactory: () => new SockJS('https://ttoti.co.kr/chat'),
-      onConnect: () => console.log("Connected to WebSocket"),
-      onDisconnect: () => console.log("Disconnected from WebSocket"),
+      // onConnect: () => console.log("Connected to WebSocket"),
+      // onDisconnect: () => console.log("Disconnected from WebSocket"),
     });
 
     client.activate();
