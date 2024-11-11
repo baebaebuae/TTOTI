@@ -12,6 +12,7 @@ const DateDisplay = styled.div`
 
 const CalendarModal = styled.div`
   position: absolute;
+  z-index: 5;
   width: 330px;
   bottom: 80px;
   left: 2px;
