@@ -31,6 +31,7 @@ import Auth from '@pages/Auth';
 import HoseaKim from '@pages/test/HoseaKim';
 import Jignonne from '@pages/test/Jignonne';
 import MooMoo from '@pages/test/MooMoo';
+import DeveloperTest from '@pages/test/DeveloperTestPage';
 
 const Background = styled.div`
 	position: absolute;
@@ -85,7 +86,7 @@ const AppRouter = () => {
 			return <Navigate replace to="/login" />;
 		} else {
 			fetchUserInfo();
-			
+
 			// 알림 권한 요청 및 토큰 요청
 			const requestPermissionAndToken = async () => {
 				console.log('알림 권한 요청 중...');
@@ -97,7 +98,7 @@ const AppRouter = () => {
 					console.log('알림 권한이 거부되었습니다.');
 				}
 			};
-			
+
 			requestPermissionAndToken();
 		}
 		return children;
@@ -202,6 +203,7 @@ const AppRouter = () => {
 				<Route path="/hoseakim" element={<HoseaKim />} />
 				<Route path="/jignonne" element={<Jignonne />} />
 				<Route path="/moomoo" element={<MooMoo />} />
+				<Route path="/developer" element={<DeveloperTest />} />
 			</Routes>
 		</>
 	);
