@@ -1,12 +1,14 @@
 import styled from "styled-components";
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 import ToggleIcon from '@assets/icons/toggle.svg?react';
 import ToggleActiveIcon from '@assets/icons/toggle_active.svg?react';
 
 import { QuizData, Quiz } from "src/types/QuizTypes";
 
-import choiceAnswer from "@services/apiSelectChoice";
+import OXQuiz from "./QuizComponent/OXQuiz";
+import FourChoiceQuiz from "./QuizComponent/FourChoiceQuiz";
+import TwoChoiceQuiz from "./QuizComponent/TwoChoiceQuiz";
 
 interface CarouselContainerProps {
   page: number;
@@ -57,13 +59,6 @@ const QuizDate = styled.span`
   font-weight: bold; /* 볼드 스타일 추가 */
 `;
 
-const QuizWrapper = styled.div`
-  width: 240px;
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-`;
-
 const QuizBodyContainer = styled.div`
   margin-top: 16px; /* QuizHeader와의 간격을 설정 */
   flex-grow: 1; /* 공간을 차지하도록 설정 */
@@ -72,180 +67,6 @@ const QuizBodyContainer = styled.div`
   align-items: center;
   padding: 0 20px;
 `;
-
-const MyChoice = styled.div`
-  font-weight: bold;
-  font-size: 24px;
-`;
-
-const FourChoiceQuizBody = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  `;
-  
-const TwoChoiceQuizBody = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  margin-top: 30px;
-  `;
-  
-// 버튼 스타일을 조건에 따라 동적으로 적용하기 위해 props를 추가합니다.
-const FourChoiceButton = styled.button<{
-  $isTodayQuiz: boolean;
-  $isMatching: boolean;
-  $isManitoAnswer: boolean;
-  $isManitiAnswer: boolean;
-  $isSelected: boolean;
-}>`
-  width: 240px;
-  height: 30px;
-  margin-top: 3px;
-  border-radius: 10px;
-  border: ${({ $isMatching }) => ($isMatching ? '2px solid red' : 'none')};
-  background-color: ${({ $isTodayQuiz, $isSelected, $isMatching, $isManitoAnswer, $isManitiAnswer }) =>
-    $isTodayQuiz && $isSelected ? '#67C431' : // 선택된 답변 강조 (노란색) - 오늘의 퀴즈인 경우에만
-    $isMatching ? '#67C431' :
-    $isManitoAnswer ? '#67C431' :
-    $isManitiAnswer ? '#FF6430' :
-    '#E1E9EF'};
-`;
-
-
-
-const TwoChoiceButton = styled(FourChoiceButton)`
-  width: 90px;
-  height: 90px;
-  border: ${({ $isMatching }) => ($isMatching ? '2px solid red' : '1px solid black')};
-`;
-const OXButton = styled(FourChoiceButton)`
-  width: 90px;
-  height: 90px;
-  border: ${({ $isMatching }) => ($isMatching ? '2px solid red' : '1px solid black')};
-`;
-
-const FourChoiceQuiz: React.FC<{ 
-  $page: number; 
-  quiz: Quiz; 
-  $isTodayQuiz: boolean; 
-  selectedAnswer: string | null; 
-  onSelectAnswer: (answer: string) => void; 
-}> = ({ $page, quiz, $isTodayQuiz, selectedAnswer, onSelectAnswer }) => {
-  const { manittoAnswer, manitiAnswer } = quiz;
-  const $isMatching = manittoAnswer === manitiAnswer;
-
-  useEffect(() => {
-    const chooseAnswer = async () => {
-      try {
-        if (selectedAnswer) {
-          const response = await choiceAnswer(quiz.ttotiId, quiz.quizId, Number(selectedAnswer));
-          console.log(response);
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    }
-
-    chooseAnswer();
-
-  }, [quiz.ttotiId, quiz.quizId, selectedAnswer])
-  return (
-    <QuizWrapper>
-      <MyChoice>나의 선택은 ?</MyChoice>
-      <span>{quiz.quizChoiceContent}</span>
-      <FourChoiceQuizBody>
-        {Object.keys(quiz.quizChoiceMap).map((key) => (
-          <FourChoiceButton
-            key={key}
-            $isTodayQuiz={$isTodayQuiz}
-            $isMatching={$isMatching && key === manittoAnswer?.toString()}
-            $isManitoAnswer={$page === 0 ? key === manittoAnswer?.toString() : key === manitiAnswer?.toString()}
-            $isManitiAnswer={$page === 0 ? key === manitiAnswer?.toString() : key === manittoAnswer?.toString()}
-            $isSelected={selectedAnswer === key} // 선택된 상태 전달
-            onClick={() => onSelectAnswer(key)} // 클릭 시 선택 상태 업데이트
-          >
-            {quiz.quizChoiceMap[key]}
-          </FourChoiceButton>
-        ))}
-      </FourChoiceQuizBody>
-    </QuizWrapper>
-  );
-};
-
-const TwoChoiceQuiz: React.FC<{ $page: number; quiz: Quiz; $isTodayQuiz: boolean; selectedAnswer: string | null; onSelectAnswer: (answer: string) => void }> = ({ $page, quiz, $isTodayQuiz, selectedAnswer, onSelectAnswer }) => {
-  const { manittoAnswer, manitiAnswer } = quiz;
-  const $isMatching = manittoAnswer === manitiAnswer;
-  
-  useEffect(() => {
-    const chooseAnswer = async () => {
-      try {
-        if (selectedAnswer) {
-          const response = await choiceAnswer(quiz.ttotiId, quiz.quizId, Number(selectedAnswer));
-          console.log(response);
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    }
-
-    chooseAnswer();
-
-  }, [quiz.ttotiId, quiz.quizId, selectedAnswer])
-
-  return (
-    <QuizWrapper>
-      <MyChoice>나의 선택은 ?</MyChoice>
-      <p>{quiz.quizChoiceContent}</p>
-      <TwoChoiceQuizBody>
-        {Object.keys(quiz.quizChoiceMap).map((key) => (
-          <TwoChoiceButton
-            key={key}
-            $isTodayQuiz={$isTodayQuiz}
-            $isMatching={$isMatching && key === manittoAnswer?.toString()}
-            $isManitoAnswer={$page === 0 ? key === manittoAnswer?.toString() : key === manitiAnswer?.toString()}
-            $isManitiAnswer={$page === 0 ? key === manitiAnswer?.toString() : key === manittoAnswer?.toString()}
-            $isSelected={selectedAnswer === key} // 선택된 상태 전달
-            onClick={() => onSelectAnswer(key)} // 클릭 시 선택 상태 업데이트
-          >
-            {quiz.quizChoiceMap[key]}
-          </TwoChoiceButton>
-        ))}
-      </TwoChoiceQuizBody>
-    </QuizWrapper>
-  );
-};
-
-const OXQuiz: React.FC<{ $page: number; quiz: Quiz; $isTodayQuiz: boolean; selectedAnswer: string | null; onSelectAnswer: (answer: string) => void }> = ({ $page, quiz, $isTodayQuiz, selectedAnswer, onSelectAnswer }) => {
-  const { manittoAnswer, manitiAnswer } = quiz;
-  const $isMatching = manittoAnswer === manitiAnswer;
-
-  return (
-    <div>
-      <MyChoice>나의 선택은 ?</MyChoice>
-      <p>{quiz.quizChoiceContent}</p>
-      <TwoChoiceQuizBody>
-        {Object.keys(quiz.quizChoiceMap).map((key) => (
-          <OXButton
-            key={key}
-            $isTodayQuiz={$isTodayQuiz}
-            $isMatching={$isMatching && key === manittoAnswer?.toString()}
-            $isManitoAnswer={$page === 0 ? key === manittoAnswer?.toString() : key === manitiAnswer?.toString()}
-            $isManitiAnswer={$page === 0 ? key === manitiAnswer?.toString() : key === manittoAnswer?.toString()}
-            $isSelected={selectedAnswer === key} // 선택된 상태 전달
-            onClick={() => onSelectAnswer(key)} // 클릭 시 선택 상태 업데이트
-          >
-            {quiz.quizChoiceMap[key]}
-          </OXButton>
-        ))}
-      </TwoChoiceQuizBody>
-    </div>
-  );
-};
-
 
 const QuizBody: React.FC<CarouselContainerProps> = ({ page, quizData }) => {
   const [currentQuizIndex, setCurrentQuizIndex] = useState(0);
