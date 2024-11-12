@@ -57,12 +57,25 @@ const QuizDate = styled.span`
   font-weight: bold; /* 볼드 스타일 추가 */
 `;
 
+const QuizWrapper = styled.div`
+  width: 240px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+`;
+
 const QuizBodyContainer = styled.div`
   margin-top: 16px; /* QuizHeader와의 간격을 설정 */
   flex-grow: 1; /* 공간을 차지하도록 설정 */
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 0 20px;
+`;
+
+const MyChoice = styled.div`
+  font-weight: bold;
+  font-size: 24px;
 `;
 
 const FourChoiceQuizBody = styled.div`
@@ -78,6 +91,7 @@ const TwoChoiceQuizBody = styled.div`
   justify-content: center;
   align-items: center;
   gap: 10px;
+  margin-top: 30px;
   `;
   
 // 버튼 스타일을 조건에 따라 동적으로 적용하기 위해 props를 추가합니다.
@@ -88,7 +102,7 @@ const FourChoiceButton = styled.button<{
   $isManitiAnswer: boolean;
   $isSelected: boolean;
 }>`
-  width: 200px;
+  width: 240px;
   height: 30px;
   margin-top: 3px;
   border-radius: 10px;
@@ -140,9 +154,9 @@ const FourChoiceQuiz: React.FC<{
 
   }, [quiz.ttotiId, quiz.quizId, selectedAnswer])
   return (
-    <div>
-      <h2>나의 선택은 ?</h2>
-      <p>{quiz.quizChoiceContent}</p>
+    <QuizWrapper>
+      <MyChoice>나의 선택은 ?</MyChoice>
+      <span>{quiz.quizChoiceContent}</span>
       <FourChoiceQuizBody>
         {Object.keys(quiz.quizChoiceMap).map((key) => (
           <FourChoiceButton
@@ -158,7 +172,7 @@ const FourChoiceQuiz: React.FC<{
           </FourChoiceButton>
         ))}
       </FourChoiceQuizBody>
-    </div>
+    </QuizWrapper>
   );
 };
 
@@ -183,8 +197,8 @@ const TwoChoiceQuiz: React.FC<{ $page: number; quiz: Quiz; $isTodayQuiz: boolean
   }, [quiz.ttotiId, quiz.quizId, selectedAnswer])
 
   return (
-    <div>
-      <h2>나의 선택은 ?</h2>
+    <QuizWrapper>
+      <MyChoice>나의 선택은 ?</MyChoice>
       <p>{quiz.quizChoiceContent}</p>
       <TwoChoiceQuizBody>
         {Object.keys(quiz.quizChoiceMap).map((key) => (
@@ -201,7 +215,7 @@ const TwoChoiceQuiz: React.FC<{ $page: number; quiz: Quiz; $isTodayQuiz: boolean
           </TwoChoiceButton>
         ))}
       </TwoChoiceQuizBody>
-    </div>
+    </QuizWrapper>
   );
 };
 
@@ -211,8 +225,9 @@ const OXQuiz: React.FC<{ $page: number; quiz: Quiz; $isTodayQuiz: boolean; selec
 
   return (
     <div>
+      <MyChoice>나의 선택은 ?</MyChoice>
       <p>{quiz.quizChoiceContent}</p>
-      <div>
+      <TwoChoiceQuizBody>
         {Object.keys(quiz.quizChoiceMap).map((key) => (
           <OXButton
             key={key}
@@ -226,7 +241,7 @@ const OXQuiz: React.FC<{ $page: number; quiz: Quiz; $isTodayQuiz: boolean; selec
             {quiz.quizChoiceMap[key]}
           </OXButton>
         ))}
-      </div>
+      </TwoChoiceQuizBody>
     </div>
   );
 };

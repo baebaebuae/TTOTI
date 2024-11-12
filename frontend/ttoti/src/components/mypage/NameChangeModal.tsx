@@ -5,6 +5,7 @@ import { setMemberName, toggleModal, selectMemberName } from '../../stores/slice
 import { changeName } from '@services/apiMyPage';
 
 const ModalOverlay = styled.div`
+  font-family: 'LINESeed';
   position: fixed;
   top: 0;
   left: 0;
@@ -22,7 +23,7 @@ const ModalContent = styled.div`
   padding: 20px 30px;
   border-radius: 8px;  /* 둥근 모서리 */
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);  /* 그림자 효과 */
-  width: 400px;  /* 모달의 너비 */
+  width: 250px;  /* 모달의 너비 */
   max-width: 90%;  /* 화면 크기 대비 최대 90% */
   display: flex;
   flex-direction: column;
@@ -68,29 +69,15 @@ const ModalContent = styled.div`
   }
 
   .confirm-button {
-    background-color: #007bff;
+    background-color: #67C431;
     color: white;
 
-    &:hover {
-      background-color: #0056b3;  /* 버튼에 마우스를 올렸을 때 색 변화 */
-    }
-
-    &:active {
-      background-color: #004085;  /* 버튼 클릭 시 색 변화 */
-    }
   }
 
   .cancel-button {
-    background-color: #dc3545;  /* 빨간색 배경 */
+    background-color: #FF6430;  /* 빨간색 배경 */
     color: white;
 
-    &:hover {
-      background-color: #c82333;  /* 취소 버튼에 마우스를 올렸을 때 색 변화 */
-    }
-
-    &:active {
-      background-color: #bd2130;  /* 취소 버튼 클릭 시 색 변화 */
-    }
   }
 `;
 

@@ -6,6 +6,7 @@ import styled from "styled-components";
 import moment from "moment";
 
 const DateDisplay = styled.div`
+  width: 150px;
   padding: 10px;
   margin-top: 2px;
 `;
