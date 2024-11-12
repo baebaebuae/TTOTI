@@ -78,7 +78,7 @@ const CarouselContainer: React.FC<CarouselContainerProps> = ({
 							size="64px"
 							ready={false}
 						/>
-						<HeartIcon src={heartArrowIcon} alt="Heart Arrow Icon" />
+						<HeartIcon src={heartArrowIcon} alt="Heart Arrow Icon" style={{transform: 'scaleX(-1)'}}/>
 						<ProfileContainer src={manittoImageUrl} size="64px" ready={false} />
 					</>
 				) : (
@@ -88,7 +88,7 @@ const CarouselContainer: React.FC<CarouselContainerProps> = ({
 							size="64px"
 							ready={false}
 						/>
-						<HeartIcon src={heartArrowIcon} alt="Heart Arrow Icon" />
+						<HeartIcon src={heartArrowIcon} alt="Heart Arrow Icon"/>
 						<ProfileContainer
 							src={roomInfo.ttotiMatchInfo.myManitiProfileImageUrl}
 							size="64px"

@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { finishedGameList } from "@services/apiMyPage";
+
 import PlayCredits from "@assets/icons/play_credit.svg?react"
+import ListBoldBox from "@components/common/box/ListBoldBox";
+
+import { finishedGameList } from "@services/apiMyPage";
 
 interface RoomListProps {
   dateRange: [Date, Date];
@@ -39,18 +42,15 @@ const Room = styled.div`
 
 const RoomName = styled.div`
   font-weight: bold;
-  font-size: 1.2rem;
-  margin-bottom: 5px;
-`;
+  margin-top: 4px;
+  `;
 
 const MemberList = styled.div`
-  font-size: 1rem;
-  margin-bottom: 10px;
-`;
+  margin-top: 4px;
+  `;
 
 const DateRange = styled.div`
-  font-size: 0.9rem;
-  color: gray;
+  margin-top: 4px;
 `;
 
 const Icon = styled(PlayCredits)`
@@ -59,6 +59,12 @@ const Icon = styled(PlayCredits)`
   right: 10px;
   width: 40px; /* 원하는 크기로 설정 */
   height: 40px; /* 원하는 크기로 설정 */
+`;
+
+const ContentWrapper = styled.div`
+  display: flex;
+  font-family: 'LINESeed';
+  gap: 10px;
 `;
 
 const RoomList: React.FC<RoomListProps> = ({ dateRange, selectMember }) => {
@@ -89,13 +95,22 @@ const RoomList: React.FC<RoomListProps> = ({ dateRange, selectMember }) => {
       <Icon />
       {rooms.map((room) => (
         <Room key={room.roomId}>
-          <RoomName>{room.roomName}</RoomName>
-          <MemberList>
-            {room.membersName.join(", ")}
-          </MemberList>
-          <DateRange>
-            {room.startDate} ~ {room.endDate}
-          </DateRange>
+          <ContentWrapper>
+            <ListBoldBox size='small' ListText='방 정보'/>
+            <RoomName>{room.roomName}</RoomName>
+          </ContentWrapper>
+          <ContentWrapper>
+            <ListBoldBox size='small' ListText='참여자'/>
+            <MemberList>
+              {room.membersName.join(", ")}
+            </MemberList>
+          </ContentWrapper>
+          <ContentWrapper>
+            <ListBoldBox size='small' ListText='진행기간'/>
+            <DateRange>
+              {room.startDate} ~ {room.endDate}
+            </DateRange>
+          </ContentWrapper>
         </Room>
       ))}
     </RoomListWrapper>

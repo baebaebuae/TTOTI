@@ -43,6 +43,8 @@ const FriendName = styled.span`
 const DropdownWrapper = styled.div`
   position: relative;
   width: 200px;
+  margin-top: 3px;
+  margin-left: 5px;
 `;
 
 const DropdownButton = styled.button`
@@ -163,7 +165,7 @@ const FilteredByFriend: React.FC<FilteredByFriendProps> = ({ selectMember, onMem
             alt={selectedFriend.memberName}
           />
         )}
-        {selectedFriend ? selectedFriend.memberName : "친구를 입력하세요"}
+        {selectedFriend ? selectedFriend.memberName : "친구를 입력하세요!"}
       </DropdownButton>
 
       {dropdownOpen && (
