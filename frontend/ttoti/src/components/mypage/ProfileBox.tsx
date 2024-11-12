@@ -12,7 +12,6 @@ import NameChangeModal from './NameChangeModal';
 
 const ProfileWrapper = styled.div`
   width: 130px;
-  height: 80px;
   display: flex;
   flex-direction: column;
   align-items: center;
