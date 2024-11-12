@@ -16,51 +16,51 @@ firebase.initializeApp({
 
 const messaging = firebase.messaging();
 
-messaging.onBackgroundMessage((payload) => {
-  console.log('[firebase-messaging-sw.js] Received background message ', payload);
-  const notificationTitle = 'B';
-  const notificationOptions = {
-    body: 'B',
-    icon: '/firebase-logo.png'
-  };
+// messaging.onBackgroundMessage((payload) => {
+//   console.log('[firebase-messaging-sw.js] Received background message ', payload);
+//   const notificationTitle = 'B';
+//   const notificationOptions = {
+//     body: 'B',
+//     icon: '/firebase-logo.png'
+//   };
 
-  event.notification.close();
+//   event.notification.close();
 
-  event.waitUntil(
-    clients.matchAll({ type: 'window', includeUncontrolled: true }).then((clientList) => {
-      // 이미 열린 창이 있으면 해당 창으로 포커싱
-      for (const client of clientList) {
-        if (client.url.includes(targetUrl) && 'focus' in client) {
-          return client.focus();
-        }
-      }
-      // 새 창을 열어서 이동
-      if (clients.openWindow) {
-        return clients.openWindow(targetUrl);
-      }
-    })
-  );
-});
+//   event.waitUntil(
+//     clients.matchAll({ type: 'window', includeUncontrolled: true }).then((clientList) => {
+//       // 이미 열린 창이 있으면 해당 창으로 포커싱
+//       for (const client of clientList) {
+//         if (client.url.includes(targetUrl) && 'focus' in client) {
+//           return client.focus();
+//         }
+//       }
+//       // 새 창을 열어서 이동
+//       if (clients.openWindow) {
+//         return clients.openWindow(targetUrl);
+//       }
+//     })
+//   );
+// });
 
-self.addEventListener('notificationclick', function(event) {
-  console.log('알림 클릭됨:', event.notification);
-  const targetUrl = event.notification.data?.url || '/';
+// self.addEventListener('notificationclick', function(event) {
+//   console.log('알림 클릭됨:', event.notification);
+//   const targetUrl = event.notification.data?.url || '/';
 
-  event.notification.close();
+//   event.notification.close();
   
 
-  event.waitUntil(
-    clients.matchAll({ type: 'window', includeUncontrolled: true }).then((clientList) => {
-      // 이미 열린 창이 있으면 해당 창으로 포커싱
-      for (const client of clientList) {
-        if (client.url.includes(targetUrl) && 'focus' in client) {
-          return client.focus();
-        }
-      }
-      // 새 창을 열어서 이동
-      if (clients.openWindow) {
-        return clients.openWindow(targetUrl);
-      }
-    })
-  );
-});
+//   event.waitUntil(
+//     clients.matchAll({ type: 'window', includeUncontrolled: true }).then((clientList) => {
+//       // 이미 열린 창이 있으면 해당 창으로 포커싱
+//       for (const client of clientList) {
+//         if (client.url.includes(targetUrl) && 'focus' in client) {
+//           return client.focus();
+//         }
+//       }
+//       // 새 창을 열어서 이동
+//       if (clients.openWindow) {
+//         return clients.openWindow(targetUrl);
+//       }
+//     })
+//   );
+// });
