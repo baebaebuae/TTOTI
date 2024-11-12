@@ -15,16 +15,12 @@ const firebaseConfig = {
 
 // Firebase 앱 초기화
 if (!firebase.apps.length) {
-	console.log('firebase app initialize')
-	console.log('firebase app initialize')
+	// console.log('firebase app initialize')
 	firebase.initializeApp(firebaseConfig);
 }
 
 export const requestFcmToken = async () => {
-	console.log("isSupported: ",  firebase.messaging.isSupported())
-	if(firebase.messaging.isSupported() === false) return;
-
-	console.log("isSupported: ",  firebase.messaging.isSupported())
+	// console.log("isSupported: ",  firebase.messaging.isSupported())
 	if(firebase.messaging.isSupported() === false) return;
 
 	const apiClient = getApiClient();
@@ -38,18 +34,13 @@ export const requestFcmToken = async () => {
 		});
 
 		if (currentToken) {
+			// console.log("FCM token:", currentToken);
 			messaging.onMessage(payload => {
 				console.log("포그라운드 메시지 수신:", payload);
 				alert("알림 : " + payload.notification.body);
 			})
 
-			console.log("FCM token:", currentToken);
-			messaging.onMessage(payload => {
-				console.log("포그라운드 메시지 수신:", payload);
-				alert("알림 : " + payload.notification.body);
-			})
-
-			console.log("FCM token:", currentToken);
+			// console.log("FCM token:", currentToken);
 			// FCM 토큰을 서버로 전송
 			const res = await apiClient.post('/fcm/device-token', {
 				deviceToken: currentToken,
