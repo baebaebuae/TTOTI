@@ -109,7 +109,7 @@ export const getApiClient = () => {
 					// 인증되지 않은 사용자 에러 -> 토큰 초기화 -> 로그인 화면
 					clearAccessToken();
 					clearRefreshToken();
-					// redirectToLogin();
+					redirectToLogin();
 				}
 
 				return Promise.reject(new Error('잘못된 axios 요청'));
