@@ -1,6 +1,7 @@
 // public/firebase-messaging-sw.js
 importScripts('https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js');
 importScripts('https://www.gstatic.com/firebasejs/8.10.0/firebase-analytics.js');
+importScripts('https://www.gstatic.com/firebasejs/8.10.0/firebase-analytics.js');
 importScripts('https://www.gstatic.com/firebasejs/8.10.0/firebase-messaging.js');
 
 firebase.initializeApp({
@@ -15,16 +16,16 @@ firebase.initializeApp({
 
 const messaging = firebase.messaging();
 
-messaging.onBackgroundMessage((payload) => {
-  console.log('[firebase-messaging-sw.js] Received background message ', payload);
-  const notificationTitle = 'Background Message Title';
-  const notificationOptions = {
-    body: 'Background Message body.',
-    icon: '/firebase-logo.png'
-  };
+// messaging.onBackgroundMessage((payload) => {
+//   console.log('[firebase-messaging-sw.js] Received background message ', payload);
+//   const notificationTitle = 'B';
+//   const notificationOptions = {
+//     body: 'B',
+//     icon: '/firebase-logo.png'
+//   };
 
-  self.registration.showNotification(
-    notificationTitle,
-    notificationOptions
-  );
-});
+//   self.registration.showNotification(
+//     notificationTitle,
+//     notificationOptions
+//   );
+// });

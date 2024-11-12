@@ -16,6 +16,7 @@ const firebaseConfig = {
 // Firebase 앱 초기화
 if (!firebase.apps.length) {
 	console.log('firebase app initialize')
+	console.log('firebase app initialize')
 	firebase.initializeApp(firebaseConfig);
 }
 
@@ -23,9 +24,13 @@ export const requestFcmToken = async () => {
 	console.log("isSupported: ",  firebase.messaging.isSupported())
 	if(firebase.messaging.isSupported() === false) return;
 
+	console.log("isSupported: ",  firebase.messaging.isSupported())
+	if(firebase.messaging.isSupported() === false) return;
+
 	const apiClient = getApiClient();
 
 	const messaging = firebase.messaging()
+	
 	try {
 		// console.log("FCM 토큰 요청 중...");
 		const currentToken = await messaging.getToken({
@@ -33,6 +38,12 @@ export const requestFcmToken = async () => {
 		});
 
 		if (currentToken) {
+			messaging.onMessage(payload => {
+				console.log("포그라운드 메시지 수신:", payload);
+				alert("알림 : " + payload.notification.body);
+			})
+
+			console.log("FCM token:", currentToken);
 			messaging.onMessage(payload => {
 				console.log("포그라운드 메시지 수신:", payload);
 				alert("알림 : " + payload.notification.body);
@@ -56,21 +67,3 @@ export const requestFcmToken = async () => {
 		throw error;
 	}
 };
-
-// 포그라운드 메시지 수신 처리
-// messaging.onMessage((payload) => {
-// 	console.log("포그라운드 메시지 수신:", payload);
-// 	const notificationTitle = payload.notification?.title || '알림';
-// 	const notificationOptions = {
-// 		body: payload.notification?.body || '새로운 알림이 도착했습니다.',
-// 	};
-
-// 	if (Notification.permission === 'granted') {
-// 		new Notification(notificationTitle, notificationOptions);
-// 	}
-// });
-
-// messaging.onMessage((payload) => {
-//   console.log(payload.notification.title);
-//   console.log(payload.notification.body);
-// });
