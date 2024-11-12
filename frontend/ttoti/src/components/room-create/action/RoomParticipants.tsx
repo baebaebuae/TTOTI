@@ -47,7 +47,7 @@ const PlusButton = ({
 }: {
 	onClick: React.MouseEventHandler<SVGSVGElement>;
 }) => {
-	return <PlusIcon onClick={onClick} style={{ cursor: 'pointer' }}/>;
+	return <PlusIcon onClick={onClick} style={{ cursor: 'pointer' }} />;
 };
 
 const MinusButton = ({
@@ -55,7 +55,7 @@ const MinusButton = ({
 }: {
 	onClick: React.MouseEventHandler<SVGSVGElement>;
 }) => {
-	return <MinusIcon onClick={onClick} style={{ cursor: 'pointer' }}/>;
+	return <MinusIcon onClick={onClick} style={{ cursor: 'pointer' }} />;
 };
 
 interface RoomParticipantsProps {
@@ -85,11 +85,11 @@ const RoomParticipants = ({
 	};
 
 	const handleDecrease = () => {
-		if (count > 3) {
+		if (count > 4) {
 			setCount(count - 1);
 			setAlertMessage('');
 		} else {
-			setAlertMessage('최소 또띠 인원은 3명입니다.');
+			setAlertMessage('최소 또띠 인원은 4명입니다.');
 		}
 	};
 
