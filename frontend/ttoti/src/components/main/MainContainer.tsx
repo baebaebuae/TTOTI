@@ -1,7 +1,9 @@
+import { useState } from 'react';
 import DefaultButtons from '@components/common/buttons/DefaultButtons';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
+import DescriptionModal from '@components/common/modals/DescriptionModal';
 const MainWrapper = styled.div`
 	display: flex;
 	width: 360px;
@@ -10,7 +12,7 @@ const MainWrapper = styled.div`
 	align-items: center;
 	gap: 10px;
 	position: absolute;
-	bottom: 300px;
+	bottom: 260px;
 `;
 const MainColumn = styled.div`
 	display: flex;
@@ -30,8 +32,18 @@ const MainText = styled.div`
 	color: white;
 	font-weight: 300;
 `;
-
+const ModalBackground = styled.div`
+	position: fixed;
+	width: 100vw;
+	height: 100vh;
+	background-color: rgba(0, 0, 0, 0.5);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 1;
+`;
 const MainContainer = () => {
+	const [modalOpen, setModalOpen] = useState(false);
 	const navigate = useNavigate();
 	const goToCreate = () => {
 		navigate('/room-create');
@@ -39,18 +51,37 @@ const MainContainer = () => {
 	const goToList = () => {
 		navigate('/room-list');
 	};
+
+	const openDesriptionModal = () => {
+		setModalOpen(true);
+	};
+	const closeDesriptionModal = () => {
+		setModalOpen(false);
+	};
 	return (
-		<MainWrapper>
-			<MainText>원하는 또띠 서비스를 선택해주세요!</MainText>
-			<MainColumn>
-				<MainButtons color="point" onClick={goToCreate}>
-					또띠 방 생성하기
-				</MainButtons>
-				<MainButtons color="success" onClick={goToList}>
-					나의 또띠 입장하기
-				</MainButtons>
-			</MainColumn>
-		</MainWrapper>
+		<>
+			{modalOpen && (
+				<ModalBackground>
+					<DescriptionModal onClose={closeDesriptionModal} />
+				</ModalBackground>
+			)}
+			<MainWrapper>
+				<MainText>원하는 또띠 서비스를 선택해주세요!</MainText>
+				<MainColumn>
+					{/* 임시 설명 버튼 생성  */}
+					<MainButtons color="info" onClick={openDesriptionModal}>
+						또띠 서비스 설명
+					</MainButtons>
+
+					<MainButtons color="point" onClick={goToCreate}>
+						또띠 방 생성하기
+					</MainButtons>
+					<MainButtons color="success" onClick={goToList}>
+						나의 또띠 입장하기
+					</MainButtons>
+				</MainColumn>
+			</MainWrapper>
+		</>
 	);
 };
 
