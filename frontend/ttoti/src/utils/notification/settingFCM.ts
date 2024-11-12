@@ -51,7 +51,7 @@ export const requestFcmToken = async () => {
 
 			console.log("FCM token:", currentToken);
 			// FCM 토큰을 서버로 전송
-			const res = await apiClient.post('/notifications/device-token', {
+			const res = await apiClient.post('/fcm/device-token', {
 				deviceToken: currentToken,
 			});
 
