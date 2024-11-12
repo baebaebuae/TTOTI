@@ -67,6 +67,18 @@ const CharacterSelectPage: React.FC = () => {
 		setCharacterIndex(index + 1);
 	};
 
+	const parseContent = (content: string): JSX.Element[] => {
+		const splitLines = content.split('\\n');
+		console.log(splitLines);
+
+		return splitLines.map((line, index) => (
+			<div key={index}>
+				{line}
+				<br />
+			</div>
+		));
+	};
+
 	return (
 		<PageContainer>
 			<Overlay />
@@ -89,7 +101,9 @@ const CharacterSelectPage: React.FC = () => {
 							</ImageBox>
 							<CharacterText>
 								<Name>{character.animalName}</Name>
-								<Description>{character.animalDescription}</Description>
+								<Description>
+									{parseContent(character.animalDescription)}
+								</Description>
 							</CharacterText>
 						</Card>
 					))}
@@ -164,7 +178,7 @@ interface CardProps {
 const Card = styled.div<CardProps>`
 	display: flex;
 	flex-direction: row;
-	height: 130px;
+	/* height: 130px; */
 	box-sizing: border-box;
 	border-top: 1px solid white;
 	border-bottom: 1px solid white;
@@ -204,10 +218,14 @@ const Name = styled.h2`
 	font-weight: normal;
 `;
 
-const Description = styled.p`
+const Description = styled.div`
 	font-family: 'LINESeed';
 	font-size: 14px;
+	max-width: 215px;
 	font-weight: normal;
+	/* 줄바꿈 허용 */
+	word-wrap: break-word;
+	white-space: normal;
 `;
 
 const FooterContainer = styled.footer`
