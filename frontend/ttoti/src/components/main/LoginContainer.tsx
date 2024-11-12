@@ -1,7 +1,7 @@
 import DefaultButtons from '@components/common/buttons/DefaultButtons';
 import styled from 'styled-components';
 import Kakao from '@assets/icons/kakao.svg?react';
-import { requestFcmToken } from '@utils/notification/settingFCM';
+// import { requestFcmToken } from '@utils/notification/settingFCM';
 
 const LoginWrapper = styled.div`
 	display: flex;
@@ -45,7 +45,7 @@ const LoginContainer = () => {
 		} catch (error) {
 			console.log('Redirect Error:', error);
 		} finally {
-			requestFcmToken();
+			// requestFcmToken();
 		}
 	};
 	return (
