@@ -1,8 +1,12 @@
 import ProfileContainer from '@components/common/ProfileComponents';
-import profile1 from '@assets/profiles/profile1.png';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectMemberName, toggleModal, selectIsModalOpen } from '../../stores/slices/userSlice';
+import {
+	selectMemberName,
+	toggleModal,
+	selectIsModalOpen,
+	selectMemberProfile,
+} from '../../stores/slices/userSlice';
 import EditNameIcon from '@assets/icons/edit_name.svg?react';
 import NameChangeModal from './NameChangeModal';
 
@@ -31,23 +35,24 @@ const UserName = styled.div`
 `;
 
 const ProfileBox = () => {
-  const dispatch = useDispatch();
-  const userName = useSelector(selectMemberName);
-  const isModalOpen = useSelector(selectIsModalOpen);
+	const dispatch = useDispatch();
+	const userName = useSelector(selectMemberName);
+	const isModalOpen = useSelector(selectIsModalOpen);
+	const myProfile = useSelector(selectMemberProfile);
 
-  return (
-    <ProfileWrapper>
-      <ProfileContainer src={profile1} size="75px" ready={false} />
-      <UserBox>
-        <UserName>{userName}</UserName>
-        <EditNameIcon 
-          style={{ marginLeft: 3, marginTop: 3 }} 
-          onClick={() => dispatch(toggleModal())} 
-        />
-      </UserBox>
-      {isModalOpen && <NameChangeModal />}
-    </ProfileWrapper>
-  );
+	return (
+		<ProfileWrapper>
+			<ProfileContainer src={myProfile} size="75px" ready={false} />
+			<UserBox>
+				<UserName>{userName}</UserName>
+				<EditNameIcon
+					style={{ marginLeft: 3, marginTop: 3 }}
+					onClick={() => dispatch(toggleModal())}
+				/>
+			</UserBox>
+			{isModalOpen && <NameChangeModal />}
+		</ProfileWrapper>
+	);
 };
 
 export default ProfileBox;
