@@ -103,12 +103,12 @@ const EnterCodeModal = ({ onClose }: EnterModalProps) => {
 				if (res.data.body) {
 					const roomId = res.data.body['roomId'];
 					navigate(`/game-waiting/${roomId}`);
-					console.log('초대코드 입장 성공');
+					// console.log('초대코드 입장 성공');
 				} else {
-					console.log('초대코드 입장 실패');
+					// console.log('초대코드 입장 실패');
 				}
 			} else {
-				console.log('코드 입장 api 요청 실패');
+				// console.log('코드 입장 api 요청 실패');
 			}
 		} catch (err) {
 			console.error(err);
