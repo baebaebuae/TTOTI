@@ -4,7 +4,7 @@
 
 .react-calendar {
   border: none;
-  border-radius: 20px 20px 0 0;
+  border-radius: 20px 20px 20px 20px;
   text-decoration-line: none;
 }
 .react-calendar__navigation {
@@ -65,6 +65,7 @@
   padding: 12px 32px;
   font-size: 16px;
   font-weight: 500;
+  height: 300px;
 }
 
 .react-calendar__month-view__weekdays {
