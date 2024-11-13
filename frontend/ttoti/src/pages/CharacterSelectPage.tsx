@@ -69,7 +69,7 @@ const CharacterSelectPage: React.FC = () => {
 
 	const parseContent = (content: string): JSX.Element[] => {
 		const splitLines = content.split('\\n');
-		console.log(splitLines);
+		// console.log(splitLines);
 
 		return splitLines.map((line, index) => (
 			<div key={index}>

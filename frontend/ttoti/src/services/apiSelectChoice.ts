@@ -14,7 +14,7 @@ export const manittoChoiceAnswer = async (
 		if (res.status === 200) {
 			// 임시 콘솔
 			// console.log('지문 선택 완료 !!');
-			console.log('마니띠 탭에서 출력되어야 하는 콘솔로그');
+			// console.log('마니띠 탭에서 출력되어야 하는 콘솔로그');
 			return res.data.message;
 		}
 	} catch (error) {
@@ -37,7 +37,7 @@ export const manitiChoiceAnswer = async (
 		if (res.status === 200) {
 			// 임시 콘솔
 			// console.log('지문 선택 완료 !!');
-			console.log('마니또 탭에서 출력되어야 하는 콘솔로그');
+			// console.log('마니또 탭에서 출력되어야 하는 콘솔로그');
 			return res.data.message;
 		}
 	} catch (error) {

@@ -60,8 +60,8 @@ const TwoChoiceQuizBody = styled.div`
 const TwoChoiceButton = styled(FourChoiceButton)`
 	width: 90px;
 	height: 90px;
-	border: ${({ $isMatching }) =>
-		$isMatching ? '2px solid red' : '1px solid black'};
+	border: ${({ $isTodayQuiz, $isMatching }) =>
+		!$isTodayQuiz && $isMatching ? '2px solid red' : 'none'};
 `;
 
 const ResultMessage = styled.div`
@@ -80,7 +80,7 @@ const TwoChoiceQuiz: React.FC<{
 }> = ({ $page, quiz, $isTodayQuiz, selectedAnswer, onSelectAnswer }) => {
 	const { manittoAnswer, manitiAnswer } = quiz;
 	const $isMatching = manittoAnswer === manitiAnswer;
-	console.log(quiz);
+	// console.log(quiz);
 
 	let resultMessage = '';
 	if (manittoAnswer && manitiAnswer) {

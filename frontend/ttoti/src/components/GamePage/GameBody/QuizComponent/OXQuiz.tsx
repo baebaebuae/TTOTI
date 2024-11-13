@@ -61,8 +61,8 @@ const TwoChoiceQuizBody = styled.div`
 const OXButton = styled(FourChoiceButton)`
 	width: 90px;
 	height: 90px;
-	border: ${({ $isMatching }) =>
-		$isMatching ? '2px solid red' : '1px solid black'};
+	border: ${({ $isTodayQuiz, $isMatching }) =>
+		!$isTodayQuiz && $isMatching ? '2px solid red' : 'none'};
 `;
 
 const ResultMessage = styled.div`
@@ -120,7 +120,7 @@ const OXQuiz: React.FC<{
 
 		chooseAnswer();
 	}, [quiz.ttotiId, quiz.quizId, selectedAnswer, $page]);
-	console.log(quiz);
+	// console.log(quiz);
 	return (
 		<QuizWrapper>
 			{$isTodayQuiz && (
