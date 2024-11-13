@@ -75,7 +75,7 @@ export const ButtonContainer = ({
 	return (
 		<ButtonWrapper>
 			<ExplainText>{explainText}</ExplainText>
-			<DefaultButtons color={buttonColor1} onClick={onClick1}>
+			<DefaultButtons color={buttonColor1} onClick={onClick1} style={{"display": "none"}}>
 				{buttonColor1 === 'login' && <Kakao />}
 				{buttonText1}
 			</DefaultButtons>

@@ -60,7 +60,7 @@ const InviteContents: React.FC<{ roomCode: string }> = ({ roomCode }) => {
 	};
 	return (
 		<InviteWrapper>
-			<InviteColumn>
+			<InviteColumn style={{"display": "none"}}>
 				<ListBox size="small" ListText="초대 링크" />
 				<InviteBox>
 					<InviteText>https://ttoti.invte</InviteText>
