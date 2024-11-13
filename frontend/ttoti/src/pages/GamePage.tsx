@@ -63,7 +63,10 @@ const GamePage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const roomId = Number(id);
   const [roomInfo, setRoomInfo] = useState<RoomInfo>();
+  const [activeTab, setActiveTab] = useState('quiz'); // 초기 탭을 'quiz'로 설정
 
+  // console.log(roomInfo);
+  // console.log(quizData);
   useEffect(() => {
     const fetchRoomInfo = async () => {
       try {
@@ -91,7 +94,7 @@ const GamePage: React.FC = () => {
     };
     
     fetchQuizData();
-  }, [roomInfo]);
+  }, [roomInfo, activeTab]);
 
   return (
     <GamePageContainer>
@@ -103,7 +106,7 @@ const GamePage: React.FC = () => {
       </RoomTitleWrapper>
       <GameWrapper>
       {roomInfo &&
-        <Game quizData={quizData} roomInfo={roomInfo}/>}
+        <Game activeTab={activeTab} onChangeTab={setActiveTab} quizData={quizData} roomInfo={roomInfo}/>}
       </GameWrapper>
     </GamePageContainer>
   );
