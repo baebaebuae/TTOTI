@@ -36,7 +36,7 @@ export const requestFcmToken = async () => {
 		if (currentToken) {
 			// console.log("FCM token:", currentToken);
 			messaging.onMessage(payload => {
-				console.log("포그라운드 메시지 수신:", payload);
+				// console.log("포그라운드 메시지 수신:", payload);
 				alert("알림 : " + payload.notification.body);
 			})
 

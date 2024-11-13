@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+import { useNavigate } from 'react-router-dom';
 
 import PlayCredits from "@assets/icons/play_credit.svg?react"
 import ListBoldBox from "@components/common/box/ListBoldBox";
@@ -54,15 +55,16 @@ const DateRange = styled.div`
 `;
 
 const Icon = styled(PlayCredits)`
-  position: absolute;
-  top: 10px;
-  right: 10px;
+  margin-left: auto;
   width: 40px; /* 원하는 크기로 설정 */
   height: 40px; /* 원하는 크기로 설정 */
+  cursor: pointer;
 `;
 
 const ContentWrapper = styled.div`
   display: flex;
+  flex-direction: row;
+  align-items: center;
   font-family: 'LINESeed';
   gap: 10px;
 `;
@@ -90,14 +92,20 @@ const RoomList: React.FC<RoomListProps> = ({ dateRange, selectMember }) => {
     fetchGameList();
   }, [dateRange, selectMember]);
 
+  const navigate = useNavigate();
+
+  const handleIconClick = (id: number) => {
+    navigate(`/credit/${id}`);
+  };
+
   return (
     <RoomListWrapper>
-      <Icon />
       {rooms.map((room) => (
         <Room key={room.roomId}>
           <ContentWrapper>
             <ListBoldBox size='small' ListText='방 정보'/>
             <RoomName>{room.roomName}</RoomName>
+            <Icon onClick={() => handleIconClick(room.roomId)} />
           </ContentWrapper>
           <ContentWrapper>
             <ListBoldBox size='small' ListText='참여자'/>

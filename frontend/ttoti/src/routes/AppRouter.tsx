@@ -189,7 +189,7 @@ const AppRouter = () => {
 				/>
 				<Route path="/landing" element={<LandingPage />} />
 				<Route
-					path="/credit"
+					path="/credit/:id"
 					element={
 						<RequireAuth>
 							<CreditPage />
