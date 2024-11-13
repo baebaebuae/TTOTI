@@ -16,6 +16,7 @@ const MyName = styled.div`
 	font-size: 16px;
 	color: white;
 `;
+
 const MyProfile = () => {
 	const memberName = useSelector(selectMemberName);
 	return (
