@@ -1,4 +1,5 @@
 // src/stories/Game.stories.tsx
+import { useState } from 'react';
 import { Meta, StoryFn } from '@storybook/react';
 import Game from '@components/GamePage/Game';
 import { ThemeProvider } from 'styled-components';
@@ -143,11 +144,24 @@ const mockRoomInfo: RoomInfo = {
     }
 
 // 스토리 1: 기본 게임 화면
-const Template: StoryFn<typeof Game> = () => (
-  <ThemeProvider theme={theme}>
-    <Game quizData={mockQuizData} roomInfo={mockRoomInfo}/> {/* quizData prop 전달 */}
-  </ThemeProvider>
-);
+const Template: StoryFn<typeof Game> = () => {
+    const [activeTab, setActiveTab] = useState('quiz'); // 초기 탭 설정
+  
+    const handleTabChange = (tab: string) => {
+      setActiveTab(tab);
+    };
+  
+    return (
+      <ThemeProvider theme={theme}>
+        <Game
+          quizData={mockQuizData}
+          roomInfo={mockRoomInfo}
+          activeTab={activeTab}
+          onChangeTab={handleTabChange}
+        />
+      </ThemeProvider>
+    );
+  };
 
 // 기본 예시
 export const Default = Template.bind({});

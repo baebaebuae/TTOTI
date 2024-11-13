@@ -25,8 +25,8 @@ const ImageWrapper = styled.div`
 `;
 
 const ProfileImage = styled.img`
-	width: 60px;
-	height: 60px;
+	width: 70px;
+	height: 70px;
 	object-fit: cover;
 	border-radius: 50%;
 `;

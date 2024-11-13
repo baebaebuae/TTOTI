@@ -56,11 +56,8 @@ const CarouselContainer: React.FC<CarouselContainerProps> = ({
 		? roomInfo.ttotiMatchInfo.myManittoAnimalName
 		: roomInfo.ttotiMatchInfo.myManitiMemberName;
 
-	const manittoImageUrl =
-		roomInfo.ttotiMatchInfo.myManittoAnimalImageUrl.includes('kakao')
-			? roomInfo.ttotiMatchInfo.myManittoAnimalImageUrl
-			: `../images/characters/${roomInfo.ttotiMatchInfo.myAnimalImageUrl}`;
-	// console.log(roomInfo.ttotiMatchInfo);
+	const manittoImageUrl = `../images/characters/${roomInfo.ttotiMatchInfo.myManittoAnimalImageUrl}`;
+	// console.log(roomInfo);
 	// console.log(`내 마니또 프로필 이름 : ${roomInfo.ttotiMatchInfo.myManittoAnimalName}`);
 	// console.log(`내 마니또 프로필 이미지 : ${roomInfo.ttotiMatchInfo.myManittoAnimalImageUrl}`);
 	// console.log(`내 마니띠 프로필 이름 : ${roomInfo.ttotiMatchInfo.myManitiMemberName}`);
