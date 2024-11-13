@@ -37,8 +37,8 @@ const LogoDiv = styled.div`
 	flex-direction: column;
 	width: 100vw;
 	position: absolute;
-	top: 70px;
-	gap: 25px;
+	top: 50px;
+	gap: 15px;
 `;
 
 const RoomListPage = () => {

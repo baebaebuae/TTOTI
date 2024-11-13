@@ -30,7 +30,7 @@ const CloudImage = styled.img`
 	width: 72px;
 	top: 80px;
 	margin-right: 190px;
-	z-index: 1;
+	z-index: 0;
 	transform: translateX(-50%);
 
   &:nth-child(2) {
@@ -45,7 +45,7 @@ const RoomTitleWrapper = styled.div`
   justify-content: flex-end;
   width: 384px;
   height: 75px;
-  top: 62px;
+  top: 20px;
   /* right: -12px; */
 `;
 
@@ -55,7 +55,8 @@ const GameWrapper = styled.div`
   transform: translateX(-50%);
   width: 380px;
   height: 539px;
-  top: 230px;
+  bottom: 0;
+  z-index: 2;
 `;
 
 const GamePage: React.FC = () => {
