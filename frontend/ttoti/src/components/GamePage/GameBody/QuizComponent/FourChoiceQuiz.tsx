@@ -25,7 +25,8 @@ const FourChoiceButton = styled.button<{
 	height: 30px;
 	margin-top: 3px;
 	border-radius: 10px;
-	border: ${({ $isMatching }) => ($isMatching ? '2px solid red' : 'none')};
+	border: ${({ $isTodayQuiz, $isMatching }) =>
+		!$isTodayQuiz && $isMatching ? '2px solid red' : 'none'};
 	background-color: ${({
 		$isTodayQuiz,
 		$isSelected,
@@ -35,11 +36,11 @@ const FourChoiceButton = styled.button<{
 	}) =>
 		$isTodayQuiz && $isSelected
 			? '#67C431' // 선택된 답변 강조 (노란색) - 오늘의 퀴즈인 경우에만
-			: $isMatching
+			: !$isTodayQuiz && $isMatching
 				? '#67C431'
 				: $isManitiAnswer
 					? '#67C431'
-					: $isManitoAnswer
+					: !$isTodayQuiz && $isManitoAnswer
 						? '#FF6430'
 						: '#E1E9EF'};
 `;
