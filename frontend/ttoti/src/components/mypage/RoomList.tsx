@@ -25,8 +25,8 @@ const RoomListWrapper = styled.div`
 	display: grid;
 	gap: 5px;
 	height: 325px;
-	overflow-y: auto; /* 수직 스크롤 활성화 */
-	position: relative; /* 아이콘을 절대 위치로 배치하기 위해 relative로 설정 */
+	overflow-y: auto;
+	position: relative;
 `;
 
 const Room = styled.div`
@@ -57,8 +57,8 @@ const DateRange = styled.div`
 
 const Icon = styled(PlayCredits)`
   margin-left: auto;
-  width: 40px; /* 원하는 크기로 설정 */
-  height: 40px; /* 원하는 크기로 설정 */
+  width: 40px;
+  height: 40px;
   cursor: pointer;
 `;
 
