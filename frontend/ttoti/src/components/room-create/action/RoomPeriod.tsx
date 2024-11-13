@@ -109,14 +109,15 @@ const PeriodSlider = ({
 	onChange: SliderProps['onChange'];
 }) => {
 	const marks = [
-		{ value: 3, label: '3일' },
+		{ value: 1, label: '1일' },
+		{ value: 7, label: '7일' },
 		{ value: 14, label: '14일' },
 	];
 	return (
 		<CustomedSlider
 			value={value}
 			onChange={onChange}
-			min={3}
+			min={1}
 			max={14}
 			marks={marks}
 			step={1}
