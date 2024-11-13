@@ -132,9 +132,9 @@ const DescriptionContent = ({ index }: DescriptionContentProps) => {
 			</ExplainColumn>
 			<TextWrapper>
 				{info.steps.map((step, stepIndex) => (
-					<ExplainColumn>
-						<TextContainer key={stepIndex}>🔸</TextContainer>
-						<TextContainer key={stepIndex}>{step}</TextContainer>
+					<ExplainColumn key={stepIndex}>
+						<TextContainer>🔸</TextContainer>
+						<TextContainer>{step}</TextContainer>
 					</ExplainColumn>
 				))}
 			</TextWrapper>

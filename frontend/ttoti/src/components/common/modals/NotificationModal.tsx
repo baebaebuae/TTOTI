@@ -47,11 +47,11 @@ const NotificationModal = ({ onClose, roomId }: NotificationModalProps) => {
 			try {
 				const res = await apiClient.get(`notifications/${roomId}`);
 				if (res.status === 200) {
-					console.log('알림함 on');
-					console.log(res.data.body);
+					// console.log('알림함 on');
+					// console.log(res.data.body);
 					setNotifications(res.data.body);
 				} else {
-					console.log('get failed');
+					// console.log('get failed');
 				}
 			} catch (error) {
 				console.error('API 요청 오류:', error);

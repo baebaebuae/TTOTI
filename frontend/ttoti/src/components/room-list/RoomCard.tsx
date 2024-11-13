@@ -93,7 +93,7 @@ const RoomCard = ({ room, onNotificationClick }: RoomCardWithModalProps) => {
 				onClick={() => onNotificationClick(room.roomId)}
 			/>
 			{room.finishedAt ? (
-				<DateBox color="main">{room.finishedAt}</DateBox>
+				<DateBox color="main">종료 : {room.finishedAt}</DateBox>
 			) : (
 				<DateBox color="background">게임 준비중...</DateBox>
 			)}

@@ -13,6 +13,7 @@ const FriendBox = styled.div`
   align-items: center;
   padding: 10px;
   border-bottom: 1px solid #ddd;
+  
   cursor: pointer;
 
   &:hover {
@@ -49,6 +50,7 @@ const DropdownWrapper = styled.div`
 
 const DropdownButton = styled.button`
   width: 140px;
+  height: 35px;
   padding: 8px;
   font-size: 16px;
   text-align: left;
@@ -68,7 +70,7 @@ const DropdownContent = styled.div`
   position: absolute;
   width: 154px;
   top: 43px;
-  right: 45px;
+  right: 50px;
   max-height: 200px;
   overflow-y: auto;
   border: 1px solid #ddd;
@@ -156,6 +158,10 @@ const FilteredByFriend: React.FC<FilteredByFriendProps> = ({ selectMember, onMem
 
   const selectedFriend = friends.find(friend => friend.memberId === selectMember);
 
+  const handleFriendName = (name: string) => {
+    return name.length > 5 ? `${name.slice(0, 5)}...` : name;
+  };
+
   return (
     <DropdownWrapper ref={dropdownRef}>
       <DropdownButton onClick={toggleDropdown}>
@@ -165,7 +171,7 @@ const FilteredByFriend: React.FC<FilteredByFriendProps> = ({ selectMember, onMem
             alt={selectedFriend.memberName}
           />
         )}
-        {selectedFriend ? selectedFriend.memberName : "친구를 입력하세요!"}
+        {selectedFriend ? handleFriendName(selectedFriend.memberName) : "친구를 입력하세요!"}
       </DropdownButton>
 
       {dropdownOpen && (
@@ -186,7 +192,7 @@ const FilteredByFriend: React.FC<FilteredByFriendProps> = ({ selectMember, onMem
                   src={friend.memberProfileImageUrl}
                   alt={friend.memberName}
                 />
-                <FriendName>{friend.memberName}</FriendName>
+                <FriendName>{handleFriendName(friend.memberName)}</FriendName>
               </FriendBox>
             ))
           ) : (

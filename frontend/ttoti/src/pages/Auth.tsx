@@ -19,7 +19,7 @@ const Auth = () => {
 					// local에 저장
 					localStorage.setItem('accessToken', accessToken);
 					localStorage.setItem('refreshToken', refreshToken);
-					console.log('토큰 저장 완료!');
+					// console.log('토큰 저장 완료!');
 
 					const apiClient = getApiClient();
 
@@ -38,16 +38,16 @@ const Auth = () => {
 							}),
 						);
 					} else {
-						console.log('유저 정보 저장 실패');
+						// console.log('유저 정보 저장 실패');
 					}
 
 					// 메인 페이지로 이동
 					navigate('/');
 				} catch (error) {
-					console.log('fetchUserState Error : ', error);
+					console.error('fetchUserState Error : ', error);
 				}
 			} else {
-				console.log('인증 실패');
+				// console.log('인증 실패');
 			}
 		};
 
