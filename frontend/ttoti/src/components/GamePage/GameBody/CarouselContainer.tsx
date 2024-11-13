@@ -57,7 +57,7 @@ const CarouselContainer: React.FC<CarouselContainerProps> = ({
 		: roomInfo.ttotiMatchInfo.myManitiMemberName;
 
 	const manittoImageUrl = `../images/characters/${roomInfo.ttotiMatchInfo.myManittoAnimalImageUrl}`;
-	console.log(roomInfo);
+	// console.log(roomInfo);
 	// console.log(`내 마니또 프로필 이름 : ${roomInfo.ttotiMatchInfo.myManittoAnimalName}`);
 	// console.log(`내 마니또 프로필 이미지 : ${roomInfo.ttotiMatchInfo.myManittoAnimalImageUrl}`);
 	// console.log(`내 마니띠 프로필 이름 : ${roomInfo.ttotiMatchInfo.myManitiMemberName}`);
