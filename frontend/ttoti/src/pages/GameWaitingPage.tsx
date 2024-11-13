@@ -131,6 +131,10 @@ const GameWaitingPage: React.FC = () => {
 		isDragging = false;
 	};
 
+  const handleName = (name: string) => {
+    return name.length > 5 ? `${name.slice(0, 5)}...` : name;
+  };
+
 	return (
 		<>
 			<LogoDiv>
@@ -183,7 +187,9 @@ const GameWaitingPage: React.FC = () => {
 									src={member.profileImageUrl}
 									ready={member.isReady}
 								/>
-								<ParticipantName>{member.name}</ParticipantName>
+								<ParticipantName>
+									{handleName(member.name)}
+								</ParticipantName>
 							</Participant>
 						),
 					)}
