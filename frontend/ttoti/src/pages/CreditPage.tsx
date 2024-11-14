@@ -2,6 +2,15 @@
 // import { useState, useEffect } from 'react';
 // import { useParams } from 'react-router-dom';
 // import { getApiClient } from '@services/apiClient';
+import styled from 'styled-components';
+
+const HeadText = styled.div`
+	font-family: 'GmarketSans';
+	font-size: 16px;
+	text-align: center;
+	color: white;
+	font-weight: 300;
+`;
 
 const CreditPage = () => {
 	// const { id: roomId } = useParams<{ id: string }>();
@@ -25,7 +34,7 @@ const CreditPage = () => {
 	// 	fetchRoomData();
 	// }, []);
 
-	return <h1>크레딧 페이지</h1>;
+	return <HeadText>😹 크레딧 페이지 준비중입니다! 😹</HeadText>;
 };
 
 export default CreditPage;
