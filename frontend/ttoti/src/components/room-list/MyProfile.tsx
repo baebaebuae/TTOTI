@@ -1,11 +1,7 @@
 import styled from 'styled-components';
 // import MyPageIcon from '@components/main/MyPageIcon';
-import { useSelector } from 'react-redux';
-import {
-	selectMemberName,
-	selectMemberProfile,
-} from '@stores/slices/userSlice';
-import { useNavigate } from 'react-router-dom';
+// import { useSelector } from 'react-redux';
+// import { selectMemberName } from '@stores/slices/userSlice';
 
 const MyProfileContainer = styled.div`
 	display: flex;
@@ -15,11 +11,11 @@ const MyProfileContainer = styled.div`
 	gap: 10px;
 `;
 
-const MyName = styled.div`
-	font-family: 'GmarketSans';
-	font-size: 16px;
-	color: white;
-`;
+// const MyName = styled.div`
+// 	font-family: 'GmarketSans';
+// 	font-size: 16px;
+// 	color: white;
+// `;
 
 const ProfileContainer = styled.div`
 	display: flex;
@@ -58,11 +54,11 @@ const MyPageIcon = () => {
 };
 
 const MyProfile = () => {
-	const memberName = useSelector(selectMemberName);
+	// const memberName = useSelector(selectMemberName);
 	return (
 		<MyProfileContainer>
-			<MyPageIcon />
-			<MyName>{memberName}</MyName>
+			{/* <MyPageIcon /> */}
+			{/* <MyName>{memberName}</MyName> */}
 		</MyProfileContainer>
 	);
 };
