@@ -9,7 +9,6 @@ const RoomWrapper = styled.div`
   align-items: center;
 `;
 
-
 const RoomInfo = () => {
   return <RoomWrapper>
     <RoomHeader />

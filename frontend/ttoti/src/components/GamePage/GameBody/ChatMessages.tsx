@@ -38,7 +38,7 @@ const MessageBubble = styled.div<{ $isOwnMessage: boolean }>`
   padding: 10px;
   border-radius: 15px;
   font-size: 16px;
-  max-width: 70%;
+  max-width: 250px;
   min-width: 40px;
   word-wrap: break-word;
   white-space: pre-wrap;

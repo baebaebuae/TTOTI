@@ -3,8 +3,8 @@ import styled from 'styled-components';
 import {
 	Modal,
 	ModalTitle,
-	ButtonContainer,
 } from '@components/common/modals/ModalCard';
+import DefaultButtons from '@components/common/buttons/DefaultButtons';
 import ListBox from '@components/common/box/ListBox';
 import DuplicateIcon from '@assets/icons/duplicate.svg?react';
 
@@ -16,30 +16,17 @@ interface inviteProps {
 const InviteModal: React.FC<inviteProps> = ({ onClose, roomCode }) => {
 	const subtitleText = '또띠 초대';
 	const titleText = '친구를 또띠에 초대해주세요!';
-	const explainText = '';
-	const buttonColor1 = 'login';
-	const buttonText1 = '카카오톡 공유하기';
 	const buttonColor2 = 'background';
 	const buttonText2 = '닫기';
-
-	const handleInvite = () => {
-		// console.log('/game');
-	};
 
 	return (
 		<ModalOverlay onClick={onClose}>
 			<Modal onClick={(e) => e.stopPropagation()}>
 				<ModalTitle titleText={titleText} subtitleText={subtitleText} />
 				<InviteContents roomCode={roomCode} />
-				<ButtonContainer
-					explainText={explainText}
-					buttonColor1={buttonColor1}
-					buttonText1={buttonText1}
-					onClick1={handleInvite}
-					buttonColor2={buttonColor2}
-					buttonText2={buttonText2}
-					onClick2={onClose}
-				/>
+				<DefaultButtons color={buttonColor2} onClick={onClose} style={{ alignSelf: 'center' }}>
+					{buttonText2}
+				</DefaultButtons>
 			</Modal>
 		</ModalOverlay>
 	);
