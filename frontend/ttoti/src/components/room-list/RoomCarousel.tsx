@@ -13,7 +13,6 @@ const Carousel = styled.div`
 	display: flex;
 	flex-direction: row;
 	align-items: center;
-	margin-top: 80px;
 	padding: 0px 40px;
 	gap: 20px;
 	overflow-x: scroll;
