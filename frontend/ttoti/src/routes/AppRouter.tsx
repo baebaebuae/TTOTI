@@ -178,6 +178,14 @@ const AppRouter = () => {
 							</RequireAuth>
 						}
 					/>
+					<Route
+						path="/credit/:id"
+						element={
+							<RequireAuth>
+								<CreditPage />
+							</RequireAuth>
+						}
+					/>
 				</Route>
 				<Route
 					path="/character-select/:id"
@@ -188,14 +196,6 @@ const AppRouter = () => {
 					}
 				/>
 				<Route path="/landing" element={<LandingPage />} />
-				<Route
-					path="/credit/:id"
-					element={
-						<RequireAuth>
-							<CreditPage />
-						</RequireAuth>
-					}
-				/>
 				{/* Social Login */}
 				<Route path="/callback" element={<Auth />} />
 				{/* 테스트 페이지 라우트  */}
