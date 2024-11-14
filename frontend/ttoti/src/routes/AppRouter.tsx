@@ -136,16 +136,16 @@ const AppRouter = () => {
 					path="/login"
 					element={!loggedIn ? <LoginPage /> : <Navigate replace to="/" />}
 				/>
+				<Route
+					path="/room-create"
+					element={
+						<RequireAuth>
+							<RoomCreatePage />
+						</RequireAuth>
+					}
+				/>
 				{/* Header 적용 */}
 				<Route element={<Header />}>
-					<Route
-						path="/room-create"
-						element={
-							<RequireAuth>
-								<RoomCreatePage />
-							</RequireAuth>
-						}
-					/>
 					<Route
 						path="/room-list"
 						element={
