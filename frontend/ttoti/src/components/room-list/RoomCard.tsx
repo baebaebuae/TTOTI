@@ -46,7 +46,7 @@ const GoButton = styled(GameButtons)`
 	width: 80px;
 	height: 32px;
 	margin-top: 10px;
-	padding-top: 8px;
+	padding-top: 5px;
 `;
 
 // 알림 상태 확인 후 아이콘 변경
@@ -83,6 +83,8 @@ const RoomCard = ({ room, onNotificationClick }: RoomCardWithModalProps) => {
 		}
 	};
 
+	const inProgress = room.finishedAt ? true : false;
+
 	const imageUrl = room.memberProfileImageUrl?.includes('kakao')
 		? room.memberProfileImageUrl
 		: `../images/characters/${room.memberProfileImageUrl}`;
@@ -92,7 +94,7 @@ const RoomCard = ({ room, onNotificationClick }: RoomCardWithModalProps) => {
 				status={room.hasUnreadNotifications}
 				onClick={() => onNotificationClick(room.roomId)}
 			/>
-			{room.finishedAt ? (
+			{inProgress ? (
 				<DateBox color="main">종료 : {room.finishedAt}</DateBox>
 			) : (
 				<DateBox color="background">게임 준비중...</DateBox>
@@ -101,7 +103,9 @@ const RoomCard = ({ room, onNotificationClick }: RoomCardWithModalProps) => {
 				hostName={room.hostName}
 				roomName={room.roomName}
 				currentParticipants={room.currentParticipants}
+				totalParticipants={room.totalParticipants}
 				imageURL={imageUrl}
+				inProgress={inProgress}
 			/>
 			<GoButton
 				color="success"
