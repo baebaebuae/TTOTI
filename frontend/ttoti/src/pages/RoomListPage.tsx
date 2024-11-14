@@ -6,6 +6,7 @@ import RoomCarousel from '@components/room-list/RoomCarousel';
 import NotificationModal from '@components/common/modals/NotificationModal';
 import EnterCodeModal from '@components/common/modals/EnterCodeModal';
 import MyProfile from '@components/room-list/MyProfile';
+import GameButtons from '@components/common/buttons/GameButtons';
 
 import RowLogo from '@assets/icons/logo/row_logo.svg?react';
 import { getApiClient } from '@services/apiClient';
@@ -37,10 +38,16 @@ const LogoDiv = styled.div`
 	flex-direction: column;
 	width: 100vw;
 	position: absolute;
-	top: 50px;
-	gap: 15px;
+	top: 70px;
+	gap: 10px;
 `;
 
+const GoButton = styled(GameButtons)`
+	background-color: ${({ theme }) => theme.colors['info']};
+	width: 165px;
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+	padding-top: 5px;
+`;
 const RoomListPage = () => {
 	// Modal status 초기화
 	const [rooms, setRooms] = useState<RoomData[]>([]);
@@ -89,6 +96,9 @@ const RoomListPage = () => {
 			<LogoDiv>
 				<RowLogo />
 				<MyProfile />
+				<GoButton color="info" onClick={openEnterModal}>
+					초대 코드로 입장
+				</GoButton>
 			</LogoDiv>
 			{notificationModalData.isOpen && (
 				<ModalBackground onClick={closeModal}>
@@ -103,11 +113,7 @@ const RoomListPage = () => {
 					<EnterCodeModal onClose={closeEnterModal} />
 				</ModalBackground>
 			)}
-			<RoomCarousel
-				rooms={rooms}
-				handleModal={openModal}
-				handleEnter={openEnterModal}
-			/>
+			<RoomCarousel rooms={rooms} handleModal={openModal} />
 		</RoomCreateWrapper>
 	);
 };

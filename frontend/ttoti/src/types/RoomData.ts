@@ -7,6 +7,7 @@ export interface RoomData {
 	hostName: string;
 	roomName: string;
 	currentParticipants: number;
+	totalParticipants: number;
 	hasUnreadNotifications: boolean;
 }
 
@@ -18,5 +19,7 @@ export interface RoomInfoProps {
 	hostName: string;
 	roomName: string;
 	currentParticipants: number;
+	totalParticipants: number;
 	imageURL: string;
+	inProgress: boolean;
 }

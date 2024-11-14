@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import GameButtons from '@components/common/buttons/GameButtons';
+import { useNavigate } from 'react-router-dom';
 
 const RoomInfoWrapper = styled.div`
 	display: flex;
@@ -20,8 +21,9 @@ const ColumnContainer = styled.div`
 	justify-content: space-between;
 	align-items: center;
 	padding: 0px;
-	gap: 10px;
-	width: 162px;
+	gap: 5px;
+	width: 200px;
+	margin-top: 20px;
 `;
 
 const ExplainText = styled.div`
@@ -29,27 +31,29 @@ const ExplainText = styled.div`
 	font-weight: 300;
 	font-size: 14px;
 `;
-const GoButton = styled(GameButtons)`
-	background-color: ${({ theme }) => theme.colors['info']};
-	padding-top: 10px;
-	width: 165px;
+const MainText = styled.div`
+	font-family: 'GmarketSans';
+	font-weight: 400;
+	font-size: 16px;
 `;
 
-interface RoomEnterProps {
-	onEnterClick: () => void;
-}
+const DefaultRoomCard = () => {
+	const navigate = useNavigate();
+	const handleButton = () => {
+		navigate('/room-create');
+	};
 
-const RoomEnterCard = ({ onEnterClick }: RoomEnterProps) => {
 	return (
 		<RoomInfoWrapper>
 			<ColumnContainer>
-				<ExplainText>초대 코드를 입력해주세요!</ExplainText>
-				<GoButton color="info" onClick={onEnterClick}>
-					초대 코드로 입장
-				</GoButton>
+				<ExplainText>시작한 또띠가 없습니다!</ExplainText>
+				<MainText>방을 만들고 초대해볼까요?</MainText>
 			</ColumnContainer>
+			<GameButtons color="success" onClick={handleButton}>
+				방 만들기
+			</GameButtons>
 		</RoomInfoWrapper>
 	);
 };
 
-export default RoomEnterCard;
+export default DefaultRoomCard;

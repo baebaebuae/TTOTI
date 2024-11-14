@@ -37,16 +37,16 @@ const InfoColumnContainer = styled.div`
 	justify-content: center;
 	align-items: flex-start;
 	padding: 0px;
-	height: 70px;
+	height: 80px;
 	gap: 5px;
+	max-width: 110px;
 `;
 
 const InfoText = styled.div<{ $field: string }>`
-	width: 100px;
 	font-family: 'GmarketSans';
 	font-weight: ${({ $field }) => ($field === 'name' ? 'bold' : '300')};
 	font-size: ${({ $field }) =>
-		$field === 'participants' ? '12px' : $field === 'host' ? '14px' : '16px'};
+		$field === 'participants' ? '14px' : $field === 'host' ? '16px' : '18px'};
 	margin-top: ${({ $field }) => ($field === 'participants' ? '5px' : '0px')};
 `;
 
@@ -54,6 +54,7 @@ const RoomInfo = ({
 	hostName,
 	roomName,
 	currentParticipants,
+	totalParticipants,
 	imageURL,
 }: RoomInfoProps) => {
 	const [imgSrc, setImgSrc] = useState(imageURL);
@@ -71,7 +72,7 @@ const RoomInfo = ({
 				<InfoText $field="host">{hostName}님의</InfoText>
 				<InfoText $field="name">{roomName}</InfoText>
 				<InfoText $field="participants">
-					참여중 또띠 : {currentParticipants}
+					참여 또띠 : {currentParticipants} / {totalParticipants}
 				</InfoText>
 			</InfoColumnContainer>
 		</InfoRowContainer>
