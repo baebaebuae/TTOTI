@@ -142,32 +142,41 @@ const GameWaitingPage: React.FC = () => {
 			</LogoDiv>
 			<ModalContainer>
 				<HeaderContainer>
-					<HeaderContent>
+					<HeaderLeft>
 						<ProfileContainer size="70px" src={memberImage} ready={false} />
+					</HeaderLeft>
+					<HeaderContent>
 						<HeaderText>
 							<HostName>{roomData?.hostName ?? '방장 정보 없음'}님의</HostName>
 							<RoomName>{roomData?.roomName ?? '방 이름 없음'}</RoomName>
 						</HeaderText>
+						<RoomInfoWrapper onClick={openModal}>
+							<RoomInfoText>방 정보</RoomInfoText>
+							<RoomInfo>i</RoomInfo>
+						</RoomInfoWrapper>
 					</HeaderContent>
-					<RoomInfo onClick={openModal}>i</RoomInfo>
 				</HeaderContainer>
-				<SubText>또띠에 참여하였습니다!</SubText>
+				<SubText $isFull={roomData?.roomMemberInfo.currentParticipants === roomData?.roomMemberInfo.totalParticipants}>
+				{roomData?.roomMemberInfo.currentParticipants === roomData?.roomMemberInfo.totalParticipants
+					? '모든 인원이 또띠에 참여하였습니다!'
+					: '아직 인원이 다 참여하지 않았습니다!'}
+				</SubText>
 				<ParticipantToolbar>
-					<RefreshIcon
-						src={refreshIcon}
-						alt="refreshIcon"
-						onClick={handleRefresh}
-					/>
-					<MemberToolContainer>
+					<LeftToolbar>
+						<RefreshIcon
+							src={refreshIcon}
+							alt="refreshIcon"
+							onClick={handleRefresh}
+							/>
 						<MemberNumText>
-							{roomData?.roomMemberInfo.currentParticipants} /
-							{roomData?.roomMemberInfo.totalParticipants}
+							{roomData?.roomMemberInfo.currentParticipants} / {roomData?.roomMemberInfo.totalParticipants}
 						</MemberNumText>
-						<AddMemberIcon
-							onClick={openInviteModal}
-							src={addMemberIcon}
-							alt="addMemberIcon"
-						/>
+					</LeftToolbar>
+					<MemberToolContainer>
+						<RightToolbar onClick={openInviteModal}>
+							<AddMemberText>초대하기</AddMemberText>
+							<AddMemberIcon src={addMemberIcon} alt="addMemberIcon" />
+						</RightToolbar>
 					</MemberToolContainer>
 				</ParticipantToolbar>
 				<ParticipantsContainer
@@ -196,13 +205,12 @@ const GameWaitingPage: React.FC = () => {
 					<ParticipantBlank />
 				</ParticipantsContainer>
 				<FooterContainer>
-					{/* 캐릭터 선택 여부 확인 후 출력 */}
 					{roomData?.isReady ? (
 						<>
 							<SelectedContainer>
 								<CharacterImage
 									src={`../images/characters/${roomData.animalProfileImageUrl}`}
-									alt="monkey"
+									alt="animalProfileImage"
 								/>
 								<SelectedTextBox>
 									<CompleteText>선택 완료!</CompleteText>
@@ -270,20 +278,21 @@ const HeaderContainer = styled.div`
 	border-radius: 9px;
 `;
 
+const HeaderLeft = styled.div`
+	margin-left: 10px;
+`
+
 const HeaderContent = styled.div`
 	display: flex;
-	flex-direction: row;
-	margin-left: 15px;
-	/* margin-right: 15px; */
-	width: auto;
+	flex-direction: column;
+	width: 165px;
 	height: 70px;
 `;
 
 const HeaderText = styled.div`
 	display: flex;
 	flex-direction: column;
-	margin: auto;
-	margin-left: 15px;
+	margin: auto 0 0 10px;
 `;
 
 const HostName = styled.div`
@@ -298,10 +307,24 @@ const RoomName = styled.div`
 	font-weight: normal;
 `;
 
+const RoomInfoWrapper = styled.div`
+  display: flex;
+	flex-direction: row;
+	align-self: flex-end;
+	cursor: pointer;
+`
+
+const RoomInfoText = styled.div`
+	height: 15px;
+	font-family: 'LINESeed';
+	font-size: 14px;
+	font-weight: normal;
+	align-self: end;
+	color: white;
+	margin-right: 5px;
+`
+
 const RoomInfo = styled.div`
-	margin-top: 50px;
-	margin-left: auto;
-	margin-right: 10px;
 	font-family: 'GmarketSans';
 	font-size: 12px;
 	font-weight: Bold;
@@ -312,14 +335,14 @@ const RoomInfo = styled.div`
 	height: 17.5px;
 	background-color: white;
 	border-radius: 50%;
-	cursor: pointer;
 `;
 
-const SubText = styled.div`
-	margin-top: 10px;
-	font-family: 'LINESeed';
-	font-size: 16px;
-	font-weight: 300;
+const SubText = styled.div<{ $isFull: boolean }>`
+  margin-top: 10px;
+  font-family: 'LINESeed';
+  font-size: 16px;
+  font-weight: normal;
+  color: ${({ $isFull }) => ($isFull ? '#67c431' : '#ff6430')};
 `;
 
 const ParticipantToolbar = styled.div`
@@ -330,10 +353,26 @@ const ParticipantToolbar = styled.div`
 	height: 27px;
 `;
 
+const LeftToolbar = styled.div`
+	display: flex;
+	align-items: center;
+	gap: 10px;
+`
+
 const RefreshIcon = styled.img`
 	margin-left: 11px;
 	width: 19px;
 	height: 19px;
+	cursor: pointer;
+`;
+
+const MemberNumText = styled.div`
+	display: flex;
+	align-self: end;
+	height: 20px;
+	font-family: 'LINESeed';
+	font-size: 16px;
+	font-weight: 300;
 `;
 
 const MemberToolContainer = styled.div`
@@ -343,19 +382,25 @@ const MemberToolContainer = styled.div`
 	gap: 5px;
 `;
 
-const MemberNumText = styled.div`
+const RightToolbar = styled.div`
 	display: flex;
-	height: 16px;
+	align-items: center;
+	gap: 5px;
+	cursor: pointer;
+`
+
+const AddMemberText = styled.div`
+	align-self: end;
 	font-family: 'LINESeed';
-	font-size: 16px;
-	font-weight: 300;
-`;
+	font-size: 14px;
+	font-weight: bold;
+	color: #7984fc;
+`
 
 const AddMemberIcon = styled.img`
 	width: 19px;
 	height: 19px;
 	margin-right: 10px;
-	cursor: pointer;
 `;
 
 const ParticipantsContainer = styled.div<{ $isOverflow: boolean }>`
