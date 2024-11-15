@@ -12,6 +12,7 @@ export const theme = {
 		quiz: '#A27754',
 		manitoChat: '#FFA969',
 		manitiChat: '#C3D794',
+		manito: '#E37C7D',
 	},
 };
 

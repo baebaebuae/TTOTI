@@ -50,7 +50,8 @@ const CharacterSelectPage: React.FC = () => {
 					if (message === '동물 선택 성공') {
 						navigate(`/game-waiting/${roomId}`);
 					} else {
-						navigate(`/game/${roomId}`);
+						// 매칭 페이지로 이동
+						navigate(`/game-matching/${roomId}`);
 					}
 					return res.data.body;
 				}
