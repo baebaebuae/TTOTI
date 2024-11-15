@@ -46,7 +46,6 @@ const RoomCarousel = ({ rooms, handleModal }: RoomCarouselProps) => {
 	const handleMouseUpOrLeave = () => {
 		isDragging = false;
 	};
-	console.log(rooms);
 	return (
 		<Carousel
 			ref={carouselRef}
