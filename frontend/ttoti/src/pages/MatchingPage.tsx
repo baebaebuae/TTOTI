@@ -40,6 +40,8 @@ const MatchingPage = () => {
 			myManitiMemberName: '',
 			myManitiProfileImageUrl: '',
 		},
+		canGuess: false,
+		guessInfoDto: null,
 	});
 
 	// 페이지 첫 진입 시 정보 불러오기
