@@ -152,7 +152,7 @@ export const MyCard = ({ myPlay, infoData }: MyCardProps) => {
 			? `../images/characters/${data.myAnimalImageUrl}`
 			: data.myProfileImageUrl;
 
-	const name = myPlay === 'manito' ? data.myManittoAnimalName : data.myName;
+	const name = myPlay === 'manito' ? data.myAnimalName : data.myName;
 	// console.log(data);
 	return (
 		<CardWrapper onClick={() => setIsFlipped((prev) => !prev)}>
