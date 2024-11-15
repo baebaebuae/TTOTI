@@ -1,17 +1,9 @@
 // HoseaKim.tsx
-import React, { useState } from 'react';
-import GuessModal from '@components/GamePage/GuessModal/GuessModal';
 
 const HoseaKim: React.FC = () => {
-	const [$isRoomInfoModalOpen, setRoomInfoModalOpen] = useState(true);
-
-	const closeModal = () => setRoomInfoModalOpen(false);
-	
 	return (
 		<div>
-			{$isRoomInfoModalOpen && (
-				<GuessModal onClose={closeModal} />
-			)}
+			HoseaKim 테스트 페이지입니다. 나가세요 ^^
 		</div>
 	);
 };

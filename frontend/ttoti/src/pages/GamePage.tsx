@@ -4,6 +4,7 @@ import styled from "styled-components";
 
 import RoomTitle from "@components/GamePage/RoomTitle/RoomTitle";
 import Game from "@components/GamePage/Game";
+import GuessModal from '@components/GamePage/GuessModal/GuessModal';
 
 import BigCloud from "@assets/gamecloud/big-cloud.png";
 import SmallCloud from "@assets/gamecloud/small-cloud.png";
@@ -97,6 +98,18 @@ const GamePage: React.FC = () => {
     fetchQuizData();
   }, [roomInfo, activeTab]);
 
+  const handleClose = () => {
+    // console.log('handleClose')
+    if (roomInfo) {
+      // console.log('set canGuess false')
+      setRoomInfo({
+        ...roomInfo,
+        canGuess: false,
+      });
+      // console.log(roomInfo.canGuess)
+    }
+  }
+
   return (
     <GamePageContainer>
       <CloudImage src={BigCloud} alt="big cloud" />
@@ -105,6 +118,8 @@ const GamePage: React.FC = () => {
       {roomInfo &&
         <RoomTitle roomInfo={roomInfo}/>}
       </RoomTitleWrapper>
+      {roomInfo?.canGuess && 
+        <GuessModal roomInfo={roomInfo} roomId={roomId} onClose={handleClose} />}
       <GameWrapper>
       {roomInfo &&
         <Game activeTab={activeTab} onChangeTab={setActiveTab} quizData={quizData} roomInfo={roomInfo}/>}

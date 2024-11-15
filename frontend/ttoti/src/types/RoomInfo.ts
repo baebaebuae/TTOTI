@@ -13,4 +13,16 @@ export interface RoomInfo {
     myManitiMemberName: string;
     myManitiProfileImageUrl: string;
   };
+  canGuess: boolean,
+  guessInfoDto: null | {
+    myManitto: {
+      manittoProfileImageUrl: string;
+      manittoNickname: string;
+    };
+    roomMemberList: {
+      roomMemberProfileImageUrl: string;
+      roomMemberName: string;
+      roomMemberId: number;
+    }[];
+  };
 }

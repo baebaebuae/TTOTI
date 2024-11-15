@@ -140,7 +140,9 @@ const mockRoomInfo: RoomInfo = {
         "myAnimalImageUrl": "https://example.com/images/cat.jpg",
         "myManitiMemberName": "카스타드8",
         "myManitiProfileImageUrl": "http://example.com/user8.jpg"
-      }
+      },
+      "canGuess": false,
+        "guessInfoDto": null
     }
 
 // 스토리 1: 기본 게임 화면

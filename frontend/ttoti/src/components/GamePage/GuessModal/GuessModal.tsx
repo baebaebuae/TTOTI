@@ -2,35 +2,21 @@ import React, { useRef, useState } from "react";
 import styled from "styled-components";
 import RabbitGif from '@assets/gamecloud/RabbitGif.gif';
 import ProfileContainer from '@components/common/ProfileComponents';
-
-import profile1 from '@assets/profiles/profile1.png';
-import profile2 from '@assets/profiles/profile2.png';
-import profile3 from '@assets/profiles/profile3.png';
-import profile4 from '@assets/profiles/profile4.png';
-import profile5 from '@assets/profiles/profile5.png';
-import profile6 from '@assets/profiles/profile6.png';
-import profile7 from '@assets/profiles/profile7.png';
-import profile8 from '@assets/profiles/profile8.png';
+import { RoomInfo } from 'src/types/RoomInfo';
+import { getApiClient } from "@services/apiClient";
 
 interface GuessModalModalProps {
+  roomInfo: RoomInfo;
+  roomId: number;
   onClose: () => void;
 }
 
-const GuessModal: React.FC<GuessModalModalProps> = ({ onClose }) => {
+const GuessModal: React.FC<GuessModalModalProps> = ({ roomInfo, roomId, onClose }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [$selectedNumber, set$SelectedNumber] = useState<number>(-1)
   // const [isOverflow, setIsOverflow] = useState(false);
   const isOverflow = true;
-  const participants = [
-    { name: '정진영', imgSrc: profile1 },
-    { name: '서지민', imgSrc: profile2 },
-    { name: '김호진', imgSrc: profile3 },
-    { name: '권재현', imgSrc: profile4 },
-    { name: '채이슬', imgSrc: profile5 },
-    { name: '이상무', imgSrc: profile6 },
-    { name: '아쿠아', imgSrc: profile7 },
-    { name: '토오사카', imgSrc: profile8 },
-  ]
+  const participants = roomInfo.guessInfoDto?.roomMemberList
   let isDragging = false;
 	let startX: number;
 	let scrollLeft: number;
@@ -58,6 +44,24 @@ const GuessModal: React.FC<GuessModalModalProps> = ({ onClose }) => {
 		isDragging = false;
 	};
 
+  const handleButtonClick = async () => {
+    const apiClient = getApiClient()
+    if ($selectedNumber >= 0) {
+      try {
+        const res = await apiClient.post('/ttotis/guess', {roomId: roomId, roomMemberId: $selectedNumber});
+        if (res.status === 200) {
+          // console.log(res);
+        }
+      } catch (error) {
+        console.error('postRoomCreate Error : ', error);
+        throw error;
+      } finally {
+        // console.log('onClose')
+        onClose();
+      }
+    }
+  };
+
   return (
     <ModalOverlay>
       <ModalContainer>
@@ -84,21 +88,21 @@ const GuessModal: React.FC<GuessModalModalProps> = ({ onClose }) => {
             $isOverflow={isOverflow}
           >
             <ParticipantBlank />
-            {participants.map((participant, index) => (
-              <Participant key={index} onClick={() => {handleSelect(index)}} >
+            {participants?.map((participant) => (
+              <Participant key={participant.roomMemberId} onClick={() => {handleSelect(participant.roomMemberId)}} >
                 <ProfileContainer 
                   size="70px" 
-                  src={participant.imgSrc} 
-                  ready={index === $selectedNumber} 
+                  src={participant.roomMemberProfileImageUrl} 
+                  ready={participant.roomMemberId === $selectedNumber} 
                 />
-                <ParticipantName>{participant.name}</ParticipantName>
+                <ParticipantName>{participant.roomMemberName}</ParticipantName>
               </Participant>
             ))}
             <ParticipantBlank />
           </ParticipantsContainer>
         </Body>
         <Footer>
-          <ButtonBox onClick={onClose} $selectedNumber={$selectedNumber}>완료</ButtonBox>
+          <ButtonBox onClick={handleButtonClick} $selectedNumber={$selectedNumber}>완료</ButtonBox>
         </Footer>
       </ModalContainer>
     </ModalOverlay>
