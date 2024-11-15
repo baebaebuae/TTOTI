@@ -102,7 +102,9 @@ const GameWaitingPage: React.FC = () => {
 		const nowStatus = await getStatus();
 		// console.log('nowStatus is', nowStatus);
 		if (nowStatus) {
-			navigate(`/game/${roomId}`);
+			// 게임 매칭 페이지로 이동
+			navigate(`/game-matching/${roomId}`);
+			// navigate(`/game/${roomId}`);
 		} else {
 			getRefreshData();
 		}

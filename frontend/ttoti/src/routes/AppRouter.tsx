@@ -10,7 +10,7 @@ import { requestFcmToken } from '@utils/notification/settingFCM';
 // 배경화면 import
 import LoginBackground from '@assets/images/login.gif';
 import MainBackground from '@assets/images/main.gif';
-
+import MatchingBackground from '@assets/images/game-matching.gif';
 // Header import
 import Header from '@components/header/Header';
 
@@ -25,6 +25,7 @@ import MyPage from '@pages/MyPage';
 import RoomCreatePage from '@pages/RoomCreatePage';
 import RoomListPage from '@pages/RoomListPage';
 import Auth from '@pages/Auth';
+import MatchingPage from '@pages/MatchingPage';
 
 // Test Page import
 import HoseaKim from '@pages/test/HoseaKim';
@@ -44,12 +45,12 @@ const Background = styled.div`
 	z-index: -1;
 `;
 
-const BackgroundImage = styled.img`
+const BackgroundImage = styled.img<{ $isMatching: boolean }>`
 	position: absolute;
 	bottom: 0;
 	left: 50%;
+	width: ${({ $isMatching }) => ($isMatching ? 'auto' : '360px')};
 	transform: translateX(-50%);
-	width: 380px;
 	object-fit: cover;
 	z-index: -1;
 `;
@@ -109,17 +110,26 @@ const AppRouter = () => {
 			setBackgroundImage(LoginBackground);
 		} else if (pathname === 'mypage') {
 			setBackgroundImage('');
+		} else if (pathname === 'game-matching') {
+			setBackgroundImage(MatchingBackground);
 		} else {
 			setBackgroundImage(MainBackground);
 		}
 	}, [location.pathname]);
+
+	// background img 조정하기 위한 값 설정
+	const isMatching = location.pathname.split('/')[1] === 'game-matching';
 
 	return (
 		<>
 			<Background />
 			{backgroundImage && (
 				<>
-					<BackgroundImage src={backgroundImage} alt="backgroundImage" />
+					<BackgroundImage
+						src={backgroundImage}
+						alt="backgroundImage"
+						$isMatching={isMatching}
+					/>
 				</>
 			)}
 			<Routes>
@@ -159,6 +169,14 @@ const AppRouter = () => {
 						element={
 							<RequireAuth>
 								<GameWaitingPage />
+							</RequireAuth>
+						}
+					/>
+					<Route
+						path="/game-matching/:id"
+						element={
+							<RequireAuth>
+								<MatchingPage />
 							</RequireAuth>
 						}
 					/>
