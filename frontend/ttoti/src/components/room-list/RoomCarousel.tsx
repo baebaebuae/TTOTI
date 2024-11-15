@@ -46,7 +46,7 @@ const RoomCarousel = ({ rooms, handleModal }: RoomCarouselProps) => {
 	const handleMouseUpOrLeave = () => {
 		isDragging = false;
 	};
-
+	console.log(rooms);
 	return (
 		<Carousel
 			ref={carouselRef}
@@ -60,7 +60,7 @@ const RoomCarousel = ({ rooms, handleModal }: RoomCarouselProps) => {
 					<RoomCard room={room} onNotificationClick={handleModal} />
 				</div>
 			))}
-			{!rooms && (
+			{rooms.length === 0 && (
 				<div>
 					<DefaultRoomCard />
 				</div>
