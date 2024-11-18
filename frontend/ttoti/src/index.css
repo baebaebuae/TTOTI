@@ -1,0 +1,95 @@
+html,
+body
+{
+  width: 100vw;
+  height : 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box; /* 패딩과 보더를 포함한 전체 크기 계산 */
+  /* 입력 커서 숨기기 */
+  caret-color: transparent; 
+  /* 텍스트 드래그 방지 */
+  user-select: none; /* 텍스트 선택 불가 */
+  -webkit-user-select: none; /* 웹킷 브라우저에서 텍스트 선택 방지 */
+  /* 스크롤바 숨기기 */
+  ::-webkit-scrollbar {
+    display: none;
+  }
+  overflow: hidden;
+}
+
+#root {
+  width: 100vw; /* 최대 너비를 viewport width로 고정 */
+  height: 100vh; /* 최대 높이 viewport height로 고정 */
+  margin: auto auto; /* 가운데 정렬 */
+  box-sizing: border-box; /* 패딩과 보더를 포함한 전체 크기 계산 */
+}
+
+
+/* 폰트 설정 */
+/* Gmarket 폰트 */
+@font-face {
+  font-family: 'GmarketSans';
+  src: url('/fonts/GmarketSansTTFMedium.ttf') format('truetype');
+  font-weight: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'GmarketSans';
+  src: url('/fonts/GmarketSansTTFBold.ttf') format('truetype');
+  font-weight: bold;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'GmarketSans';
+  src: url('/fonts/GmarketSansTTFLight.ttf') format('truetype');
+  font-weight: 300;
+  font-display: swap;
+}
+
+/* LINE 폰트 */
+@font-face {
+  font-family: 'LINESeed';
+  src: url('/fonts/LINESeedKR-Rg.ttf') format('truetype');
+  font-weight: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'LINESeed';
+  src: url('/fonts/LINESeedKR-Th.ttf') format('truetype');
+  font-weight: 300;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'LINESeed';
+  src: url('/fonts/LINESeedKR-Bd.ttf') format('truetype');
+  font-weight: bold;
+  font-display: swap;
+}
+
+/* SB어그로 폰트 */
+@font-face {
+  font-family: 'SB어그로';
+  src: url('/fonts/SB 어그로 M.ttf') format('truetype');
+  font-weight: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SB어그로';
+  src: url('/fonts/SB 어그로 B.ttf') format('truetype');
+  font-weight: bold;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SB어그로';
+  src: url('/fonts/SB 어그로 L.ttf') format('truetype');
+  font-weight: 300;
+  font-display: swap;
+}
