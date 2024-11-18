@@ -208,7 +208,7 @@ const CreditPage = () => {
 			<BackIcon onClick={handleBack} src={BackIconImage} alt="BackIcon" />
 			<CreditContent>
 				<Page>
-					<PageTitle>- {credit.roomEnding.roomName} -</PageTitle>
+					<PageTitle>{credit.roomEnding.roomName}</PageTitle>
 					<PageText>
 						시작 : {credit.roomEnding.roomStartDate}{' '}
 						{credit.roomEnding.roomStartTime}
@@ -457,7 +457,7 @@ const PageTitle = styled.h1`
 	text-align: center;
 	width: 260px;
 	font-family: 'GmarketSans';
-	font-size: 40px;
+	font-size: 30px;
 	font-weight: normal;
 `;
 
