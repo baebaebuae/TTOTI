@@ -50,7 +50,7 @@ const CreditPage = () => {
       if (scrollTop >= scrollContainer.scrollHeight - scrollContainer.clientHeight) {
         clearInterval(interval);
       }
-    }, 8); // ?ms마다 스크롤
+    }, 8); // 8ms마다 스크롤
 
     return () => clearInterval(interval);
   }, [credit]);
