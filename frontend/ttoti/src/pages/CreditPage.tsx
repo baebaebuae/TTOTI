@@ -80,7 +80,7 @@ const CreditPage = () => {
 		} else {
 			resultMessage = quiz.quizAnswerIsCorrect
 				? '서로 같은 답을 골랐네요 !'
-				: '서로 다른 답을 골랐네요 ㅠ';
+				: '서로 다른 답을 골랐네요 !';
 		}
 
 		return (
@@ -118,7 +118,7 @@ const CreditPage = () => {
 		} else {
 			resultMessage = quiz.quizAnswerIsCorrect
 				? '서로 같은 답을 골랐네요 !'
-				: '서로 다른 답을 골랐네요 ㅠ';
+				: '서로 다른 답을 골랐네요 !';
 		}
 
 		return (
@@ -165,7 +165,7 @@ const CreditPage = () => {
 		} else {
 			resultMessage = quiz.quizAnswerIsCorrect
 				? '서로 같은 답을 골랐네요 !'
-				: '서로 다른 답을 골랐네요 ㅠ';
+				: '서로 다른 답을 골랐네요 !';
 		}
 
 		return (
