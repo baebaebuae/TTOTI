@@ -86,7 +86,7 @@ const TwoChoiceQuiz: React.FC<{
 	if (manittoAnswer && manitiAnswer) {
 		resultMessage = quiz.quizAnswerIsCorrect
 			? '서로 같은 답을 골랐네요 !'
-			: '서로 다른 답을 골랐네요 ㅠ';
+			: '서로 다른 답을 골랐네요 !';
 	} else {
 		resultMessage = '답을 고르지 않은 또띠가 있어요 !';
 	}
