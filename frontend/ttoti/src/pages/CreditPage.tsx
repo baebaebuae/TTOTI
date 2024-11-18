@@ -56,10 +56,10 @@ const CreditPage = () => {
   }, [credit]);
 
 	if (!credit) return (
-		<div>
+		<NoCredit>
 			<BackIcon onClick={handleBack} src={BackIconImage} alt="BackIcon" />
-			<h1 style={{ fontSize: "50px", marginTop: "100px" }}>엔딩 크레딧이 없습니다.</h1>
-		</div>
+			<NoCreditText style={{ fontSize: "50px", marginTop: "100px" }}>엔딩 크레딧이 없습니다.</NoCreditText>
+		</NoCredit>
 	);
 
 
@@ -312,6 +312,31 @@ const CreditPage = () => {
 };
 
 export default CreditPage;
+
+const NoCredit = styled.div`
+	background-color: black;
+  color: white;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+`
+
+const NoCreditText = styled.h1`
+	animation: fadeIn 2s ease-in-out;
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+`
 
 const CreditOverlay = styled.div`
   background-color: black;
