@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { motion } from 'framer-motion'; // Import framer-motion
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 
@@ -15,7 +16,7 @@ const MenuWrapper = styled.div`
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	position: relative; // Ensure Menu is positioned relative to this container
+	position: relative;
 	cursor: pointer;
 `;
 
@@ -26,20 +27,20 @@ const MenuButton = styled.div`
 	background-size: cover;
 `;
 
-const Menu = styled.div`
+const Menu = styled(motion.div)` // Use motion.div for animation
 	width: 80px;
-	position: absolute; // Position Menu absolutely relative to MenuWrapper
-	top: 30px; // Adjust the space between the button and menu
-	left: 25px;
+	position: absolute;
+	top: 30px;
+	left: -18px;
 	padding: 5px;
-	transform: translateX(-50%); // Center the menu horizontally
-	z-index: 10; // Ensure the menu appears above the button
+	transform: translateX(-50%);
+	z-index: 10;
 `;
 
-const MenuItem = styled.div<{ $backgroundImage: string }>`
-	width: 50px; /* 원형의 크기 설정 */
-	height: 50px; /* 원형의 크기 설정 */
-	border-radius: 50%; /* 원형으로 만들기 위해 border-radius를 50%로 설정 */
+const MenuItem = styled(motion.div)<{ $backgroundImage: string }>` // motion.div for each item
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
 	text-align: center;
 	font-family: 'LINESeed';
 	font-weight: bold;
@@ -51,50 +52,63 @@ const MenuItem = styled.div<{ $backgroundImage: string }>`
 	margin-top: 6px;
 	cursor: pointer;
 	background-image: url(${(props) => props.$backgroundImage});
-	background-size: cover; /* 이미지가 원형 영역을 덮도록 설정 */
-	background-position: center; /* 이미지가 중앙에 위치하도록 설정 */
-	color: black; /* 글씨 색상 */
-	font-size: 12px; /* 글씨 크기 조정 */
+	background-size: cover;
+	background-position: center;
+	color: black;
+	font-size: 12px;
 	&:hover {
 		background-color: rgba(240, 240, 240, 0.8);
 	}
 `;
+
+const slideVariants = {
+	hidden: { opacity: 0, y: -20 }, // Initially hidden
+	visible: { opacity: 1, y: 0, transition: { duration: 0.3 } }, // Slide down
+	exit: { opacity: 0, y: -20, transition: { duration: 0.2 } }, // Slide up when exiting
+};
 
 const MyPageIcon: React.FC<MyPageIconProps> = ({ handleModal }) => {
 	const [menuOpen, setMenuOpen] = useState(false); // 메뉴 열림 상태
 	const navigate = useNavigate();
 
 	const toggleMenu = () => {
-		setMenuOpen((prevState) => !prevState); // 메뉴 열기/닫기
+		setMenuOpen((prevState) => !prevState);
 	};
 
 	const handleMenuItemClick = (path: string) => {
-		navigate(path); // 선택한 경로로 이동
-		setMenuOpen(false); // 메뉴 닫기
+		navigate(path);
+		setMenuOpen(false);
 	};
 
 	return (
 		<MenuWrapper>
 			<MenuButton onClick={toggleMenu} />
 			{menuOpen && (
-				<Menu>
+				<Menu
+					initial="hidden"
+					animate="visible"
+					exit="exit"
+					variants={slideVariants}
+				>
 					<MenuItem
-						$backgroundImage={RedPanda} // Sheep 이미지를 배경으로 사용
+						$backgroundImage={RedPanda}
 						onClick={() => {
 							handleMenuItemClick('/mypage');
 							setMenuOpen(false);
 						}}
 						style={{ backgroundColor: '#ff6430' }}
+						variants={slideVariants}
 					>
 						MY
 					</MenuItem>
 					<MenuItem
-						$backgroundImage={Sheep} // RedPanda 이미지를 배경으로 사용
+						$backgroundImage={Sheep}
 						onClick={() => {
 							handleModal();
 							setMenuOpen(false);
 						}}
 						style={{ backgroundColor: '#ffcd05' }}
+						variants={slideVariants}
 					>
 						설명
 					</MenuItem>

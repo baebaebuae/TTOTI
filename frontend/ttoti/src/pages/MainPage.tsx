@@ -42,7 +42,7 @@ const MyPageDiv = styled.div`
 	position: absolute;
 	height: 40px;
 	top: 50px;
-	margin-left: 280px;
+	margin-left: 300px;
 	z-index: 1;
 	transform: translateX(-50%);
 `;
@@ -76,7 +76,7 @@ const MainPage = () => {
 			)}
 			<CloudsImage src={Clouds} alt="cloudImage" />
 			<MyPageDiv>
-			<MyPageIcon handleModal={handleModal} />
+				<MyPageIcon handleModal={handleModal} />
 			</MyPageDiv>
 
 			<LogoDiv>
