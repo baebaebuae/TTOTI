@@ -196,15 +196,15 @@ const AppRouter = () => {
 							</RequireAuth>
 						}
 					/>
-					<Route
-						path="/credit/:id"
-						element={
-							<RequireAuth>
-								<CreditPage />
-							</RequireAuth>
-						}
-					/>
 				</Route>
+				<Route
+					path="/credit/:id"
+					element={
+						<RequireAuth>
+							<CreditPage />
+						</RequireAuth>
+					}
+				/>
 				<Route
 					path="/character-select/:id"
 					element={

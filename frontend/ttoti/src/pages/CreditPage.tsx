@@ -13,6 +13,10 @@ const CreditPage = () => {
 	const [credit, setCredit] = useState<EndingProps | null>(null)
 	const scrollRef = useRef<HTMLDivElement>(null);
 
+	const handleBack = () => {
+		window.history.back();
+	};
+
 	useEffect(() => {
     const fetchRoomData = async () => {
       const apiClient = getApiClient();
@@ -22,6 +26,7 @@ const CreditPage = () => {
           setCredit(res.data.body);
         } else {
           console.error('API 요청 실패: ', res.status);
+
         }
       } catch (error) {
         console.error('API 요청 중 오류 발생: ', error);
@@ -45,12 +50,17 @@ const CreditPage = () => {
       if (scrollTop >= scrollContainer.scrollHeight - scrollContainer.clientHeight) {
         clearInterval(interval);
       }
-    }, 1); // ?ms마다 스크롤
+    }, 8); // ?ms마다 스크롤
 
     return () => clearInterval(interval);
   }, [credit]);
 
-	if (!credit) return <div>로딩 중...</div>;
+	if (!credit) return (
+		<div>
+			<BackIcon onClick={handleBack} src={BackIconImage} alt="BackIcon" />
+			<h1 style={{ fontSize: "50px", marginTop: "100px" }}>엔딩 크레딧이 없습니다.</h1>
+		</div>
+	);
 
 
 	const FourChoiceQuiz: React.FC<{
@@ -77,8 +87,8 @@ const CreditPage = () => {
 						<FourChoiceButton
 						key={key}
 						$isMatching={key === quiz.manitiAnswer && key === quiz.manittoAnswer}
-						$isManitoAnswer={quiz.isManittoAnswered}
-						$isManitiAnswer={quiz.isManitiAnswered}
+						$isManitoAnswer={key === quiz.manittoAnswer}
+						$isManitiAnswer={key === quiz.manitiAnswer}
 						>
 							{quiz.quizChoiceMap[key]}
 						</FourChoiceButton>
@@ -114,8 +124,8 @@ const CreditPage = () => {
 						<TwoChoiceButton
 							key={key}
 							$isMatching={key === quiz.manitiAnswer && key === quiz.manittoAnswer}
-							$isManitoAnswer={quiz.isManittoAnswered}
-							$isManitiAnswer={quiz.isManitiAnswered}
+							$isManitoAnswer={key === quiz.manittoAnswer}
+							$isManitiAnswer={key === quiz.manitiAnswer}
 						>
 							{quiz.quizChoiceMap[key]}
 						</TwoChoiceButton>
@@ -151,8 +161,8 @@ const CreditPage = () => {
 						<OXButton
 							key={key}
 							$isMatching={key === quiz.manitiAnswer && key === quiz.manittoAnswer}
-							$isManitoAnswer={quiz.isManittoAnswered}
-							$isManitiAnswer={quiz.isManitiAnswered}
+							$isManitoAnswer={key === quiz.manittoAnswer}
+							$isManitiAnswer={key === quiz.manitiAnswer}
 						>
 							{quiz.quizChoiceMap[key]}
 						</OXButton>
@@ -183,10 +193,6 @@ const CreditPage = () => {
 		}
 	};
 
-	
-	const handleBack = () => {
-		window.history.back();
-	};
 
 	return (
     <CreditOverlay ref={scrollRef}>
@@ -220,8 +226,8 @@ const CreditPage = () => {
 					))}
 				</Page>
 				<Page>
-					<PageTitle>궁예</PageTitle>
-					<PageText>최고 정답률 : {credit.roomEnding.bestCorrectScore}</PageText>
+					<PageTitle>예리한 궁예</PageTitle>
+					<PageText>퀴즈 최고 정답률 : {credit.roomEnding.bestCorrectScore}</PageText>
 					{credit.roomEnding.bestCorrectMemberList.map((member, index) => (
 						<Participant key={index} style={{ marginTop: "20px" }}>
 							<ProfileContainer src={member.memberProfileImageUrl} size="64px" ready={false} />
@@ -312,7 +318,7 @@ const CreditOverlay = styled.div`
   color: white;
   width: 100vw;
   height: 100vh;
-  overflow: hidden; /* 직접 스크롤 방지 */
+  overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
