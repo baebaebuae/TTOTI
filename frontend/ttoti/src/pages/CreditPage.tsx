@@ -319,7 +319,7 @@ const CreditPage = () => {
 				</Page>
 				{credit.midGuess && (
 					<Page>
-						<PageTitle>나의 중간 마니또 &nbsp; 추측</PageTitle>
+						<PageTitle>&nbsp; 나의 중간 마니또 &nbsp; 추측</PageTitle>
 						<PageText>{credit.midGuess.guessAnswerAt}</PageText>
 						<Participant style={{ marginTop: '20px' }}>
 							<ProfileContainer
@@ -340,7 +340,7 @@ const CreditPage = () => {
 				)}
 				{credit.finalGuess && (
 					<Page>
-						<PageTitle>나의 최종 마니또 &nbsp; 추측</PageTitle>
+						<PageTitle>&nbsp; 나의 최종 마니또 &nbsp; 추측</PageTitle>
 						<PageText>{credit.finalGuess.guessAnswerAt}</PageText>
 						<Participant style={{ marginTop: '20px' }}>
 							<ProfileContainer
