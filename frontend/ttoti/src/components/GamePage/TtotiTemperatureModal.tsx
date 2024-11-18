@@ -24,7 +24,7 @@ const TtotiTemperatureModal: React.FC<TtotiTemperatureModalProps> = ({
 		const getTemperature = async () => {
 			const response = await fetchTemperature(roomId);
 			setTemperatureData(response);
-      // console.log(response);
+			// console.log(response);
 		};
 
 		getTemperature();
@@ -64,7 +64,7 @@ const TtotiTemperatureModal: React.FC<TtotiTemperatureModalProps> = ({
 										<TemperatureFill
 											initial={{ width: '0%' }}
 											animate={{
-												width: `${(participant.currentTemperature / 50) * 100}%`,
+												width: `${(participant.currentTemperature / 100) * 100}%`,
 											}}
 											transition={{ duration: 2 }} // 애니메이션 효과
 										>
@@ -73,7 +73,7 @@ const TtotiTemperatureModal: React.FC<TtotiTemperatureModalProps> = ({
 											</TemperatureDifference>
 										</TemperatureFill>
 									</TemperatureMeter>
-									<TemperatureLabel>50°C</TemperatureLabel>
+									<TemperatureLabel>100°C</TemperatureLabel>
 								</TemperatureMeterContainer>
 							</ParticipantBox>
 						))}
