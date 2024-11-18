@@ -250,7 +250,7 @@ const CreditPage = () => {
 				<Page>
 					<PageTitle>예리한 궁예</PageTitle>
 					<PageText>
-						퀴즈 최고 정답률 : {credit.roomEnding.bestCorrectScore}
+						퀴즈 최고 정답률 : {credit.roomEnding.bestCorrectScore.toFixed(1)}
 					</PageText>
 					{credit.roomEnding.bestCorrectMemberList.map((member, index) => (
 						<Participant key={index} style={{ marginTop: '20px' }}>
@@ -365,7 +365,9 @@ const CreditPage = () => {
 				)}
 				<Page>
 					<PageTitle>나의 최종 결과</PageTitle>
-					<PageText>퀴즈 정답률 : {credit.endingCorrectScore}</PageText>
+					<PageText>
+						퀴즈 정답률 : {credit.endingCorrectScore.toFixed(1)}
+					</PageText>
 					<PageText>채팅 횟수 : {credit.endingChatCount}</PageText>
 					<PageText>최종 온도 : {credit.endingFinalTemperature}</PageText>
 				</Page>
