@@ -211,11 +211,11 @@ const CreditPage = () => {
 					<PageTitle>{credit.roomEnding.roomName}</PageTitle>
 					<PageText>
 						시작 : {credit.roomEnding.roomStartDate}{' '}
-						{credit.roomEnding.roomStartTime}
+						{credit.roomEnding.roomStartTime.slice(0, -3)}
 					</PageText>
 					<PageText>
 						종료 : {credit.roomEnding.roomFinishDate}{' '}
-						{credit.roomEnding.roomFinishTime}
+						{credit.roomEnding.roomFinishTime.slice(0, -3)}
 					</PageText>
 				</Page>
 				<Page>
@@ -280,7 +280,7 @@ const CreditPage = () => {
 					))}
 				</Page>
 				<Page>
-					<PageTitle>&nbsp; 가장 따뜻한 &nbsp; 사람</PageTitle>
+					<PageTitle>가장 따뜻한 사람</PageTitle>
 					<PageText>
 						최고 온도 점수 : {credit.roomEnding.bestFinalTemperature}
 					</PageText>
@@ -319,9 +319,7 @@ const CreditPage = () => {
 				</Page>
 				{credit.midGuess && (
 					<Page>
-						<PageTitle>
-							&nbsp;&nbsp; 나의 중간 &nbsp;&nbsp; 마니또 추측
-						</PageTitle>
+						<PageTitle>나의 중간 마니또 추측</PageTitle>
 						<PageText>{credit.midGuess.guessAnswerAt}</PageText>
 						<Participant style={{ marginTop: '20px' }}>
 							<ProfileContainer
@@ -342,9 +340,7 @@ const CreditPage = () => {
 				)}
 				{credit.finalGuess && (
 					<Page>
-						<PageTitle>
-							&nbsp;&nbsp; 나의 최종 &nbsp;&nbsp; 마니또 추측
-						</PageTitle>
+						<PageTitle>나의 최종 마니또 추측</PageTitle>
 						<PageText>{credit.finalGuess.guessAnswerAt}</PageText>
 						<Participant style={{ marginTop: '20px' }}>
 							<ProfileContainer
