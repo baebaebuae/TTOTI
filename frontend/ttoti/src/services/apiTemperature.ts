@@ -9,7 +9,7 @@ export const fetchTemperature = async (roomId: number) => {
 			return res.data.body.roomTemperatureDtoList;
 		}
 	} catch (error) {
-		console.log('지문 선택 Error : ', error);
+		console.error('지문 선택 Error : ', error);
 		throw error;
 	}
 };

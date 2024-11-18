@@ -24,7 +24,7 @@ const TtotiTemperatureModal: React.FC<TtotiTemperatureModalProps> = ({
 		const getTemperature = async () => {
 			const response = await fetchTemperature(roomId);
 			setTemperatureData(response);
-      console.log(response);
+      // console.log(response);
 		};
 
 		getTemperature();
