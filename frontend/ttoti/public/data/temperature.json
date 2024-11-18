@@ -1,0 +1,40 @@
+{
+  "httpStatus": 200,
+  "message": "성공",
+  "body": {
+      "roomTemperatureDtoList": [
+          {
+              "memberId": 1,
+              "memberName": "오뜨1",
+              "memberProfileImageUrl": "http://example.com/user1.jpg",
+              "previousTemperature": 0.0,
+              "temperatureDifference": 36.5,
+              "currentTemperature": 36.5
+          },
+          {
+              "memberId": 2,
+              "memberName": "이상무",
+              "memberProfileImageUrl": "http://example.com/user2.jpg",
+              "previousTemperature": 0.0,
+              "temperatureDifference": 36.5,
+              "currentTemperature": 36.5
+          },
+          {
+              "memberId": 3,
+              "memberName": "구구널",
+              "memberProfileImageUrl": "http://example.com/user3.jpg",
+              "previousTemperature": 53.3,
+              "temperatureDifference": 4.2,
+              "currentTemperature": 57.5
+          },
+          {
+              "memberId": 4,
+              "memberName": "맘쿠키4",
+              "memberProfileImageUrl": "http://example.com/user4.jpg",
+              "previousTemperature": 0.0,
+              "temperatureDifference": 36.5,
+              "currentTemperature": 36.5
+          }
+      ]
+  }
+}
