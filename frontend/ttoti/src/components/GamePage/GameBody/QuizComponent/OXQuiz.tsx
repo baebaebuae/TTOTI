@@ -94,7 +94,7 @@ const OXQuiz: React.FC<{
 	useEffect(() => {
 		const chooseAnswer = async () => {
 			try {
-				if (selectedAnswer) {
+				if (selectedAnswer && $isTodayQuiz) {
 					if ($page) {
 						await manittoChoiceAnswer(
 							quiz.ttotiId,
@@ -119,7 +119,7 @@ const OXQuiz: React.FC<{
 		};
 
 		chooseAnswer();
-	}, [quiz.ttotiId, quiz.quizId, selectedAnswer, $page]);
+	}, [quiz.ttotiId, quiz.quizId, selectedAnswer, $page, $isTodayQuiz]);
 	// console.log(quiz);
 	return (
 		<QuizWrapper>
@@ -146,7 +146,7 @@ const OXQuiz: React.FC<{
 									(selectedAnswer === key || selectedAnswer === null)
 						}
 						$isSelected={selectedAnswer === key} // 선택된 상태 전달
-						onClick={() => onSelectAnswer(key)} // 클릭 시 선택 상태 업데이트
+						onClick={$isTodayQuiz ? () => onSelectAnswer(key) : undefined} // 클릭 시 선택 상태 업데이트
 					>
 						{quiz.quizChoiceMap[key]}
 					</OXButton>
